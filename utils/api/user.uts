@@ -1,0 +1,6 @@
+import { RequestConfig } from '@/uni_modules/kux-request';
+import { http } from '../http/index';
+
+export const register = () : Promise<any> => {
+  return http.post('/login/register', { debug: true } as RequestConfig);
+}

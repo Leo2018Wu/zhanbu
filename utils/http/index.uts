@@ -1,0 +1,15 @@
+import { useRequest } from '@/uni_modules/kux-request';
+import { UseOptions } from '@/uni_modules/kux-request';
+import { Request } from '@/uni_modules/kux-request';
+
+import { BASE_URL, API } from '@/env.uts'
+
+export const http = useRequest({
+  baseURL: BASE_URL + API,
+  header: {
+    a: 1
+  },
+  query: {
+    id: 1
+  }
+} as UseOptions) as Request;
