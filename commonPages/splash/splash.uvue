@@ -1,0 +1,147 @@
+<template>
+	<view class="splash-page safe-bottom safe-top">
+		<image src="../../static/images/moon.png" mode=""></image>
+		<view class="inner">
+			<text class="text-white ani-delay1 u-mt-30" :class="{'ani-visible': delayFlag1}">星辰指引，前方光明</text>
+			<text class="text-white ani-delay2 u-mt-16" :class="{'ani-visible': delayFlag2}">坚持与乐观将带来意外的好机会</text>
+			<text class="text-white ani-delay3 u-mt-16" :class="{'ani-visible': delayFlag3}">相信自己，美好即将来临</text>
+			<text class="text-white ani-delay4" :class="{'ani-visible': delayFlag4}">星辰指引着你的方向</text>
+			<text class="text-white ani-delay4 u-mt-6" :class="{'ani-visible': delayFlag4}">而内心的力量将是你最坚强的后盾</text>
+		</view>
+		<view class="btn ani-delay5" :class="{'ani-visible': delayFlag5}">立即登录</view>
+	</view>
+</template>
+
+<script lang="uts">
+	export default {
+		data() {
+			return {
+				delayFlag1: false,
+				delayFlag2: false,
+				delayFlag3: false,
+				delayFlag4: false,
+				delayFlag5: false,
+				timer5: 0
+			}
+		},
+		mounted() {
+			const timer1: number | null = setTimeout(() => {
+				this.delayFlag1 = true
+			}, 2500);
+			const timer2: number | null = setTimeout(() => {
+				timer1 && clearTimeout(timer1)
+				this.delayFlag2 = true
+			}, 3500);
+			const timer3: number | null = setTimeout(() => {
+				timer2 && clearTimeout(timer2)
+				this.delayFlag3 = true
+			}, 4500);
+			const timer4: number | null = setTimeout(() => {
+				timer3 && clearTimeout(timer3)
+				this.delayFlag4 = true
+			}, 5500);
+			this.timer5 = setTimeout(() => {
+				timer4 && clearTimeout(timer4)
+				this.delayFlag5 = true
+			}, 6300)
+		},
+		onHide() {
+			this.timer5 && clearTimeout(this.timer5)
+		},
+		methods: {
+			
+		}
+	}
+	
+</script>
+
+<style lang="scss">
+	@keyframes silde-in {
+	    from {
+	        opacity: 0;
+	        transform: translateY(50vh);
+	    }
+	    to {
+	        opacity: 1;
+	        transform: translateY(0);
+	    }
+	}
+	@keyframes text-focus-in {
+	  0% {
+	    -webkit-filter: blur(6px);
+	    filter: blur(6px);
+	    opacity: 0;
+	  }
+	  100% {
+	    -webkit-filter: blur(0px);
+	    filter: blur(0px);
+	    opacity: 1;
+		visibility: visible;
+	  }
+	}
+	.text-white {
+		color: #fff;
+	}
+	.splash-page {
+		color: #fff;
+		min-height: 100vh;
+		background: #171417;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 20px 0 10px 0;
+		image {
+			width: 384rpx;
+			height: 384rpx;
+			animation: silde-in 2s ease forwards;
+		}
+		.inner {
+			display: flex;
+			flex: 1;
+			padding: 20% 0 25% 0;
+			.ani-delay1, .ani-delay2, .ani-delay3, .ani-delay4 {
+				visibility: hidden;
+			}
+			.ani-delay1, .ani-delay2, .ani-delay3 {
+				font-size: 40rpx;
+				text-align: center;
+			}
+			.ani-delay1 {
+				animation: text-focus-in 1s ease-in-out 1.5s;
+			}
+			.ani-delay2 {
+				animation: text-focus-in 1s ease-in-out 2.5s;
+			}
+			.ani-delay3 {
+				animation: text-focus-in 1s ease-in-out 3.5s;
+			}
+			.ani-delay4 {
+				text-align: center;
+				font-size: 28rpx;
+				color: #999;
+				margin-top: auto;
+				animation: text-focus-in 1s ease-in-out 4.5s;
+			}
+		}
+		.ani-delay5 {
+			visibility: hidden;
+			animation: text-focus-in 1s ease-in-out 5.5s;
+		}
+		.btn {
+			width: 600rpx;
+			height: 88rpx;
+			background: #FFFEFE;
+			border-radius: 7rpx 7rpx 7rpx 7rpx;
+			font-size: 32rpx;
+			color: #000;
+			line-height: 88rpx;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+		.ani-visible {
+			visibility: visible !important;
+		}
+		
+	}
+
+</style>
