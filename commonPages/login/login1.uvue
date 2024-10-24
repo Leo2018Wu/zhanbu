@@ -1,0 +1,59 @@
+<template>
+	<view class="login1-page safe-top">
+		<view class="inner">
+			<image class="bg" src="@/static/images/login/login_bg1.png" mode="widthFix"></image>
+			<image class="img1" src="@/static/images/login/login_img1.png" mode="widthFix"></image>
+			<view class="divide">
+				<image class="img2" src="@/static/images/login/line.png" mode="widthFix"></image>
+				<text class="u-font-40 u-mx-10">让传统变潮流</text>
+				<image class="img3" src="@/static/images/login/line.png" mode="widthFix"></image>
+			</view>
+		</view>
+		<fui-button width="534rpx" margin="30% auto 0 auto" radius="7rpx" background="#020202" text="立即登录"></fui-button>
+	</view>
+</template>
+
+<script setup>
+	import fuiButton from "../../uni_modules/firstui/fui-button/fui-button.uvue"
+	
+</script>
+
+<style lang="scss" scoped>
+	@import "@/static/css/flex.scss";
+	
+	.login1-page {
+		padding-top: 100rpx;
+		.inner {
+			position: relative;
+			width: 736rpx;
+			height: 728rpx;
+			@include flex(row, center, flex-end);
+			.bg {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 736rpx;
+				height: 728rpx;
+			}
+			.img1 {
+				position: absolute;
+				width: 372rpx;
+				height: 378rpx;
+				left: 50%;
+				top: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+		.divide {
+			@include flex(row, center, center);
+			.img2 {
+				width: 230rpx;
+			}
+			.img3 {
+				width: 230rpx;
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+</style>

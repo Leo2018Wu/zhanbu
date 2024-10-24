@@ -1,0 +1,43 @@
+@for $i from 18 through 80 {
+    .u-font-#{$i} {
+      font-size: #{$i}rpx !important;
+    }
+  }
+  @for $i from 10 through 160 {
+    .u-ml-#{$i} {
+      margin-left: #{$i}px !important;
+    }
+    .u-mt-#{$i} {
+      margin-top: #{$i}px !important;
+    }
+    .u-mb-#{$i} {
+      margin-bottom: #{$i}px !important;
+    }
+    .u-mr-#{$i} {
+      margin-right: #{$i}px !important;
+    }
+    .u-mx-#{$i} {
+      margin: 0 #{$i}px !important;
+    }
+    .u-my-#{$i} {
+      margin: #{$i}px 0 !important;
+    }
+    .u-pl-#{$i} {
+      padding-left: #{$i}px !important;
+    }
+    .u-pt-#{$i} {
+      padding-top: #{$i}px !important;
+    }
+    .u-pb-#{$i} {
+      padding-bottom: #{$i}px !important;
+    }
+    .u-pr-#{$i} {
+      padding-right: #{$i}px !important;
+    }
+    .u-px-#{$i} {
+      padding: 0 #{$i}px !important;
+    }
+    .u-py-#{$i} {
+      padding: #{$i}px 0 !important;
+    }
+  }

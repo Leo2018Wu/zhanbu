@@ -5,7 +5,6 @@
 			"style" : 
 			{
 				"enablePullDownRefresh" : false,
-				"navigationStyle": "custom",
 				"disableScroll": true,
 				"h5": {
 					"pullToRefresh": {
@@ -23,13 +22,22 @@
 			"style": {
 				"navigationBarTitleText": "占卜"
 			}
+		},
+		{
+			"path" : "commonPages/login/login1",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "占卜",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#FFFEFE"
+		"backgroundColor": "#FFFEFE",
+		"navigationStyle": "custom"
 	},
 	"uniIdRouter": {}
 }

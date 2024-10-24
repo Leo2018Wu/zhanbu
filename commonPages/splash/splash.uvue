@@ -1,14 +1,14 @@
 <template>
 	<view class="splash-page safe-bottom safe-top">
-		<image src="../../static/images/moon.png" mode=""></image>
+		<image src="../../static/images/common/moon.png" mode=""></image>
 		<view class="inner">
-			<text class="text-white ani-delay1 u-mt-30" :class="{'ani-visible': delayFlag1}">星辰指引，前方光明</text>
-			<text class="text-white ani-delay2 u-mt-16" :class="{'ani-visible': delayFlag2}">坚持与乐观将带来意外的好机会</text>
-			<text class="text-white ani-delay3 u-mt-16" :class="{'ani-visible': delayFlag3}">相信自己，美好即将来临</text>
+			<text class="text-white ani-delay1 u-mt-60" :class="{'ani-visible': delayFlag1}">星辰指引，前方光明</text>
+			<text class="text-white ani-delay2 u-mt-32" :class="{'ani-visible': delayFlag2}">坚持与乐观将带来意外的好机会</text>
+			<text class="text-white ani-delay3 u-mt-32" :class="{'ani-visible': delayFlag3}">相信自己，美好即将来临</text>
 			<text class="text-white ani-delay4" :class="{'ani-visible': delayFlag4}">星辰指引着你的方向</text>
-			<text class="text-white ani-delay4 u-mt-6" :class="{'ani-visible': delayFlag4}">而内心的力量将是你最坚强的后盾</text>
+			<text class="text-white ani-delay4 u-mt-12" :class="{'ani-visible': delayFlag4}">而内心的力量将是你最坚强的后盾</text>
 		</view>
-		<view class="btn ani-delay5" :class="{'ani-visible': delayFlag5}">立即登录</view>
+		<view class="btn ani-delay5" :class="{'ani-visible': delayFlag5}" @click="goLogin()">立即登录</view>
 	</view>
 </template>
 
@@ -49,7 +49,11 @@
 			this.timer5 && clearTimeout(this.timer5)
 		},
 		methods: {
-			
+			goLogin() {
+				uni.navigateTo({
+					url: '/commonPages/login/login1',
+				});
+			}
 		}
 	}
 	
