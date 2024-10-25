@@ -9,13 +9,18 @@
 				<image class="img3" src="@/static/images/login/line.png" mode="widthFix"></image>
 			</view>
 		</view>
-		<fui-button width="534rpx" margin="30% auto 0 auto" radius="7rpx" background="#020202" text="立即登录"></fui-button>
+		<fui-button width="534rpx" margin="30% auto 0 auto" radius="7rpx" background="#020202" text="立即登录" @click="nextLogin()"></fui-button>
 	</view>
 </template>
 
-<script setup>
+<script lang="uts" setup>
 	import fuiButton from "../../uni_modules/firstui/fui-button/fui-button.uvue"
 	
+	const nextLogin = () => {
+		uni.navigateTo({
+			url: '/commonPages/login/login2',
+		});
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -23,6 +28,7 @@
 	
 	.login1-page {
 		padding-top: 100rpx;
+		@include flex(column, flex-start, center);
 		.inner {
 			position: relative;
 			width: 736rpx;

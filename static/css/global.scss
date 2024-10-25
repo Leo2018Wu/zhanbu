@@ -5,39 +5,48 @@
   }
   @for $i from 10 through 160 {
     .u-ml-#{$i} {
-      margin-left: #{$i}px !important;
+      margin-left: #{$i}rpx !important;
     }
     .u-mt-#{$i} {
-      margin-top: #{$i}px !important;
+      margin-top: #{$i}rpx !important;
     }
     .u-mb-#{$i} {
-      margin-bottom: #{$i}px !important;
+      margin-bottom: #{$i}rpx !important;
     }
     .u-mr-#{$i} {
-      margin-right: #{$i}px !important;
+      margin-right: #{$i}rpx !important;
     }
     .u-mx-#{$i} {
-      margin: 0 #{$i}px !important;
+      margin: 0 #{$i}rpx !important;
     }
     .u-my-#{$i} {
-      margin: #{$i}px 0 !important;
+      margin: #{$i}rpx 0 !important;
     }
     .u-pl-#{$i} {
-      padding-left: #{$i}px !important;
+      padding-left: #{$i}rpx !important;
     }
     .u-pt-#{$i} {
-      padding-top: #{$i}px !important;
+      padding-top: #{$i}rpx !important;
     }
     .u-pb-#{$i} {
-      padding-bottom: #{$i}px !important;
+      padding-bottom: #{$i}rpx !important;
     }
     .u-pr-#{$i} {
-      padding-right: #{$i}px !important;
+      padding-right: #{$i}rpx !important;
     }
-    .u-px-#{$i} {
-      padding: 0 #{$i}px !important;
+    .u-rpx-#{$i} {
+      padding: 0 #{$i}rpx !important;
     }
     .u-py-#{$i} {
-      padding: #{$i}px 0 !important;
+      padding: #{$i}rpx 0 !important;
     }
+  }
+  
+  // 隐藏scroll-view的滚动条
+  ::-webkit-scrollbar {
+      display: none;  
+      width: 0 !important;  
+      height: 0 !important;  
+      -webkit-appearance: none;  
+      background: transparent;  
   }

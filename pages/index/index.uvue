@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { register } from '../../utils/api/user';
+  import { loginBySms } from '@/utils/api';
   export default {
     data() {
       return {
@@ -16,12 +16,12 @@
       }
     },
     onLoad() {
-      this.testModule();
+		console.log(loginBySms);	
     },
     methods: {
-      async testModule() : Promise<any | null> {
+      async login() : Promise<any | null> {
         try {
-          const res = await register();
+          const res = await loginBySms();
           console.log(res);
           return res;
         } catch (err) {
