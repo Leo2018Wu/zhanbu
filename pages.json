@@ -38,6 +38,13 @@
 				"navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false
 			}
+		},
+		{
+		  "path" : "commonPages/login/login3",
+		  "style" : 
+		  {
+		    "navigationBarTitleText" : ""
+		  }
 		}
 	],
 	"globalStyle": {

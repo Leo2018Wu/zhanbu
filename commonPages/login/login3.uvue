@@ -1,0 +1,34 @@
+<template>
+  <view class="login3-page">
+    <xNavbar />
+    <view class="inner">
+      <text class="u-font-42">验证码登录</text>
+      <text class="u-font-28 u-mt-34" style="color: #999;">验证码已发送至+86
+        {{formatNum}}</text>
+      <code-input />
+    </view>
+  </view>
+</template>
+
+<script lang="uts" setup>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import codeInput from '../comps/codeInput.uvue'
+
+  import * as utils from '../../utils/util.uts'
+
+  const formatNum = ref('')
+  console.log(formatNum)
+  onMounted(() => {
+    var pages = getCurrentPages()
+    console.log('pages', pages)
+    const currentPage = pages[pages.length - 1].options['phone']
+    formatNum.value = utils.formatPhoneNumberWithDashes(currentPage)
+    console.log('pages', formatNum)
+  })
+</script>
+
+<style lang="scss">
+  .login3-page {
+    padding: 15% 60rpx 20px 60rpx;
+  }
+</style>

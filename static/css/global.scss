@@ -50,3 +50,7 @@
       -webkit-appearance: none;  
       background: transparent;  
   }
+  
+  uni-app .uni-input-input, uni-app .uni-textarea-textarea {
+    caret-color: #121212 !important;
+  }

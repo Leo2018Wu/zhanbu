@@ -1,0 +1,33 @@
+<template>
+  <view class="code-input__wrapper">
+    <fui-input :ref="`inputRef${index}`" class="input_li"
+      v-for="(item,index) in codeValue" :maxlength="1" borderBottom
+      placeholder="" v-model="codeValue[index]"
+      @input="$event => onInput(index, $event)">
+    </fui-input>
+  </view>
+</template>
+
+<script lang="uts" setup>
+  import fuiInput from '../../uni_modules/firstui/fui-input/fui-input.uvue'
+  const size = 6
+
+  const codeValue = ref(Array(size).fill(''))
+  console.log('codeValue', codeValue)
+
+  const onInput = (index, e) => {
+    console.log(index, e)
+  }
+</script>
+
+<style lang="scss" scoped>
+  .code-input__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .input_li {
+      flex: 1
+    }
+  }
+</style>
