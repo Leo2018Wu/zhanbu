@@ -1,34 +1,71 @@
 <template>
   <view class="login3-page">
     <xNavbar />
-    <view class="inner">
+    <view class="inner u-px-60">
       <text class="u-font-42">验证码登录</text>
       <text class="u-font-28 u-mt-34" style="color: #999;">验证码已发送至+86
         {{formatNum}}</text>
-      <code-input />
     </view>
+	<view class="u-mt-90">
+      <code-input @end="onCodeEnd" />
+	</view>
+	<view class="u-mt-80">
+		<fui-button width="530rpx" margin="0 auto" radius="7rpx"
+		  background="#020202" :text="tips" :disabled="disabled"></fui-button>
+	</view>
   </view>
 </template>
 
 <script lang="uts" setup>
   import xNavbar from '@/components/x-navbar/x-navbar.uvue'
   import codeInput from '../comps/codeInput.uvue'
+  import fuiButton from '@/uni_modules/firstui/fui-button/fui-button.uvue'
 
   import * as utils from '../../utils/util.uts'
 
   const formatNum = ref('')
-  console.log(formatNum)
+  const tips = ref('');
+  const second = ref(60);
+  const endText = '重新获取验证码';
+  const disabled = ref(false);
+  
+  const start = () =>{
+  	if(disabled.value) return;
+  	disabled.value = true
+  	
+  	let timer: number = -1
+  	
+  	tips.value = `${second.value}秒后重新获取验证码`
+  	
+  	timer = setInterval(() => {
+  	  second.value--
+  	  
+  	  if (second.value > 0) {
+  	    tips.value = `${second.value}秒后重新获取验证码`
+  	  } else {
+  	    tips.value = endText
+  	    clearInterval(timer)
+  	    disabled.value = false
+  	  };
+  	}, 1000);
+  	
+  }
+  
   onMounted(() => {
+	start()
     var pages = getCurrentPages()
-    console.log('pages', pages)
     const currentPage = pages[pages.length - 1].options['phone']
     formatNum.value = utils.formatPhoneNumberWithDashes(currentPage)
-    console.log('pages', formatNum)
   })
+  
+  const onCodeEnd = (e: string) => {
+	  console.log(111, e);
+  }
+  
 </script>
 
 <style lang="scss">
   .login3-page {
-    padding: 15% 60rpx 20px 60rpx;
+    padding: 15% 0 20px 0;
   }
 </style>

@@ -45,9 +45,6 @@
 				this.delayFlag5 = true
 			}, 6300)
 		},
-		onHide() {
-			this.timer5 && clearTimeout(this.timer5)
-		},
 		methods: {
 			goLogin() {
 				uni.navigateTo({

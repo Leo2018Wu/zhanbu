@@ -99,7 +99,7 @@
 		
 			&__left {
 				image {
-					width: 40rpx;
+					width: 56rpx;
 				}
 				left: 0;
 				&:hover {
