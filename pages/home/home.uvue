@@ -1,0 +1,196 @@
+<template>
+  <view class="home-page safe-top safe-bottom ">
+    <!-- #ifdef APP -->
+    <scroll-view>
+    <!-- #endif -->
+      <xNavbar title="首页" :isBack="false" />
+      <view class="main u-pt-50">
+        <view class="header">
+          <image class="img1" src="../../static/images/common/moon1.png"
+            mode="widthFix"></image>
+          <image class="img2" src="../../static/images/common/moon2.png"
+            mode="widthFix"></image>
+          <view class="left">
+            <view class="text-view">
+              甲辰
+            </view>
+            <view class="text-view">
+              甲辰
+            </view>
+            <view class="text-view">
+              甲辰
+            </view>
+            <view class="text-view">
+              甲辰
+            </view>
+          </view>
+          <view class="right">
+            <text class="u-font-24">甲辰年十月初二 <text
+                class="u-font-24 u-ml-20">戌子</text></text>
+            <text class="u-font-20 u-mt-20" style="color: #777379;">2024-10-03
+              23:12:31</text>
+            <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
+              radius="7rpx" background="#020202" text="即时排盘"
+              @click="nextLogin()"></fui-button>
+          </view>
+        </view>
+        <view class="form u-mt-50">
+          <text class="u-font-24">您的姓名</text>
+          <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
+            textAlign="center" :size="28" borderColor="#E6E6E6"
+            placeholder="请输入您的姓名" v-model="formData.name">
+          </fui-input>
+
+          <picker-view class="picker-view" :value="value"
+            @change="onPickerChange">
+            <picker-view-column class="picker-view-column">
+              <view class="picker-view-column__item"
+                v-for="(item,index) in marryStatusList" :key="index">
+                <text
+                  class="picker-view-column__item__text">{{item.label}}</text>
+              </view>
+            </picker-view-column>
+          </picker-view>
+        </view>
+      </view>
+
+    <!-- #ifdef APP -->
+    </scroll-view>
+    <!-- #endif -->
+  </view>
+</template>
+
+<script lang="uts">
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import fuiButton from '@/uni_modules/firstui/fui-button/fui-button.uvue'
+  import fuiInput from '@/uni_modules/firstui/fui-input/fui-input.uvue'
+
+  export default {
+    components: { xNavbar, fuiButton, fuiInput },
+    data() {
+      return {
+        marryStatusList: [
+          { label: '未婚', value: 1 },
+          { label: '已婚', value: 2 },
+          { label: '已有恋人', value: 3 },
+        ],
+        formData: { name: '' }
+
+      }
+    },
+    methods: {
+
+      onPickerChange(e : UniPickerViewChangeEvent) {
+        console.log(111, e);
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
+
+  .text-center {
+    text-align: center;
+  }
+
+  .home-page {
+    flex: 1;
+    color: #000;
+    font-size: 32rpx;
+    padding: 0 52rpx;
+
+    .main {
+      flex: 1;
+
+      .header {
+        width: 100%;
+        height: 224rpx;
+        background-color: #f6f6f6;
+        position: relative;
+        overflow: visible;
+        padding-bottom: 32rpx;
+        @include flex(row);
+
+        .img1 {
+          position: absolute;
+          left: 14rpx;
+          top: -40rpx;
+          z-index: 1;
+          width: 158rpx;
+          height: 124rpx;
+        }
+
+        .img2 {
+          position: absolute;
+          right: 20rpx;
+          bottom: -30rpx;
+          z-index: 1;
+          width: 64rpx;
+          height: 56rpx;
+        }
+
+        .left,
+        .right {
+          flex: 1;
+
+        }
+
+        .left {
+          // padding-top: 60rpx;
+          align-self: flex-end;
+          @include flex(row, flex-start, center);
+
+          .text-view {
+            flex: 1;
+            position: relative;
+            @include flex(row, center, center);
+            writing-mode: vertical-rl;
+            letter-spacing: 6px;
+
+            &:not(:last-of-type) {
+              border-right: 1rpx solid #4C4A4D;
+            }
+
+            // &:not(:last-of-type)::after {
+            //   content: '';
+            //   position: absolute;
+            //   right: 0;
+            //   top: 0%;
+            //   width: 1rpx;
+            //   height: 100%;
+            //   background-color: #4C4A4D;
+            // }
+          }
+        }
+
+        .right {
+          height: 100%;
+          padding-top: 32rpx;
+          padding-left: 32rpx;
+        }
+      }
+
+      .form {
+        align-items: center;
+      }
+
+      .picker-view {
+        width: 100%;
+        height: 320rpx;
+        margin-top: 16px;
+
+        &-column {
+          &__item {
+            height: 32px;
+
+            &__text {
+              line-height: 32px;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+</style>

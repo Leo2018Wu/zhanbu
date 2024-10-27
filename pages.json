@@ -1,58 +1,59 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path" : "commonPages/splash/splash",
-			"style" : 
-			{
-				"enablePullDownRefresh" : false,
-				"disableScroll": true,
-				"h5": {
-					"pullToRefresh": {
-						"support": false
-						
-					},
-					"titleNView": {
-						"backgroundColor": "#171417"
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "占卜"
-			}
-		},
-		{
-			"path" : "commonPages/login/login1",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-			"path" : "commonPages/login/login2",
-			"style" : 
-			{
-				"navigationBarTitleText" : "",
-				"enablePullDownRefresh" : false
-			}
-		},
-		{
-		  "path" : "commonPages/login/login3",
-		  "style" : 
-		  {
-		    "navigationBarTitleText" : ""
-		  }
-		}
-	],
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "占卜",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#FFFEFE",
-		"navigationStyle": "custom"
-	},
-	"uniIdRouter": {}
+  "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/home/home",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    }, {
+      "path": "commonPages/splash/splash",
+      "style": {
+        "enablePullDownRefresh": false,
+        "disableScroll": true,
+        "h5": {
+          "pullToRefresh": {
+            "support": false
+
+          },
+          "titleNView": {
+            "backgroundColor": "#171417"
+          }
+        }
+      }
+    },
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "占卜"
+      }
+    },
+    {
+      "path": "commonPages/login/login1",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "commonPages/login/login2",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
+    },
+    {
+      "path": "commonPages/login/login3",
+      "style": {
+        "navigationBarTitleText": ""
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "占卜",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#FFFEFE",
+    "navigationStyle": "custom"
+  },
+  "uniIdRouter": {}
 }
