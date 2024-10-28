@@ -40,8 +40,15 @@
             textAlign="center" :size="28" borderColor="#E6E6E6"
             placeholder="请输入您的姓名" v-model="formData.name">
           </fui-input>
-
-          <picker-view class="picker-view" :value="value"
+          <view class="sex-list u-mt-42">
+            <view class="sex-li" @click="formData.gender = item.value"
+              v-for="item in genderList" :key="item.value"
+              :class="{'sex-li__active': formData.gender === item.value}">
+              {{item.label}}
+            </view>
+          </view>
+          <picker-view class="picker-view" :value="pickerValue"
+            indicator-style="background: rgba(246, 246, 246, 0.5)"
             @change="onPickerChange">
             <picker-view-column class="picker-view-column">
               <view class="picker-view-column__item"
@@ -51,6 +58,12 @@
               </view>
             </picker-view-column>
           </picker-view>
+          <view class="">
+            <fui-tabs style="width:100%" :tabs="tabs" :height="64"
+              @change="onTabChange" color="#7e7e7e" selectedColor="#000"
+              :short="false" sliderBackground="#000" :size="20"
+              :selectedSize="24"></fui-tabs>
+          </view>
         </view>
       </view>
 
@@ -62,30 +75,76 @@
 
 <script lang="uts">
   import xNavbar from '@/components/x-navbar/x-navbar.uvue'
-  import fuiButton from '@/uni_modules/firstui/fui-button/fui-button.uvue'
-  import fuiInput from '@/uni_modules/firstui/fui-input/fui-input.uvue'
+  import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts'
 
   export default {
-    components: { xNavbar, fuiButton, fuiInput },
+    components: { xNavbar },
     data() {
       return {
+        pickerValue: [],
+        tabs: [
+          { name: '阳历' },
+          { name: '阴历' },
+        ],
+        genderList: [
+          { label: '男', value: 1 },
+          { label: '女', value: 2 },
+        ],
         marryStatusList: [
           { label: '未婚', value: 1 },
           { label: '已婚', value: 2 },
           { label: '已有恋人', value: 3 },
         ],
-        formData: { name: '' }
+        formData: {
+          name: '',
+          gender: 1,
+        }
 
       }
     },
     methods: {
-
+      onTabChange(e : FuiTabsItemParam) {
+        console.log(JSON.stringify(e))
+      },
       onPickerChange(e : UniPickerViewChangeEvent) {
         console.log(111, e);
       }
     }
   }
 </script>
+
+<style lang="scss">
+  ::v-deep .uni-picker-view-indicator {
+    border-radius: 5px;
+    height: 40px;
+    z-index: -1;
+
+    &::before {
+      border: none !important;
+    }
+
+    &::after {
+      border: none !important;
+    }
+  }
+
+  .picker-view {
+    width: 70%;
+    height: 180rpx;
+    margin-top: 16px;
+
+    &-column {
+      &__item {
+        height: 40px;
+
+        &__text {
+          line-height: 40px;
+          text-align: center;
+        }
+      }
+    }
+  }
+</style>
 
 <style lang="scss" scoped>
   @import "@/static/css/flex.scss";
@@ -173,20 +232,24 @@
 
       .form {
         align-items: center;
-      }
 
-      .picker-view {
-        width: 100%;
-        height: 320rpx;
-        margin-top: 16px;
+        .sex-list {
+          width: 30%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
 
-        &-column {
-          &__item {
-            height: 32px;
+          .sex-li {
+            width: 48rpx;
+            height: 48rpx;
+            border-radius: 50%;
+            font-size: 24rpx;
+            text-align: center;
+            line-height: 48rpx;
 
-            &__text {
-              line-height: 32px;
-              text-align: center;
+            &__active {
+              background: #000;
+              color: #fff;
             }
           }
         }
