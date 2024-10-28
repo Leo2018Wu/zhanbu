@@ -1,74 +1,81 @@
 <template>
   <view class="code-input__wrapper">
-	  <view class="input_li" v-for="(item,index) in codeValue" :key="index">
-		<fui-input :ref="`inputRef${index}`" 
-		   :maxlength="1" :borderBottom="false" type="number" textAlign="center" :focus="index === foucsIndex"
-		  placeholder="" :labelWidth="0" padding="0" :size="52" v-model="codeValue[index]"
-		  @input="onInput(index)">
-		</fui-input>
-		<view class="border-bottom" :class="{'border-bottom__active': index === foucsIndex}" />
-	  </view>
+    <view class="input_li" v-for="(item,index) in codeValue" :key="index">
+      <fui-input :ref="`inputRef${index}`" :maxlength="1" :borderBottom="false"
+        type="number" textAlign="center" :focus="index === foucsIndex"
+        placeholder="" :labelWidth="0" padding="0" :size="52"
+        v-model="codeValue[index]" @input="onInput(index)">
+      </fui-input>
+      <view class="border-bottom"
+        :class="{'border-bottom__active': index === foucsIndex}" />
+    </view>
   </view>
 </template>
 
 <script lang="uts">
-	import type { ComponentPublicInstance } from 'vue'
-	import fuiInput from '../../uni_modules/firstui/fui-input/fui-input.uvue'
-	export default {
-		components: {fuiInput},
-		data() {
-			return {
-				codeValue: Array(6).fill(''),
-				foucsIndex: 0,
-			}
-		},
-		methods: {
-			onInput(index:number) {
-				if(index + 1 === this.codeValue.length) {
-					// 触发验证码提交操作
-					this.$emit('end', this.codeValue.join(''))
-					return
-				}else {
-					this.foucsIndex = this.codeValue[index] ? index : index + 1 >= 0 ? index + 1 : 0
-					// const inputEle = this.$refs[`inputRef${this.codeValue[index] ? index : index + 1 >= 0 ? index + 1 : 0}`][0] as UTSJSONObject
-					// inputEle.setFocusOrBlur(true)
-				}
-			}
-		}
-	}
+  export default {
+    data() {
+      return {
+        codeValue: Array(6).fill(''),
+        foucsIndex: 0,
+      }
+    },
+    methods: {
+      onInput(index : number) {
+        if (index + 1 === this.codeValue.length) {
+          // 触发验证码提交操作
+          this.$emit('end', this.codeValue.join(''))
+          return
+        } else {
+          this.foucsIndex = this.codeValue[index] ? index : index + 1 >= 0 ? index + 1 : 0
+          // const inputEle = this.$refs[`inputRef${this.codeValue[index] ? index : index + 1 >= 0 ? index + 1 : 0}`][0] as UTSJSONObject
+          // inputEle.setFocusOrBlur(true)
+        }
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
-	@keyframes twinkle {
-	  0% { opacity: 0.5; }
-	  50% { opacity: 1; }
-	  100% { opacity: 0.5; }
-	}
+  @keyframes twinkle {
+    0% {
+      opacity: 0.5;
+    }
+
+    50% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0.5;
+    }
+  }
+
   .code-input__wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-	padding: 0 28rpx;
+    padding: 0 28rpx;
 
     .input_li {
       flex: 1;
-	  position: relative;
-	  margin: 0 10px;
-	  
-	  .border-bottom {
-		  position: absolute;
-		  bottom: 0;
-		  left: 50%;
-		  transform: translateX(-20rpx);
-		width: 46rpx;
-		height: 1rpx;
-		background-color: #00000030;
-		&__active {
-			animation: twinkle 1.5s infinite;
-			background-color: #000;
-		}
-	  }
+      position: relative;
+      margin: 0 10px;
+
+      .border-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-20rpx);
+        width: 46rpx;
+        height: 1rpx;
+        background-color: #00000030;
+
+        &__active {
+          animation: twinkle 1.5s infinite;
+          background-color: #000;
+        }
+      }
     }
   }
-  
 </style>
