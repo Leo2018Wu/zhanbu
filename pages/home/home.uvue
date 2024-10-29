@@ -1,76 +1,85 @@
 <template>
-  <view class="home-page safe-top safe-bottom ">
-    <!-- #ifdef APP -->
-    <scroll-view>
-    <!-- #endif -->
-      <xNavbar title="首页" :isBack="false" />
-      <view class="main u-pt-50">
-        <view class="header">
-          <image class="img1" src="../../static/images/common/moon1.png"
-            mode="widthFix"></image>
-          <image class="img2" src="../../static/images/common/moon2.png"
-            mode="widthFix"></image>
-          <view class="left">
-            <view class="text-view">
-              甲辰
-            </view>
-            <view class="text-view">
-              甲辰
-            </view>
-            <view class="text-view">
-              甲辰
-            </view>
-            <view class="text-view">
-              甲辰
-            </view>
-          </view>
-          <view class="right">
-            <text class="u-font-24">甲辰年十月初二 <text
-                class="u-font-24 u-ml-20">戌子</text></text>
-            <text class="u-font-20 u-mt-20" style="color: #777379;">2024-10-03
-              23:12:31</text>
-            <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
-              radius="7rpx" background="#020202" text="即时排盘"
-              @click="nextLogin()"></fui-button>
-          </view>
+  <!-- <view class="home-page safe-top safe-bottom "> -->
+  <scroll-view class="home-page safe-top safe-bottom"
+    :scroll-with-animation="true" :scroll-into-view="targetEle">
+    <xNavbar :title="homeTitle" :isBack="false" />
+    <image class="home__bg" src="../../static/images/common/home_bg1.png"
+      mode="widthFix"></image>
+    <view class="header u-mt-50">
+      <image class="img1" src="../../static/images/common/moon1.png"
+        mode="widthFix"></image>
+      <image class="img2" src="../../static/images/common/moon2.png"
+        mode="widthFix"></image>
+      <view class="left">
+        <view class="text-view">
+          甲辰
         </view>
-        <view class="form u-mt-50">
-          <text class="u-font-24">您的姓名</text>
-          <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
-            textAlign="center" :size="28" borderColor="#E6E6E6"
-            placeholder="请输入您的姓名" v-model="formData.name">
-          </fui-input>
-          <view class="sex-list u-mt-42">
-            <view class="sex-li" @click="formData.gender = item.value"
-              v-for="item in genderList" :key="item.value"
-              :class="{'sex-li__active': formData.gender === item.value}">
-              {{item.label}}
-            </view>
-          </view>
-          <picker-view class="picker-view" :value="pickerValue"
-            indicator-style="background: rgba(246, 246, 246, 0.5)"
-            @change="onPickerChange">
-            <picker-view-column class="picker-view-column">
-              <view class="picker-view-column__item"
-                v-for="(item,index) in marryStatusList" :key="index">
-                <text
-                  class="picker-view-column__item__text">{{item.label}}</text>
-              </view>
-            </picker-view-column>
-          </picker-view>
-          <view class="">
-            <fui-tabs style="width:100%" :tabs="tabs" :height="64"
-              @change="onTabChange" color="#7e7e7e" selectedColor="#000"
-              :short="false" sliderBackground="#000" :size="20"
-              :selectedSize="24"></fui-tabs>
-          </view>
+        <view class="text-view">
+          甲辰
+        </view>
+        <view class="text-view">
+          甲辰
+        </view>
+        <view class="text-view">
+          甲辰
         </view>
       </view>
-
-    <!-- #ifdef APP -->
-    </scroll-view>
-    <!-- #endif -->
-  </view>
+      <view class="right">
+        <text class="u-font-24">甲辰年十月初二 <text
+            class="u-font-24 u-ml-20">戌子</text></text>
+        <text class="u-font-20 u-mt-20" style="color: #777379;">2024-10-03
+          23:12:31</text>
+        <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
+          radius="7rpx" background="#020202" text="即时排盘"
+          @click="nextLogin()"></fui-button>
+      </view>
+    </view>
+    <view class="form u-mt-50">
+      <text class="u-font-24 title">您的姓名</text>
+      <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
+        textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
+        placeholder="请输入您的姓名" v-model="formData.name">
+      </fui-input>
+      <view class="sex-list u-mt-42">
+        <view class="sex-li" @click="formData.gender = item.value"
+          v-for="item in genderList" :key="item.value"
+          :class="{'sex-li__active': formData.gender === item.value}">
+          {{item.label}}
+        </view>
+      </view>
+      <picker-view class="picker-view" :value="pickerValue"
+        indicator-style="background: rgba(246, 246, 246, 0.5)"
+        @change="onPickerChange">
+        <picker-view-column class="picker-view-column">
+          <view class="picker-view-column__item"
+            v-for="(item,index) in marryStatusList" :key="index">
+            <text class="picker-view-column__item__text">{{item.label}}</text>
+          </view>
+        </picker-view-column>
+      </picker-view>
+      <view class="">
+        <fui-tabs style="width:100%" :tabs="tabs" :height="64"
+          @change="onTabChange" color="#7e7e7e" selectedColor="#000"
+          :short="false" sliderBackground="#000" :size="20"
+          :selectedSize="24"></fui-tabs>
+      </view>
+      <view class="">
+        <text class="u-font-24 title u-mt-40">出生日期</text>
+      </view>
+      <view class="">
+        <text class="u-font-24 title u-mt-60">出生地点</text>
+      </view>
+      <view class="submit-btn" @click="handleSubmit()">提交</view>
+    </view>
+    <view id="scroll-target__ele" class="bazi-page" v-show="showNextPage">
+      <view class="scroll-target__ele">
+        <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
+          selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
+          :selectedSize="28"></fui-tabs>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- </view> -->
 </template>
 
 <script lang="uts">
@@ -81,10 +90,17 @@
     components: { xNavbar },
     data() {
       return {
+        targetEle: null,
+        homeTitle: '首页',
+        showNextPage: false,
         pickerValue: [],
         tabs: [
           { name: '阳历' },
           { name: '阴历' },
+        ], tabs1: [
+          { name: '命主信息' },
+          { name: '专业细盘' },
+          { name: '基本命盘' },
         ],
         genderList: [
           { label: '男', value: 1 },
@@ -103,6 +119,19 @@
       }
     },
     methods: {
+      handleSubmit() {
+        // this.showNextPage = true;
+        // this.homeTitle = '八字'
+        // this.targetEle = 'scroll-target__ele'
+        // uni.pageScrollTo({
+        //   // selector: '.scroll-target__ele',
+        //   scrollTop: 40000,
+        //   duration: 2000,
+        //   success: () => {
+        //     console.log('success')
+        //   },
+        // })
+      },
       onTabChange(e : FuiTabsItemParam) {
         console.log(JSON.stringify(e))
       },
@@ -153,107 +182,124 @@
     text-align: center;
   }
 
+  .home__bg {
+    width: 623rpx;
+    position: fixed;
+    left: 0;
+    top: 10%;
+    z-index: -1;
+  }
+
   .home-page {
     flex: 1;
     color: #000;
     font-size: 32rpx;
     padding: 0 52rpx;
 
-    .main {
-      flex: 1;
+    .title {
+      color: #4C4A4D;
+    }
 
-      .header {
-        width: 100%;
-        height: 224rpx;
-        background-color: #f6f6f6;
-        position: relative;
-        overflow: visible;
-        padding-bottom: 32rpx;
-        @include flex(row);
 
-        .img1 {
-          position: absolute;
-          left: 14rpx;
-          top: -40rpx;
-          z-index: 1;
-          width: 158rpx;
-          height: 124rpx;
-        }
 
-        .img2 {
-          position: absolute;
-          right: 20rpx;
-          bottom: -30rpx;
-          z-index: 1;
-          width: 64rpx;
-          height: 56rpx;
-        }
+    .header {
+      width: 100%;
+      height: 224rpx;
+      background-color: #f6f6f6;
+      position: relative;
+      overflow: visible;
+      padding-bottom: 32rpx;
+      @include flex(row);
 
-        .left,
-        .right {
+      .img1 {
+        position: absolute;
+        left: 14rpx;
+        top: -40rpx;
+        z-index: 1;
+        width: 158rpx;
+        height: 124rpx;
+      }
+
+      .img2 {
+        position: absolute;
+        right: 20rpx;
+        bottom: -30rpx;
+        z-index: 1;
+        width: 64rpx;
+        height: 56rpx;
+      }
+
+      .left,
+      .right {
+        flex: 1;
+
+      }
+
+      .left {
+        // padding-top: 60rpx;
+        align-self: flex-end;
+        @include flex(row, flex-start, center);
+
+        .text-view {
           flex: 1;
+          position: relative;
+          @include flex(row, center, center);
+          writing-mode: vertical-rl;
+          letter-spacing: 6px;
 
-        }
-
-        .left {
-          // padding-top: 60rpx;
-          align-self: flex-end;
-          @include flex(row, flex-start, center);
-
-          .text-view {
-            flex: 1;
-            position: relative;
-            @include flex(row, center, center);
-            writing-mode: vertical-rl;
-            letter-spacing: 6px;
-
-            &:not(:last-of-type) {
-              border-right: 1rpx solid #4C4A4D;
-            }
-
-            // &:not(:last-of-type)::after {
-            //   content: '';
-            //   position: absolute;
-            //   right: 0;
-            //   top: 0%;
-            //   width: 1rpx;
-            //   height: 100%;
-            //   background-color: #4C4A4D;
-            // }
+          &:not(:last-of-type) {
+            border-right: 1rpx solid #4C4A4D;
           }
-        }
-
-        .right {
-          height: 100%;
-          padding-top: 32rpx;
-          padding-left: 32rpx;
         }
       }
 
-      .form {
-        align-items: center;
-
-        .sex-list {
-          width: 30%;
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-
-          .sex-li {
-            width: 48rpx;
-            height: 48rpx;
-            border-radius: 50%;
-            font-size: 24rpx;
-            text-align: center;
-            line-height: 48rpx;
-
-            &__active {
-              background: #000;
-              color: #fff;
-            }
-          }
-        }
+      .right {
+        height: 100%;
+        padding-top: 32rpx;
+        padding-left: 32rpx;
       }
     }
+
+    .form {
+      align-items: center;
+
+      .sex-list {
+        width: 30%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .sex-li {
+          width: 48rpx;
+          height: 48rpx;
+          border-radius: 50%;
+          font-size: 24rpx;
+          text-align: center;
+          line-height: 48rpx;
+
+          &__active {
+            background: #000;
+            color: #fff;
+          }
+        }
+      }
+
+      .submit-btn {
+        width: 100rpx;
+        height: 100rpx;
+        border-radius: 100%;
+        background: #000;
+        @include flex(row, center, center);
+        font-size: 32rpx;
+        color: #fff;
+        margin-top: 52rpx;
+      }
+    }
+  }
+
+  .bazi-page {
+    height: 2000px;
+    width: 100%;
+    background: pink;
   }
 </style>

@@ -53,6 +53,13 @@
       "style": {
         "navigationBarTitleText": ""
       }
+    },
+    {
+      "path" : "tabbarPages/home/home",
+      "style" : 
+      {
+        "navigationBarTitleText" : ""
+      }
     }
   ],
   "globalStyle": {
