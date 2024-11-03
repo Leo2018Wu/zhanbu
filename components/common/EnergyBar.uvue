@@ -1,0 +1,86 @@
+<template>
+  <view class="energy-bar-wrapper">
+    <view class="energy-bar u-font-28">
+      <view class="full-bar">
+        <view class="percent-bar">
+        </view>
+      </view>
+    </view>
+    <view class="u-mt-16 u-mb-20">
+      {{title}}
+    </view>
+    <image class="arrow" :class="{'arrow-down': up}"
+      src="../../static/images/common/arrow-up.png" mode="">
+    </image>
+  </view>
+</template>
+
+<script>
+  export default {
+    name: 'energy-bar',
+    props: {
+      title: {
+        type: String,
+        default: '金'
+      },
+      fullColor: {
+        type: String,
+        default: '#E3C76520'
+      },
+      activeColor: {
+        type: String,
+        default: '#E3C765'
+      },
+      percent: {
+        type: String,
+        default: '70%'
+      },
+      up: {
+        type: Boolean,
+        default: true
+      }
+    },
+  }
+</script>
+
+<style lang="scss" scoped>
+  .energy-bar-wrapper {
+    align-items: center;
+
+    .arrow {
+      width: 10rpx;
+      height: 25rpx;
+    }
+
+    .arrow-down {
+      transform: rotate(-180deg);
+    }
+
+    .energy-bar {
+      width: 55rpx;
+      height: 242rpx;
+      border: 1rpx solid #020202;
+      position: relative;
+      border-radius: 27.5rpx;
+      overflow: hidden;
+
+
+
+      .full-bar {
+        position: absolute;
+        width: 100%;
+        height: 70%;
+        background-color: v-bind('fullColor');
+        bottom: 0;
+        left: 0;
+        justify-content: flex-end;
+
+        .percent-bar {
+          width: 100%;
+          height: v-bind('percent');
+          background-color: v-bind('activeColor');
+        }
+      }
+    }
+  }
+</style>

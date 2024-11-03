@@ -1,32 +1,196 @@
 <template>
-  <!-- #ifdef APP -->
-  <scroll-view style="flex:1">
-  <!-- #endif -->
-    <view class="li" v-for="item in Array(60).fill(1)">
-      {{item}}
+  <scroll-view class="home-page safe-top safe-bottom">
+    <xNavbar>
+      <template #center>
+        <fui-dropdown-menu :size="28" :isCheckbox="false" padding="10rpx 0"
+          background="#F6F6F6" :radius="7" selectedColor="#000" color="#999"
+          :menus="menus" @onclick="rangeItemClick" @close="rangeClose"
+          ref="ddmRange">
+          <view class="fui-filter__item" @tap="filterTap">
+            <text class="fui-text u-font-28">{{range}}</text>
+            <view class="fui-filter__icon" :class="{'fui-icon__ani':rangeShow}">
+              <fui-icon name="turningdown" :size="32"></fui-icon>
+            </view>
+          </view>
+        </fui-dropdown-menu>
+      </template>
+    </xNavbar>
+    <image class="home__bg" src="@/static/images/common/home_bg1.png"
+      mode="widthFix"></image>
+    <view class="echart-wrapper" style="width: 200px;height: 220px;">
+      <radar-chart></radar-chart>
     </view>
-  <!-- #ifdef APP -->
+    <view class="health-li u-mt-40">
+      <view class="health-li__label">
+        2023年-健康
+      </view>
+      <text>
+        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+      </text>
+    </view>
+    <view class="health-li">
+      <view class="health-li__label">
+        2024年-健康
+      </view>
+      <text>
+        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+      </text>
+    </view>
+    <view class="divider">
+      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+      <text class="u-font-40 u-mx-10">原局推演</text>
+      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+    </view>
+    <view class="health-li u-mt-72">
+      <view class="health-li__label">
+        五行养生
+      </view>
+      <text>
+        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+      </text>
+    </view>
+    <view class="health-li">
+      <view class="health-li__label">
+        命理风水
+      </view>
+      <text>
+        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+      </text>
+    </view>
   </scroll-view>
-  <!-- #endif -->
 </template>
 
 <script>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import { FuiDropdownMenuOptionParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
+  import RadarChart from '@/components/common/RadarChart.uvue'
+
   export default {
+    components: { xNavbar, RadarChart },
     data() {
-      return {}
+      return {
+        menus: [{
+          text: '流年',
+          value: '1',
+        }, {
+          text: '桃花',
+          value: '2'
+        }, {
+          text: '配偶',
+          value: '3'
+        }, {
+          text: '婚姻',
+          value: '4',
+          checked: true
+        }] as FuiDropdownMenuOptionParam[],
+        range: '婚姻',
+        rangeShow: false
+      }
+    },
+    methods: {
+      filterTap() {
+        (this.$refs['ddmRange'] as FuiDropdownMenuComponentPublicInstance).show()
+        this.rangeShow = true;
+      },
+      rangeItemClick(e : FuiDropdownMenuOptionParam) {
+        console.log(e)
+        this.range = e.text
+        this.rangeClose()
+      },
+      rangeClose() {
+        this.rangeShow = false;
+      }
     }
   }
 </script>
 
-<style lang="scss">
-  .li {
-    width: 100%;
-    height: 40px;
-    background-color: pink;
-    border-bottom: 1px solid #000;
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
+
+  .home-page {
+    flex: 1;
+    color: #000;
+    padding: 0 52rpx;
+
+    .health-li {
+      position: relative;
+      line-height: 42rpx;
+      font-size: 28rpx;
+      padding: 48rpx 26rpx 26rpx;
+      border-radius: 26rpx;
+      background-color: #f6f6f6;
+      overflow: visible;
+
+      &__label {
+        position: absolute;
+        left: 0;
+        top: -30rpx;
+        background-color: #020202;
+        color: #fff;
+        font-size: 28rpx;
+        min-width: 214rpx;
+        height: 54rpx;
+        line-height: 54rpx;
+        text-align: center;
+        border-radius: 27rpx;
+      }
+    }
+
+    .health-li+.health-li {
+      margin-top: 72rpx;
+    }
+
+    .divider {
+      margin-top: 42rpx;
+      @include flex(row, space-between, center);
+
+      .img1 {
+        width: 230rpx;
+      }
+
+      .img2 {
+        width: 230rpx;
+        transform: rotate(180deg);
+      }
+    }
   }
 
-  .li+.li {
-    margin-top: 10px;
+  .home__bg {
+    width: 623rpx;
+    position: fixed;
+    left: 0;
+    top: 10%;
+    z-index: -1;
+  }
+
+  .fui-filter__item {
+    width: 80px;
+    height: 27px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #f6f6f6;
+    border-radius: 7rpx;
+  }
+
+  .fui-filter__icon {
+    position: absolute;
+    right: 10px;
+    transition-property: transform;
+    transition-duration: .15s;
+    transition-timing-function: linear;
+    transform: rotate(0deg);
+  }
+
+  .fui-icon__ani {
+    transform: rotate(180deg);
+  }
+
+  .echart-wrapper {
+
+    margin: 20px auto 0 auto;
   }
 </style>

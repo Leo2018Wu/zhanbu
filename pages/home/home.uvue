@@ -1,96 +1,191 @@
 <template>
-  <!-- <view class="home-page safe-top safe-bottom "> -->
   <scroll-view class="home-page safe-top safe-bottom"
     :scroll-with-animation="true" :scroll-into-view="targetEle">
     <xNavbar :title="homeTitle" :isBack="false" />
-    <image class="home__bg" src="../../static/images/common/home_bg1.png"
-      mode="widthFix"></image>
-    <view class="header u-mt-50">
-      <image class="img1" src="../../static/images/common/moon1.png"
+    <template v-if="!showNextPage">
+      <image class="home__bg" src="../../static/images/common/home_bg1.png"
         mode="widthFix"></image>
-      <image class="img2" src="../../static/images/common/moon2.png"
-        mode="widthFix"></image>
-      <view class="left">
-        <view class="text-view">
-          甲辰
-        </view>
-        <view class="text-view">
-          甲辰
-        </view>
-        <view class="text-view">
-          甲辰
-        </view>
-        <view class="text-view">
-          甲辰
-        </view>
-      </view>
-      <view class="right">
-        <text class="u-font-24">甲辰年十月初二 <text
-            class="u-font-24 u-ml-20">戌子</text></text>
-        <text class="u-font-20 u-mt-20" style="color: #777379;">2024-10-03
-          23:12:31</text>
-        <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
-          radius="7rpx" background="#020202" text="即时排盘"
-          @click="nextLogin()"></fui-button>
-      </view>
-    </view>
-    <view class="form u-mt-50">
-      <text class="u-font-24 title">您的姓名</text>
-      <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
-        textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
-        placeholder="请输入您的姓名" v-model="formData.name">
-      </fui-input>
-      <view class="sex-list u-mt-42">
-        <view class="sex-li" @click="formData.gender = item.value"
-          v-for="item in genderList" :key="item.value"
-          :class="{'sex-li__active': formData.gender === item.value}">
-          {{item.label}}
-        </view>
-      </view>
-      <picker-view class="picker-view" :value="pickerValue"
-        indicator-style="background: rgba(246, 246, 246, 0.5)"
-        @change="onPickerChange">
-        <picker-view-column class="picker-view-column">
-          <view class="picker-view-column__item"
-            v-for="(item,index) in marryStatusList" :key="index">
-            <text class="picker-view-column__item__text">{{item.label}}</text>
+      <view class="header u-mt-50">
+        <image class="img1" src="../../static/images/common/moon1.png"
+          mode="widthFix"></image>
+        <image class="img2" src="../../static/images/common/moon2.png"
+          mode="widthFix"></image>
+        <view class="left">
+          <view class="text-view">
+            甲辰
           </view>
-        </picker-view-column>
-      </picker-view>
-      <view class="">
-        <fui-tabs style="width:100%" :tabs="tabs" :height="64"
-          @change="onTabChange" color="#7e7e7e" selectedColor="#000"
-          :short="false" sliderBackground="#000" :size="20"
-          :selectedSize="24"></fui-tabs>
+          <view class="text-view">
+            甲辰
+          </view>
+          <view class="text-view">
+            甲辰
+          </view>
+          <view class="text-view">
+            甲辰
+          </view>
+        </view>
+        <view class="right">
+          <text class="u-font-24">甲辰年十月初二 <text
+              class="u-font-24 u-ml-20">戌子</text></text>
+          <text class="u-font-20 u-mt-20" style="color: #777379;">2024-10-03
+            23:12:31</text>
+          <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
+            radius="7rpx" background="#020202" text="即时排盘"
+            @click="nextLogin()"></fui-button>
+        </view>
       </view>
-      <view class="">
-        <text class="u-font-24 title u-mt-40">出生日期</text>
+      <view class="form u-mt-50">
+        <text class="u-font-24 title">您的姓名</text>
+        <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
+          textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
+          placeholder="请输入您的姓名" v-model="formData.name">
+        </fui-input>
+        <view class="sex-list u-mt-42">
+          <view class="sex-li" @click="formData.gender = item.value"
+            v-for="item in genderList" :key="item.value"
+            :class="{'sex-li__active': formData.gender === item.value}">
+            {{item.label}}
+          </view>
+        </view>
+        <picker-view class="picker-view" :value="pickerValue"
+          indicator-style="background: rgba(246, 246, 246, 0.5)"
+          @change="onPickerChange">
+          <picker-view-column class="picker-view-column">
+            <view class="picker-view-column__item"
+              v-for="(item,index) in marryStatusList" :key="index">
+              <text class="picker-view-column__item__text">{{item.label}}</text>
+            </view>
+          </picker-view-column>
+        </picker-view>
+        <view class="">
+          <fui-tabs style="width:100%" :tabs="tabs" :height="64"
+            @change="onTabChange" color="#7e7e7e" selectedColor="#000"
+            :short="false" sliderBackground="#000" :size="20"
+            :selectedSize="24"></fui-tabs>
+        </view>
+        <view class="">
+          <text class="u-font-24 title u-mt-40">出生日期</text>
+        </view>
+        <view class="">
+          <text class="u-font-24 title u-mt-60">出生地点</text>
+        </view>
+        <view class="submit-btn" @click="handleSubmit()">提交</view>
       </view>
-      <view class="">
-        <text class="u-font-24 title u-mt-60">出生地点</text>
+    </template>
+    <view id="placeholder-navbar" class="bazi-page" v-if="showNextPage">
+      <view id="placeholder-navbar" style="height: 48px;width: 100vw;">
       </view>
-      <view class="submit-btn" @click="handleSubmit()">提交</view>
-    </view>
-    <view id="scroll-target__ele" class="bazi-page" v-show="showNextPage">
-      <view class="scroll-target__ele">
-        <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
+      <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
+        selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
+        :selectedSize="28"></fui-tabs>
+      <view class="bazi-info u-mt-120">
+        <image class="avatar" src="../../static/images/common/avatar1.png"
+          mode=""></image>
+        <text class="u-font-32 u-mt-80">Eddie</text>
+        <text class="u-font-24 u-my-16">阴历：甲辰年十月初二 戌子</text>
+        <text class="u-font-20" style="color: #999;">阳历：2024-10-03
+          22:12:31</text>
+        <image class="moon2" src="../../static/images/common/moon2.png" mode="">
+        </image>
+      </view>
+      <view class="bazi-report">
+        <view class="title">
+          出生报告
+          <image class="moon3" src="../../static/images/common/moon3.png"
+            mode=""></image>
+        </view>
+        <view class="u-pt-24" style="justify-content: flex-start;">
+          <view class="u-font-28 u-mt-16">阴历：甲辰年十月初二 须子</view>
+          <view class="u-font-28 u-mt-16">北京时间：2024-10-03 23:12:31</view>
+          <view class="u-font-28 u-mt-16">出生地：浙江省 杭州市西湖区</view>
+          <view class="u-font-28 u-mt-16">出生节气：秋分</view>
+          <view class="u-font-28 u-mt-16">生肖：龙</view>
+        </view>
+      </view>
+      <view class="bazi-wx-report">
+        <view class="title u-mb-16">
+          五行能量报告
+          <image class="moon3" src="../../static/images/common/moon3.png"
+            mode=""></image>
+        </view>
+        <fui-tabs style="width:100%" :tabs="tabs2" :height="64" color="#999999"
           selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
           :selectedSize="28"></fui-tabs>
+        <view class="energy-bar-list">
+          <EnergyBar v-for="(item,index) in energyBarList" :key="index"
+            :title="item.title" :full-color="item.fullColor"
+            :active-color="item.activeColor" :percent="item.percent"
+            :up="item.up" />
+        </view>
+        <view class="title u-mt-40 u-mb-20">
+          运势
+          <image class="moon3" src="../../static/images/common/moon3.png"
+            mode=""></image>
+        </view>
+        <view style="width: 200px;height: 220px;">
+          <radar-chart></radar-chart>
+        </view>
+        <view class="title u-mb-16">
+          性格解析
+          <image class="moon3" src="../../static/images/common/moon3.png"
+            mode=""></image>
+        </view>
+        <view class="u-font-28"
+          style="line-height: 24px;width: 75%;text-align: center;word-break: break-all;">
+          五行以八字『中和』为贵，太强或太弱的八字，四柱本身或岁运流年若不能得到制衡转化，皆非好事，不能论为好命。亦即日主强旺而喜克泄制化，日主衰弱而喜生扶帮助。
+        </view>
+        <view class="title u-mt-40 u-mb-16">
+          今日运势
+          <image class="moon3" src="../../static/images/common/moon3.png"
+            mode=""></image>
+        </view>
+        <view class="u-font-28"
+          style="line-height: 24px;width: 80%;text-align: center;word-break: break-all;">
+          后端数据
+        </view>
+        <view class="header u-mt-40"
+          style="flex-direction: column;padding-top:4rem">
+          <image class="img1" src="../../static/images/common/moon1.png"
+            mode="widthFix"></image>
+          <image class="img2" src="../../static/images/common/moon2.png"
+            mode="widthFix"></image>
+          <view class="">2024年10月16日 甲辰年甲五戌 葵丑日</view>
+          <fui-tag class="u-my-42" style="width:214rpx" text="幸运方向"
+            background="#000" color="#fff" :size="28"></fui-tag>
+          <view class="">今日适宜 东南方向</view>
+          <fui-tag class="u-my-42" style="width:214rpx" text="幸运色"
+            background="#000" color="#fff" :size="28"></fui-tag>
+          <view class="u-font-32">红色</view>
+          <view class="u-font-24 u-mt-16" style="color: #999;">今日多戴红色相关物件，增加火气相旺
+          </view>
+          <fui-tag class="u-my-42" style="width:214rpx" text="幸运数字"
+            background="#000" color="#fff" :size="28"></fui-tag>
+          <view class="u-font-32">20,29,39,1</view>
+          <view class="u-font-24 u-mt-16" style="color: #999;">多使用幸运数字，可增加财气
+          </view>
+          <fui-tag class="u-my-42" style="width:214rpx" text="红中"
+            background="#000" color="#fff" :size="28"></fui-tag>
+          <view class="">携带关于红中的属性</view>
+        </view>
       </view>
+      <fui-button width="574rpx" margin="20px auto 0 auto" radius="7rpx"
+        background="#020202" text="跳转tabbarpage"
+        @click="jumpPage()"></fui-button>
     </view>
   </scroll-view>
-  <!-- </view> -->
 </template>
 
 <script lang="uts">
   import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import EnergyBar from '@/components/common/EnergyBar.uvue'
+  import RadarChart from '@/components/common/RadarChart.uvue'
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts'
 
   export default {
-    components: { xNavbar },
+    components: { xNavbar, EnergyBar, RadarChart },
     data() {
       return {
-        targetEle: null,
+        targetEle: '',
         homeTitle: '首页',
         showNextPage: false,
         pickerValue: [],
@@ -102,6 +197,11 @@
           { name: '专业细盘' },
           { name: '基本命盘' },
         ],
+        tabs2: [
+          { name: '五行能量' },
+          { name: '五行个数' },
+          { name: '基本命盘' },
+        ],
         genderList: [
           { label: '男', value: 1 },
           { label: '女', value: 2 },
@@ -111,6 +211,13 @@
           { label: '已婚', value: 2 },
           { label: '已有恋人', value: 3 },
         ],
+        energyBarList: [
+          { title: '金', fullColor: '#E3C76520', activeColor: '#E3C765', percent: '70%', up: true },
+          { title: '金', fullColor: '#66A07C20', activeColor: '#66A07C', percent: '50%', up: true },
+          { title: '金', fullColor: '#96765320', activeColor: '#967653', percent: '30%', up: false },
+          { title: '金', fullColor: '#CD4E4820', activeColor: '#CD4E48', percent: '60%', up: true },
+          { title: '金', fullColor: '#5496B820', activeColor: '#5496B8', percent: '40%', up: false },
+        ],
         formData: {
           name: '',
           gender: 1,
@@ -119,18 +226,17 @@
       }
     },
     methods: {
+      jumpPage() {
+        uni.navigateTo({
+          url: '/tabbarPages/custom-tab-bar',
+        });
+      },
       handleSubmit() {
-        // this.showNextPage = true;
-        // this.homeTitle = '八字'
-        // this.targetEle = 'scroll-target__ele'
-        // uni.pageScrollTo({
-        //   // selector: '.scroll-target__ele',
-        //   scrollTop: 40000,
-        //   duration: 2000,
-        //   success: () => {
-        //     console.log('success')
-        //   },
-        // })
+        this.showNextPage = true;
+        this.homeTitle = '八字'
+        setTimeout(() => {
+          this.targetEle = 'placeholder-navbar'
+        }, 200);
       },
       onTabChange(e : FuiTabsItemParam) {
         console.log(JSON.stringify(e))
@@ -204,7 +310,7 @@
 
     .header {
       width: 100%;
-      height: 224rpx;
+      min-height: 224rpx;
       background-color: #f6f6f6;
       position: relative;
       overflow: visible;
@@ -298,8 +404,69 @@
   }
 
   .bazi-page {
-    height: 2000px;
     width: 100%;
-    background: pink;
+    min-height: 100vh;
+    padding-bottom: 32rpx;
+
+    .bazi-info {
+      width: 100%;
+      padding-bottom: 20rpx;
+      background-color: #e9e9e9;
+      position: relative;
+      overflow: visible;
+      align-items: center;
+
+      .avatar {
+        width: 126rpx;
+        height: 126rpx;
+        position: absolute;
+        top: -70rpx;
+        left: 50%;
+        transform: translateX(-63rpx);
+        z-index: 1;
+      }
+
+      .moon2 {
+        width: 65rpx;
+        height: 58rpx;
+        position: absolute;
+        right: 28rpx;
+        bottom: 0;
+        bottom: -20rpx;
+        z-index: 2;
+      }
+    }
+
+    .title {
+      @include flex(row, center, center);
+      font-size: 24rpx;
+      position: relative;
+      overflow: visible;
+
+      .moon3 {
+        position: absolute;
+        right: -24px;
+        bottom: 4px;
+        width: 32rpx;
+        height: 18rpx;
+      }
+    }
+
+    .bazi-report,
+    .bazi-wx-report {
+      margin-top: 2rem;
+      align-items: center;
+    }
+
+    .bazi-wx-report {
+      margin-top: 2rem;
+      align-items: center;
+
+      .energy-bar-list {
+        width: 85%;
+        margin-top: 40rpx;
+        @include flex(row, space-between, center)
+      }
+    }
   }
 </style>

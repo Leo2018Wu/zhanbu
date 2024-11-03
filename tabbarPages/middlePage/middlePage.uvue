@@ -1,0 +1,17 @@
+<template>
+  <scroll-view style="flex:1">
+    我是中间页面
+  </scroll-view>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {}
+    }
+  }
+</script>
+
+<style lang="scss">
+
+</style>

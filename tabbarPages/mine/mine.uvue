@@ -1,0 +1,67 @@
+<template>
+  <scroll-view class="mine-page safe-top safe-bottom">
+    <xNavbar title="个人中心" :isBack="false" />
+    <view class="userinfo">
+      <fui-avatar width="116"
+        src="/static/images/common/avatar2.png"></fui-avatar>
+      <view class="userinfo-content">
+        <text class="u-font-42">自己 <text class="u-font-24"
+            style="color:#7e7e7e">@zhudeyong</text></text>
+        <view class="userinfo-labels">
+          <image class="icon" src="/static/images/mine/xingzuo.png" mode="" />
+          <text class="name">白羊座</text>
+          <image class="icon" src="/static/images/mine/wuxing.png" mode="" />
+          <text class="name">水命</text>
+          <image class="icon" src="/static/images/mine/moon.png" mode="" />
+          <text class="name">上升射手</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</template>
+
+<script>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  export default {
+    components: { xNavbar },
+    data() {
+      return {}
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
+
+  .mine-page {
+    color: #000;
+    flex: 1;
+    padding: 20rpx 42rpx;
+
+    .userinfo {
+      @include flex(row, flex-start, center);
+
+      &-content {
+        @include flex(column, space-around, flex-start);
+        flex: 1;
+        height: 100%;
+        padding-left: 32rpx;
+      }
+
+      &-labels {
+        @include flex(row, flex-start, center);
+
+        .name {
+          font-size: 24rpx;
+          margin-right: 36rpx;
+        }
+
+        .icon {
+          width: 20rpx;
+          height: 20rpx;
+          margin: 10rpx;
+        }
+      }
+    }
+  }
+</style>

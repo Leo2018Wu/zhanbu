@@ -1,0 +1,102 @@
+<template>
+  <view style="width: 100%; height: 100%;">
+    <l-echart ref="chartRef" @finished="init"></l-echart>
+  </view>
+</template>
+
+<script lang="uts" setup>
+  // @ts-nocheck
+  // #ifdef H5
+  import * as echarts from 'echarts/dist/echarts.esm.js'
+  // #endif
+  const chartRef = ref<LEchartComponentPublicInstance | null>(null);
+
+  const option = {
+    legend: {
+      data: []
+    },
+    radar: {
+      indicator: [
+        {
+          name: '金', max: 100,
+        },
+        { name: '木', max: 100 },
+        { name: '水', max: 100 },
+        { name: '火', max: 100 },
+        { name: '土', max: 100 },
+      ],
+      axisLine: {
+        lineStyle: {
+        }
+      },
+      splitArea: { areaStyle: Array(6).fill('transparent') },
+      splitLine: {
+        lineStyle: { color: '#020202', width: 0.5 }
+      }
+    },
+    series: [{
+      name: '',
+      type: 'radar',
+      data: [
+        {
+          value: [50, 50, 0, 0, 0],
+          name: '金',
+          symbolSize: 0,
+          lineStyle: { width: 0 },
+          areaStyle: {
+            color: '#E3C765',
+          }
+        },
+        {
+          value: [0, 50, 50, 0,],
+          symbolSize: 0,
+          lineStyle: { width: 0 },
+          name: '木',
+          areaStyle: {
+            color: '#66A07C'
+          }
+        }, {
+          value: [0, 0, 50, 50, 0],
+          symbolSize: 0,
+          lineStyle: { width: 0 },
+          name: '水',
+          areaStyle: {
+            color: '#5496B8'
+          }
+        },
+        {
+          value: [0, 0, 0, 50, 50],
+          symbolSize: 0,
+          lineStyle: { width: 0 },
+          name: '火',
+          areaStyle: {
+            color: '#CD4E48'
+          }
+        },
+        {
+          value: [60, 0, 0, 0, 60],
+          symbolSize: 0,
+          lineStyle: { width: 0 },
+          name: '土',
+          areaStyle: {
+            color: '#967653'
+          }
+        }
+      ]
+    }]
+  }
+
+  const init = async () => {
+    if (chartRef.value == null) return
+    // #ifdef APP
+    const chart = await chartRef.value!.init(null)
+    // #endif
+    // #ifdef H5
+    const chart = await chartRef.value!.init(echarts, null)
+    // #endif
+    chart.setOption(option)
+  }
+</script>
+<style>
+
+</style>

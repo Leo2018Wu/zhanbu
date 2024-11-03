@@ -1,0 +1,243 @@
+<template>
+  <view class="tabs safe-bottom">
+    <view ref="tabview" class="tab-view">
+      <!-- 注意tab的逻辑是：第一次使用v-if创建，创建之后不再使用v-if，而是设置visibility来隐藏和显示。不能设置tab的v-if为false，因为销毁再创建影响性能 -->
+      <homePage ref="homePage" class="tab-page" v-if="tabList[0].init"
+        :style="{visibility:(selectedIndex==0?'visible':'hidden')}"></homePage>
+      <friendListPage ref="friendListPage" class="tab-page"
+        v-if="tabList[1].init"
+        :style="{visibility:(selectedIndex==1?'visible':'hidden')}">
+      </friendListPage>
+      <middlePage ref="middlePage" class="tab-page" v-if="tabList[2].init"
+        :style="{visibility:(selectedIndex==2?'visible':'hidden')}">
+      </middlePage>
+      <matchPage ref="matchPage" class="tab-page" v-if="tabList[3].init"
+        :style="{visibility:(selectedIndex==3?'visible':'hidden')}"></matchPage>
+      <minePage ref="minePage" class="tab-page" v-if="tabList[4].init"
+        :style="{visibility:(selectedIndex==4?'visible':'hidden')}"></minePage>
+    </view>
+    <view ref="tabbar" class="tab-bar">
+      <view class="tab-item" @click="onTabClick(0)">
+        <view ref="tab-item1" class="tab-item-content">
+          <image v-if="selectedIndex === 0" style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_1_active.png" mode="">
+          </image>
+          <image v-else style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_1.png" mode="">
+          </image>
+        </view>
+      </view>
+      <view class="tab-item" @click="onTabClick(1)">
+        <view ref="tab-item2" class="tab-item-content">
+          <image v-if="selectedIndex === 1" style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_2_active.png" mode="">
+          </image>
+          <image v-else style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_2.png" mode="">
+          </image>
+        </view>
+      </view>
+      <view class="tab-item" @click="onTabClick(2)">
+        <view ref="tab-item3" class="tab-item-content">
+          <image v-if="selectedIndex === 2"
+            style="width: 100rpx; height: 100rpx;"
+            src="../static/tabbar/tabbar_3_active.png" mode="">
+          </image>
+          <image v-else style="width: 100rpx; height: 100rpx;"
+            src="../static/tabbar/tabbar_3.png" mode="">
+          </image>
+        </view>
+      </view>
+      <view class="tab-item" @click="onTabClick(3)">
+        <view ref="tab-item4" class="tab-item-content">
+          <image v-if="selectedIndex === 3" style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_4_active.png" mode="">
+          </image>
+          <image v-else style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_4.png" mode="">
+          </image>
+        </view>
+      </view>
+      <view class="tab-item" @click="onTabClick(4)">
+        <view ref="tab-item5" class="tab-item-content">
+          <image v-if="selectedIndex === 4" style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_5_active.png" mode="">
+          </image>
+          <image v-else style="width: 80rpx; height: 80rpx;"
+            src="../static/tabbar/tabbar_5.png" mode="">
+          </image>
+        </view>
+      </view>
+      <!-- <view class="tab-item" @click="onTabClick(1)">
+        <view ref="tab-item2" class="tab-item-content">
+          <text class="tab-item-icon uni-icon"
+            :class="selectedIndex==1 ? 'tab-item-text-active' : ''">{{'\ue699'}}</text>
+          <text class="tab-item-text"
+            :class="selectedIndex==1 ? 'tab-item-text-active' : ''">
+            我的
+          </text>
+        </view>
+      </view> -->
+    </view>
+  </view>
+</template>
+
+<script lang="uts">
+  import homePage from './home/home.uvue';
+  import friendListPage from './friendList/friendList.uvue';
+  import middlePage from './middlePage/middlePage.uvue';
+  import matchPage from './matchPage/matchPage.uvue';
+  import minePage from './mine/mine.uvue';
+
+  type TabItem = {
+    init : boolean,
+    preload : boolean,
+  }
+
+  export default {
+    components: {
+      homePage,
+      minePage,
+      friendListPage,
+      matchPage,
+      middlePage
+    },
+    data() {
+      return {
+        tabList: [
+          {
+            init: true,
+            preload: false
+          } as TabItem,
+          {
+            init: false,
+            preload: false
+          } as TabItem,
+          {
+            init: false,
+            preload: false
+          } as TabItem,
+          {
+            init: false,
+            preload: false
+          } as TabItem,
+          {
+            init: false,
+            preload: false
+          } as TabItem,
+        ] as TabItem[],
+        selectedIndex: 0,
+        displayArrow: false,
+        lasthomePageTop: 0,
+        tabViewHeight: 0
+      }
+    },
+    onLoad() {
+      uni.$on('tabchange', this.onTabPageEvent) //监听homePage页面发出的tabchange事件，触发到本页面的onTabPageEvent方法。为了判断homePage的scroll-view滚动距离
+    },
+    onReady() {
+      // this.setSelectedIndex(0)
+      this.tabViewHeight = (this.$refs["tabview"] as UniElement).getBoundingClientRect().height
+    },
+    onUnload() {
+      uni.$off('tabchange', this.onTabPageEvent)
+    },
+    methods: {
+      onTabClick(index : number) {
+        if (this.selectedIndex == index && index == 0 && this.displayArrow == true) { //首页当tab按钮变成向上时，点向上就滚动到顶
+          // console.log("11");
+          this.displayArrow = false;
+          (this.$refs["homePage"]! as ComponentPublicInstance).$callMethod('scrollTop', 0)
+        }
+        else if (index != 0) { //不在首页时，把箭头变成图标
+          // console.log("22");
+          this.displayArrow = false
+        }
+        else if (index == 0 && this.selectedIndex != 0) { //从其他tab切回首页时，检查是否需要把图标变箭头
+          // console.log("33",this.lasthomePageTop, this.tabViewHeight);
+          this.displayArrow = this.lasthomePageTop > this.tabViewHeight
+        }
+        this.setSelectedIndex(index);
+        // console.log('index: ',index);
+        // console.log('this.selectedIndex: ',this.selectedIndex);
+        // console.log('this.displayArrow: ',this.displayArrow);
+        // console.log('this.lasthomePageTop: ',this.lasthomePageTop);
+      },
+      onTabPageEvent(top : number) {
+        // console.log('top: ',top);
+        this.displayArrow = top > this.tabViewHeight //滚动1屏后，就把第一个tab的图标从首页变成向上箭头
+        this.lasthomePageTop = top
+      },
+      setSelectedIndex(index : number) {
+        if (this.selectedIndex === index) {
+          return
+        }
+        if (!this.tabList[index].init) {
+          this.tabList[index].init = true
+        }
+        this.selectedIndex = index
+      }
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .tabs {
+    flex: 1;
+    background-color: #fff;
+    overflow: visible;
+    padding-bottom: 32rpx;
+    /* #ifdef MP */
+    height: 100vh;
+    /* #endif */
+  }
+
+  .tab-view {
+    flex: 1;
+  }
+
+  .tab-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  .tab-bar {
+    flex-direction: row;
+    height: 56px;
+    overflow: visible;
+  }
+
+  .tab-item {
+    flex: 1;
+    position: relative;
+    overflow: visible;
+  }
+
+  .tab-item-content {
+    margin: auto;
+    transition: transform 0.3s;
+  }
+
+  .tab-item-icon {
+    color: #ccc;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .tab-item-text {
+    color: #ccc;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .tab-item-text-active {
+    color: #fff;
+  }
+
+  .tab-item-arrow {
+    font-size: 30px !important;
+    font-weight: bold;
+  }
+</style>

@@ -9,9 +9,11 @@
             </image>
           </slot>
         </view>
-        <slot name="center">
-          <text class="u-font-32">{{ title }}</text>
-        </slot>
+        <view>
+          <slot name="center">
+            <text class="u-font-32">{{ title }}</text>
+          </slot>
+        </view>
         <view class="x-navbar__content__right">
           <slot name="suffix">
 
