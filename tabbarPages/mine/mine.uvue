@@ -2,7 +2,7 @@
   <scroll-view class="mine-page safe-top safe-bottom">
     <xNavbar title="个人中心" :isBack="false" />
     <view class="userinfo">
-      <fui-avatar width="116"
+      <fui-avatar :width="116"
         src="/static/images/common/avatar2.png"></fui-avatar>
       <view class="userinfo-content">
         <text class="u-font-42">自己 <text class="u-font-24"
@@ -16,6 +16,24 @@
           <text class="name">上升射手</text>
         </view>
       </view>
+    </view>
+    <view class="vip-wrapper u-mt-40">
+      <image class="vip-bg" src="@/static/images/mine/mine_bg.png"
+        mode="widthFix"></image>
+      <view class="vip-content">
+        <view class="vip-level">
+          <image class="vip-level__img" src="@/static/images/mine/vip.png"
+            mode="">
+          </image>
+          <text
+            style="color: #000;font-size: 36rpx;margin-left: 2px;">普通会员</text>
+        </view>
+        <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
+          background="#000000" text="立即开通"></fui-button>
+      </view>
+    </view>
+    <view class="">
+
     </view>
   </scroll-view>
 </template>
@@ -60,6 +78,43 @@
           width: 20rpx;
           height: 20rpx;
           margin: 10rpx;
+          position: relative;
+          bottom: 1px;
+        }
+      }
+    }
+
+    .vip-wrapper {
+      position: relative;
+      width: 100%;
+      height: 120rpx;
+      justify-content: center;
+      padding: 0 42rpx;
+
+      .vip-bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 120rpx;
+      }
+
+      .vip-content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 46rpx;
+
+        @include flex(row, flex-start, flex-start);
+
+        .vip-level {
+          @include flex(row, flex-start, center);
+          flex: 1;
+
+          &__img {
+            width: 52rpx;
+            height: 47rpx;
+          }
         }
       }
     }

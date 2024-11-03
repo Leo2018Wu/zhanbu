@@ -79,6 +79,7 @@
     overflow: hidden;
     display: flex;
     height: $navbar-h;
+    font-size: 32rpx;
 
     &-fixed {
       position: fixed;
@@ -96,6 +97,7 @@
 
       &__left,
       &__right {
+        font-size: 16px;
         padding: 0 13px;
         position: absolute;
         top: 0;

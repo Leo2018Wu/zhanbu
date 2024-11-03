@@ -1,17 +1,42 @@
 <template>
-  <scroll-view style="flex:1">
-    好友列表页面
+  <scroll-view class="friend-list-page safe-top safe-bottom">
+    <xNavbar title="好友消息" :isBack="false">
+      <template #suffix>
+        <view class="header-left u-mr-24">
+          <image style="width: 26rpx;height: 26rpx;margin-right: 3px;"
+            src="../../static/images/common/clear.png" mode=""></image>
+          全部已读
+        </view>
+        <fui-icon name="search" :size="32"></fui-icon>
+      </template>
+    </xNavbar>
   </scroll-view>
 </template>
 
 <script>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
   export default {
+    components: { xNavbar },
     data() {
       return {}
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
 
+  .friend-list-page {
+    color: #000;
+    flex: 1;
+    padding: 20rpx 42rpx;
+
+    .header-left {
+      @include flex(row, flex-start, center);
+      padding: 3px 6px;
+      border-radius: 6rpx;
+      font-size: 24rpx;
+      background-color: #F6F6F6;
+    }
+  }
 </style>
