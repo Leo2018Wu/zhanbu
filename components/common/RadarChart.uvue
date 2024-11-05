@@ -17,13 +17,11 @@
     },
     radar: {
       indicator: [
-        {
-          name: '金', max: 100,
-        },
-        { name: '木', max: 100 },
-        { name: '水', max: 100 },
-        { name: '火', max: 100 },
-        { name: '土', max: 100 },
+        { name: '金', max: 100, color: '#000' },
+        { name: '木', max: 100, color: '#000' },
+        { name: '水', max: 100, color: '#000' },
+        { name: '火', max: 100, color: '#000' },
+        { name: '土', max: 100, color: '#000' },
       ],
       axisLine: {
         lineStyle: {

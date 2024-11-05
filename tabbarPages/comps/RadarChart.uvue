@@ -1,0 +1,123 @@
+<template>
+  <view style="width: 100%; height: 100%;">
+    <l-echart ref="chartRef" @finished="init"></l-echart>
+  </view>
+</template>
+
+<script lang="uts" setup>
+  // @ts-nocheck
+  // #ifdef H5
+  import * as echarts from 'echarts/dist/echarts.esm.js'
+  // #endif
+  const chartRef = ref<LEchartComponentPublicInstance | null>(null);
+
+  const option = {
+    legend: {
+      data: []
+    },
+    radar: {
+      indicator: [
+        { name: '生活环境', max: 100, color: '#000' },
+        { name: '个人魅力', max: 100, color: '#000' },
+        { name: '生活方式', max: 100, color: '#000' },
+        { name: '人际网络', max: 100, color: '#000' },
+        { name: '社交能力', max: 100, color: '#000' },
+        { name: '心理状态', max: 100, color: '#000' },
+      ],
+      axisLine: {
+        lineStyle: {
+        }
+      },
+      splitArea: { areaStyle: Array(5).fill('transparent'), },
+      splitLine: {
+        lineStyle: { color: '#999999', width: 0.5 }
+      }
+    },
+    series: [{
+      name: '',
+      type: 'radar',
+      data: [
+        {
+          value: [50, 50, 50, 40, 70, 80],
+          name: '生活环境',
+          symbolSize: 0,
+          lineStyle: { width: 1, color: '#AE00FF' },
+          areaStyle: {
+
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0, color: 'rgba(174, 0, 255, 1)' // 0% 处的颜色
+              }, {
+                offset: 1, color: 'rgba(255, 255, 255, 0.3)' // 100% 处的颜色
+              }],
+              global: false // 缺省为 false
+            }
+          }
+        },
+        {
+          value: [10, 30, 90, 40, 80, 60],
+          name: '个人魅力',
+          symbolSize: 0,
+          lineStyle: { width: 1, color: '#FFFF00' },
+          areaStyle: {
+
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0, color: 'rgba(255, 255, 0, 1)' // 0% 处的颜色
+              }, {
+                offset: 1, color: 'rgba(255, 255, 255, 0.3)' // 100% 处的颜色
+              }],
+              global: false // 缺省为 false
+            }
+          }
+        },
+        {
+          value: [40, 30, 60, 60, 70, 60],
+          name: '个人魅力',
+          symbolSize: 0,
+          lineStyle: { width: 1, color: '#FF0000' },
+          areaStyle: {
+
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0, color: 'rgba(255, 0, 0, 1)' // 0% 处的颜色
+              }, {
+                offset: 1, color: 'rgba(255, 255, 255, 0.3)' // 100% 处的颜色
+              }],
+              global: false // 缺省为 false
+            }
+          }
+        }
+      ]
+    }]
+  }
+
+  const init = async () => {
+    if (chartRef.value == null) return
+    // #ifdef APP
+    const chart = await chartRef.value!.init(null)
+    // #endif
+    // #ifdef H5
+    const chart = await chartRef.value!.init(echarts, null)
+    // #endif
+    chart.setOption(option)
+  }
+</script>
+<style>
+
+</style>

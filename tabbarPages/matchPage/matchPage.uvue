@@ -1,17 +1,178 @@
 <template>
-  <scroll-view style="flex:1">
-    匹配页面
+  <scroll-view class="match-page safe-top safe-bottom">
+    <xNavbar title="匹配" />
+    <view class="header">
+      <fui-input v-model="searchValue" :radius="6" padding="16rpx 32rpx"
+        backgroundColor="#F6F6F6" placeholderStyle="color:#666" width="100%"
+        :borderBottom="false" :size="28" placeholder="请输入搜索内容">
+        <template #left>
+          <fui-icon style="margin-right: 8px;" name="search"
+            :size="32"></fui-icon>
+        </template>
+        <template #default>
+          <text>查询</text>
+        </template>
+      </fui-input>
+    </view>
+    <view class="list">
+      <view class="li" v-for="(item,index) in dataList" :key="index">
+        <view class="li-code">{{item.code}}</view>
+        <fui-list v-for="(subItem,subIndex) in item.list" :key="subIndex"
+          :topBorder="false">
+          <fui-list-cell padding="32rpx 0">
+            <view class="left">
+              <image class="avatar" src="../../static/images/common/avatar1.png"
+                mode="widthFix">
+              </image>
+              <view class="info">
+                <text class="u-mt-">
+                  {{subItem.name}} <text class="u-font-24"
+                    style="color: #7e7e7e">{{subItem.gender}}</text>
+                </text>
+                <text class="u-font-20 u-mt-12"
+                  style="color: #7e7e7e;">{{subItem.type}}
+                  {{subItem.birthday}}</text>
+              </view>
+            </view>
+            <view class="right">
+              <view class="right-top">
+                <text class="u-font-24" v-for="word in subItem.wx"
+                  :key="word">{{word}}</text>
+              </view>
+              <view class="right-bottom">
+                综合评分{{item.percent}}
+              </view>
+            </view>
+          </fui-list-cell>
+        </fui-list>
+      </view>
+
+    </view>
   </scroll-view>
 </template>
 
 <script>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
   export default {
+    components: { xNavbar },
     data() {
-      return {}
+      return {
+        searchValue: '',
+        dataList: [
+          {
+            code: 'A',
+            list: [
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
+            ]
+          },
+        ]
+      }
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
 
+  .match-page {
+    flex: 1;
+    align-items: center;
+    color: #000;
+    font-size: 32rpx;
+    background-color: #fff;
+    padding: 20rpx 40rpx;
+
+    .header {
+      width: 100%;
+    }
+
+    .list {
+      width: 100%;
+      padding-top: 40rpx;
+
+      .li {
+        &-code {
+          color: #22222260;
+        }
+
+        .left {
+          flex: 1;
+          @include flex(row, flex-start, flex-start);
+
+          .avatar {
+            width: 82rpx;
+            height: 82rpx;
+            border-radius: 100%;
+            margin-right: 10px;
+          }
+
+          .info {
+            padding-top: 4px;
+          }
+        }
+
+        .right {
+          min-width: 210rpx;
+          height: 80rpx;
+          background-color: #f6f6f6;
+          border-radius: 7rpx;
+
+
+          &-top,
+          &-bottom {
+            flex: 1;
+            @include flex(row, center, center)
+          }
+
+          &-top {
+            padding: 0 6rpx;
+
+            text {
+              flex: 1;
+              text-align: center;
+              position: relative;
+
+              &:not(:last-of-type) {
+                &::after {
+                  content: '';
+                  width: 1rpx;
+                  background-color: #4C4A4D;
+                  height: 16rpx;
+                  position: absolute;
+                  right: 0;
+                  top: 4rpx;
+                }
+              }
+            }
+          }
+
+          &-bottom {
+            font-size: 20rpx;
+            border-top: 1rpx solid #4C4A4D10;
+          }
+        }
+      }
+    }
+
+  }
 </style>
