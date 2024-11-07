@@ -31,14 +31,14 @@
             23:12:31</text>
           <fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
             radius="7rpx" background="#020202" text="即时排盘"
-            @click="nextLogin()"></fui-button>
+            @click=""></fui-button>
         </view>
       </view>
       <view class="form u-mt-50">
         <text class="u-font-24 title">您的姓名</text>
         <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
           textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
-          placeholder="请输入您的姓名" v-model="formData.name">
+          placeholder="请输入您的姓名" v-model="formData.name as string">
         </fui-input>
         <view class="sex-list u-mt-42">
           <view class="sex-li" @click="formData.gender = item.value"
@@ -73,7 +73,7 @@
       </view>
     </template>
     <view id="placeholder-navbar" class="bazi-page" v-if="showNextPage">
-      <view id="placeholder-navbar" style="height: 48px;width: 100vw;">
+      <view id="placeholder-navbar" style="height: 48px;width: 100%;">
       </view>
       <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
         selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
@@ -123,7 +123,7 @@
             mode=""></image>
         </view>
         <view style="width: 200px;height: 220px;">
-          <radar-chart></radar-chart>
+          <!-- <radar-chart></radar-chart> -->
         </view>
         <view class="title u-mb-16">
           性格解析
@@ -131,7 +131,7 @@
             mode=""></image>
         </view>
         <view class="u-font-28"
-          style="line-height: 24px;width: 75%;text-align: center;word-break: break-all;">
+          style="line-height: 24px;width: 75%;text-align: center;">
           五行以八字『中和』为贵，太强或太弱的八字，四柱本身或岁运流年若不能得到制衡转化，皆非好事，不能论为好命。亦即日主强旺而喜克泄制化，日主衰弱而喜生扶帮助。
         </view>
         <view class="title u-mt-40 u-mb-16">
@@ -140,11 +140,11 @@
             mode=""></image>
         </view>
         <view class="u-font-28"
-          style="line-height: 24px;width: 80%;text-align: center;word-break: break-all;">
+          style="line-height: 24px;width: 80%;text-align: center;">
           后端数据
         </view>
         <view class="header u-mt-40"
-          style="flex-direction: column;padding-top:4rem">
+          style="flex-direction: column;padding-top:64px">
           <image class="img1" src="../../static/images/common/moon1.png"
             mode="widthFix"></image>
           <image class="img2" src="../../static/images/common/moon2.png"

@@ -32,9 +32,19 @@
           background="#000000" text="立即开通"></fui-button>
       </view>
     </view>
-    <view class="">
-
+    <view class="tabs u-mt-32">
+		<view class="tabs-li">
+			<image src="../../static/images/mine/order.png" mode=""></image>
+			我的订单
+		</view>
+		<view class="tabs-li">
+			<image src="../../static/images/mine/phone.png" mode=""></image>
+			联系我们
+		</view>
     </view>
+	<view class="tabs u-mt-36">
+		
+	</view>
   </scroll-view>
 </template>
 
@@ -43,7 +53,9 @@
   export default {
     components: { xNavbar },
     data() {
-      return {}
+      return {
+		  
+	  }
     }
   }
 </script>
@@ -118,5 +130,35 @@
         }
       }
     }
+	.tabs {
+		width: 100%;
+		height: 128rpx;
+		border-radius: 10rpx;
+		background-color: #f7f7f7;
+		flex-direction: row;
+		align-items: center;
+		&-li {
+			flex: 1;
+			height: fit-content;
+			@include flex(row, center, center);
+			&:first-of-type {
+				// content: '';
+				// position: absolute;
+				// right: 0;
+				// top: 50%;
+				// width: 1rpx;
+				// height: 30rpx;
+				// background-color: #00000050;
+				border-right: 1rpx solid #00000050;
+			}
+			image {
+				width: 40rpx;
+				height: 40rpx;
+				margin-right: 2px;
+				position: relative;
+				top: -1px;
+			}
+		}
+	}
   }
 </style>
