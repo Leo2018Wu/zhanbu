@@ -14,7 +14,7 @@
     </view>
     <fui-button width="574rpx" margin="30% auto 0 auto" radius="7rpx"
       background="#020202" text="获取验证码" @click="nextLogin()"
-      :disabled="!isNext"></fui-button>
+      :disabled="phone.length === 11"></fui-button>
   </view>
 </template>
 
@@ -22,8 +22,6 @@
   import xNavbar from '@/components/x-navbar/x-navbar.uvue'
 
   const phone = ref('')
-
-  const isNext = computed(() => phone.value.length === 11)
 
   const nextLogin = () => {
     uni.navigateTo({ url: `/commonPages/login/login3?phone=${phone.value}`, })

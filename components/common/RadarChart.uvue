@@ -12,9 +12,9 @@
   const chartRef = ref<LEchartComponentPublicInstance | null>(null);
 
   const option = {
-    legend: {
-      data: []
-    },
+    // legend: {
+    //   data: []
+    // },
     radar: {
       indicator: [
         { name: '金', max: 100, color: '#000' },
@@ -27,7 +27,7 @@
         lineStyle: {
         }
       },
-      splitArea: { areaStyle: Array(6).fill('transparent') },
+      splitArea: { areaStyle: ['transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent'] },
       splitLine: {
         lineStyle: { color: '#020202', width: 0.5 }
       }

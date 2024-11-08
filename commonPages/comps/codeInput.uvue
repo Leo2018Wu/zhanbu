@@ -4,7 +4,7 @@
       <fui-input :ref="`inputRef${index}`" :maxlength="1" :borderBottom="false"
         type="number" textAlign="center" :focus="index === foucsIndex"
         placeholder="" :labelWidth="0" padding="0" :size="52"
-        v-model="codeValue[index]" @input="onInput(index)">
+        v-model="codeValue[index] as number" @input="onInput(index)">
       </fui-input>
       <view class="border-bottom"
         :class="{'border-bottom__active': index === foucsIndex}" />
