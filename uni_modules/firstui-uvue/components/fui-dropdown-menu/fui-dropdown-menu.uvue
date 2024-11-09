@@ -33,7 +33,7 @@
                   :style="{width:`${iconWidth}rpx`,height:`${iconWidth}rpx`}">
                 </image>
               </view>
-              <text class="fui-ddm__item-text"
+              <text class="font-f-SanJi fui-ddm__item-text"
                 :class="{ 'fui-ddm__text-pl':!isReverse && (isCheckbox || (model.src!='' && model.src!=null)),'fui-ddm__text-pr':isReverse && (isCheckbox || (model.src!='' && model.src!=null))}"
                 :style="{fontSize:`${size}rpx`,color:selectedColor!='' && model.checked==true?selectedColor:color}">{{model.text}}</text>
             </view>
@@ -333,7 +333,8 @@
 
 
   .fui-dropdown__menu {
-    flex: 1;
+    // flex: 1;
+    // align-items: center;
   }
 
   .fui-ddm__scroll {
@@ -341,6 +342,7 @@
   }
 
   .fui-dropdown__menu-list {
+    width: 80px;
     position: fixed;
     transition-timing-function: ease-in-out;
     transition-duration: 0.3s;

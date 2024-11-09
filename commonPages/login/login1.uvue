@@ -8,7 +8,7 @@
       <view class="divide">
         <image class="img2" src="../../static/images/login/line.png"
           mode="widthFix"></image>
-        <text class="u-font-40 u-mx-10">让传统变潮流</text>
+        <text class="font-f-SanJi u-font-40 u-mx-10">让传统变潮流</text>
         <image class="img3" src="../../static/images/login/line.png"
           mode="widthFix"></image>
       </view>

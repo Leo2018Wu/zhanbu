@@ -1,11 +1,12 @@
 <template>
+  <uni-navbar-lite title="" />
   <view class="login2-page safe-top">
-    <xNavbar />
     <view class="inner">
       <image class="img1" src="../../static/images/login/login_img1.png"
         mode="widthFix"></image>
-      <text class="u-font-36 u-mt-36">登录星运</text>
-      <text class="u-font-28 u-mt-24" style="color: #999;">未注册手机验证后自动登录</text>
+      <text class="font-f-SanJi u-font-36 u-mt-36">登录星运</text>
+      <text class="font-f-SanJi u-font-28 u-mt-24"
+        style="color: #999;">未注册手机验证后自动登录</text>
       <view class="input_wrapper">
         <fui-input label="+86" type="number" :maxlength="11" borderBottom
           placeholder="请输入手机号码" v-model="phone">
@@ -19,9 +20,9 @@
 </template>
 
 <script lang='uts' setup>
-  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
 
-  const phone = ref<string>('')
+  const phone = ref('')
 
   const nextLogin = () => {
     uni.navigateTo({ url: `/commonPages/login/login3?phone=${phone.value}`, })

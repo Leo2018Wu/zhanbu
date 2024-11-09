@@ -13,25 +13,12 @@
       }
     },
     {
+      "path": "commonPages/splash/splash"
+    },
+    {
       "path": "pages/home/home",
       "style": {
         "navigationBarTitleText": ""
-      }
-    },
-    {
-      "path": "commonPages/splash/splash",
-      "style": {
-        "enablePullDownRefresh": false,
-        "disableScroll": true,
-        "h5": {
-          "pullToRefresh": {
-            "support": false
-
-          },
-          "titleNView": {
-            "backgroundColor": "#171417"
-          }
-        }
       }
     },
     {

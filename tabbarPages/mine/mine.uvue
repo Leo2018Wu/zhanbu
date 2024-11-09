@@ -1,64 +1,66 @@
 <template>
-  <scroll-view class="mine-page safe-top safe-bottom">
-    <xNavbar title="个人中心" :isBack="false" />
-    <view class="userinfo">
-      <fui-avatar :width="116"
-        src="/static/images/common/avatar2.png"></fui-avatar>
-      <view class="userinfo-content">
-        <text class="u-font-42">自己 <text class="u-font-24"
-            style="color:#7e7e7e">@zhudeyong</text></text>
-        <view class="userinfo-labels">
-          <image class="icon" src="/static/images/mine/xingzuo.png" mode="" />
-          <text class="name">白羊座</text>
-          <image class="icon" src="/static/images/mine/wuxing.png" mode="" />
-          <text class="name">水命</text>
-          <image class="icon" src="/static/images/mine/moon.png" mode="" />
-          <text class="name">上升射手</text>
+  <view style="padding-bottom: 20px;">
+    <uni-navbar-lite title="个人中心" :isBack="false" />
+    <scroll-view class="mine-page">
+      <view class="userinfo">
+        <fui-avatar :width="116"
+          src="/static/images/common/avatar2.png"></fui-avatar>
+        <view class="userinfo-content">
+          <text class="u-font-42">自己 <text class="u-font-24"
+              style="color:#7e7e7e">@zhudeyong</text></text>
+          <view class="userinfo-labels">
+            <image class="icon" src="/static/images/mine/xingzuo.png" mode="" />
+            <text class="name">白羊座</text>
+            <image class="icon" src="/static/images/mine/wuxing.png" mode="" />
+            <text class="name">水命</text>
+            <image class="icon" src="/static/images/mine/moon.png" mode="" />
+            <text class="name">上升射手</text>
+          </view>
         </view>
       </view>
-    </view>
-    <view class="vip-wrapper u-mt-40">
-      <image class="vip-bg" src="@/static/images/mine/mine_bg.png"
-        mode="widthFix"></image>
-      <view class="vip-content">
-        <view class="vip-level">
-          <image class="vip-level__img" src="@/static/images/mine/vip.png"
-            mode="">
-          </image>
-          <text
-            style="color: #000;font-size: 36rpx;margin-left: 2px;">普通会员</text>
+      <view class="vip-wrapper u-mt-40">
+        <image class="vip-bg" src="@/static/images/mine/mine_bg.png"
+          mode="widthFix"></image>
+        <view class="vip-content">
+          <view class="vip-level">
+            <image class="vip-level__img" src="@/static/images/mine/vip.png"
+              mode="">
+            </image>
+            <text
+              style="color: #000;font-size: 36rpx;margin-left: 2px;">普通会员</text>
+          </view>
+          <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
+            background="#000000" text="立即开通"></fui-button>
         </view>
-        <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
-          background="#000000" text="立即开通"></fui-button>
       </view>
-    </view>
-    <view class="tabs u-mt-32">
-      <view class="tabs-li">
-        <image src="../../static/images/mine/order.png" mode=""></image>
-        我的订单
+      <view class="tabs u-mt-32">
+        <view class="tabs-li">
+          <image src="../../static/images/mine/order.png" mode=""></image>
+          我的订单
+        </view>
+        <view class="tabs-li">
+          <image src="../../static/images/mine/phone.png" mode=""></image>
+          联系我们
+        </view>
       </view>
-      <view class="tabs-li">
-        <image src="../../static/images/mine/phone.png" mode=""></image>
-        联系我们
-      </view>
-    </view>
-    <view class="tabs u-mt-36">
+      <view class="tabs u-mt-36">
 
-    </view>
-	<view class="tabs u-mt-36">
-		
-	</view>
-  </scroll-view>
+      </view>
+      <view class="tabs u-mt-36">
+
+      </view>
+    </scroll-view>
+  </view>
 </template>
 
 <script>
-  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
   export default {
-    components: { xNavbar },
+    components: { uniNavbarLite },
     data() {
       return {
-		  
-	  }
+
+      }
     }
   }
 </script>

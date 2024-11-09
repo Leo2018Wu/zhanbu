@@ -1,74 +1,78 @@
 <template>
-  <scroll-view class="home-page safe-top safe-bottom">
-    <xNavbar>
+  <view>
+    <uni-navbar-lite>
       <template #center>
         <fui-dropdown-menu :size="28" :isCheckbox="false" padding="10rpx 0"
           background="#F6F6F6" :radius="7" selectedColor="#000" color="#999"
           :menus="menus" @onclick="rangeItemClick" @close="rangeClose"
           ref="ddmRange">
           <view class="fui-filter__item" @tap="filterTap">
-            <text class="fui-text u-font-28">{{range}}</text>
+            <text class="font-f-SanJi fui-text u-font-28">{{range}}</text>
             <view class="fui-filter__icon" :class="{'fui-icon__ani':rangeShow}">
               <fui-icon name="turningdown" :size="32"></fui-icon>
             </view>
           </view>
         </fui-dropdown-menu>
       </template>
-    </xNavbar>
-    <image class="home__bg" src="@/static/images/common/home_bg1.png"
-      mode="widthFix"></image>
-    <view class="echart-wrapper" style="width: 200px;height: 220px;">
-      <radar-chart></radar-chart>
-    </view>
-    <view class="health-li u-mt-40">
-      <view class="health-li__label">
-        2023年-健康
+    </uni-navbar-lite>
+    <scroll-view class="home-page" style="padding-bottom: 20px;">
+      <image class="home__bg" src="@/static/images/common/home_bg1.png"
+        mode="widthFix"></image>
+      <view class="echart-wrapper" style="width: 200px;height: 220px;">
+        <radar-chart></radar-chart>
       </view>
-      <text class="health-li__desc">
-        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
-      </text>
-    </view>
-    <view class="health-li">
-      <view class="health-li__label">
-        2024年-健康
+      <view class="health-li u-mt-40">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">2023年-健康</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+        </text>
       </view>
-      <text class="health-li__desc">
-        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
-      </text>
-    </view>
-    <view class="divider">
-      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-      <text class="u-font-40 u-mx-10">原局推演</text>
-      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-    </view>
-    <view class="health-li u-mt-72">
-      <view class="health-li__label">
-        五行养生
+      <view class="health-li">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">2024年-健康</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+        </text>
       </view>
-      <text class="health-li__desc">
-        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
-      </text>
-    </view>
-    <view class="health-li">
-      <view class="health-li__label">
-        命理风水
+      <view class="divider">
+        <image class="img1" src="@/static/images/login/line.png"
+          mode="widthFix">
+        </image>
+        <text class="font-f-SanJi u-font-40 u-mx-10">原局推演</text>
+        <image class="img2" src="@/static/images/login/line.png"
+          mode="widthFix">
+        </image>
       </view>
-      <text class="health-li__desc">
-        容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
-      </text>
-    </view>
-  </scroll-view>
+      <view class="health-li u-mt-72">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">五行养生</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+        </text>
+      </view>
+      <view class="health-li">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">命理风水</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+        </text>
+      </view>
+    </scroll-view>
+  </view>
 </template>
 
 <script>
-  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
   import { FuiDropdownMenuOptionParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
   import RadarChart from '@/components/common/RadarChart.uvue'
 
   export default {
-    components: { xNavbar, RadarChart },
+    components: { uniNavbarLite, RadarChart },
     data() {
       return {
         menus: [{
@@ -111,12 +115,19 @@
 
   .home-page {
     flex: 1;
-    color: #000;
     padding: 0 52rpx;
+    position: relative;
+
+    .home__bg {
+      width: 623rpx;
+      position: fixed;
+      left: 0;
+      top: 10%;
+      z-index: -1;
+    }
 
     .health-li {
       position: relative;
-      font-size: 28rpx;
       padding: 38rpx 26rpx 26rpx;
       border-radius: 26rpx;
       background-color: #f6f6f6;
@@ -131,12 +142,9 @@
         left: 0;
         top: -30rpx;
         background-color: #020202;
-        color: #fff;
-        font-size: 28rpx;
         min-width: 214rpx;
         height: 54rpx;
-        line-height: 54rpx;
-        text-align: center;
+        @include flex(row, center, center);
         border-radius: 27rpx;
       }
     }
@@ -158,13 +166,6 @@
         transform: rotate(180deg);
       }
     }
-  }
-
-  .home__bg {
-    width: 623rpx;
-    position: fixed;
-    left: 0;
-    top: 10%;
   }
 
   .fui-filter__item {

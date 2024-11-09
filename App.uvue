@@ -6,7 +6,7 @@
       uni.loadFontFace({
         global: true,
         family: 'SanJiHuaChaoTi',
-        source: "url('/static/fonts/SanJiHuaChaoTi-Cu-2.ttf')",
+        source: 'url(\'/static/fonts/SanJiHuaChaoTi-Cu-2.ttf\')',
       })
     },
     onShow: function () {
@@ -41,20 +41,24 @@
 
 <style lang="scss">
   @import "@/static/css/global.scss";
+
   /* #ifdef WEB */
-	body {
-	    font-family: 'SanJiHuaChaoTi';
-	  }
+  body {
+    font-family: 'SanJiHuaChaoTi';
+  }
+
   /* #endif */
-	.font-f-SanJi {
-		font-family: SanJiHuaChaoTi;
-	}
-	.text-white {
-		color: #ffffff;
-	}
+  .font-f-SanJi {
+    font-family: SanJiHuaChaoTi;
+  }
+
+  .text-white {
+    color: #ffffff;
+  }
+
   .safe-bottom {
-    padding-bottom: calc(constant(safe-area-inset-bottom) + 8rpx) !important;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 8rpx) !important;
+    padding-bottom: calc(constant(safe-area-inset-bottom) + 10px) !important;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 10px) !important;
   }
 
   .safe-top {

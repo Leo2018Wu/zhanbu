@@ -1,58 +1,62 @@
 <template>
-  <scroll-view class="middle-page safe-top safe-bottom">
-    <xNavbar title="桃花" />
-    <image class="home__bg" src="@/static/images/common/home_bg1.png"
-      mode="widthFix"></image>
-    <view class="page-title">
-      趋势
-    </view>
-    <view class="echart-wrapper" style="width: 300px;height: 220px;">
-      <radar-chart></radar-chart>
-    </view>
-    <view class="health-li u-mt-42">
-      <view class="health-li__label">
-        2023年-桃花
-      </view>
-      <text class="health-li__desc">
-        2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+  <view>
+    <uni-navbar-lite title="桃花" />
+    <scroll-view class="middle-page u-pt-42" style="padding-bottom: 20px;">
+      <image class="home__bg" src="@/static/images/common/home_bg1.png"
+        mode="widthFix"></image>
+      <text class="font-f-SanJi page-title">
+        趋势
       </text>
-    </view>
-    <view class="divider">
-      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-      <text class="u-font-40 u-mx-10">原局推演</text>
-      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-    </view>
-    <view class="health-li u-mt-72">
-      <view class="health-li__label">
-        未来配偶方向
+      <view class="echart-wrapper" style="width: 300px;height: 220px;">
+        <radar-chart></radar-chart>
       </view>
-      <text class="health-li__desc">
-        2023年为农历笑卯年，子午卯酉为四桃花地，桃花代表人气人缘。因此，相对十二地支而言，2023本身就带有桃花年的意思。
-        那么，今天我们就来带大家看看2023年十二生肖桃花运势如何。
-      </text>
-    </view>
-    <view class="health-li u-mt-72">
-      <view class="health-li__label">
-        婚姻
+      <view class="health-li u-mt-82">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">2023年-桃花</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+        </text>
       </view>
-      <text class="health-li__desc">
-        2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+      <view class="divider">
+        <image class="img1" src="@/static/images/login/line.png"
+          mode="widthFix">
+        </image>
+        <text class="font-f-SanJi u-font-40 u-mx-10">原局推演</text>
+        <image class="img2" src="@/static/images/login/line.png"
+          mode="widthFix">
+        </image>
+      </view>
+      <view class="health-li u-mt-72">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">未来配偶方向</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          2023年为农历笑卯年，子午卯酉为四桃花地，桃花代表人气人缘。因此，相对十二地支而言，2023本身就带有桃花年的意思。
+          那么，今天我们就来带大家看看2023年十二生肖桃花运势如何。
+        </text>
+      </view>
+      <view class="health-li u-mt-72">
+        <view class="health-li__label">
+          <text class="font-f-SanJi text-white u-font-28">婚姻</text>
+        </view>
+        <text class="font-f-SanJi health-li__desc">
+          2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
 
-        2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引着大量令人心动的异性。
+          2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引着大量令人心动的异性。
 
-        2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
-      </text>
-    </view>
-  </scroll-view>
+          2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+        </text>
+      </view>
+    </scroll-view>
+  </view>
 </template>
 
 <script>
-  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
   import RadarChart from '../comps/RadarChart.uvue'
   export default {
-    components: { xNavbar, RadarChart },
+    components: { uniNavbarLite, RadarChart },
     data() {
       return {}
     }
@@ -65,8 +69,6 @@
   .middle-page {
     flex: 1;
     align-items: center;
-    color: #000;
-    font-size: 32rpx;
     padding: 0 52rpx;
 
     .page-title {
@@ -74,8 +76,8 @@
       font-weight: bold;
       color: #000;
       position: absolute;
-      left: 52rpx;
-      top: 100rpx;
+      left: 0rpx;
+      top: 0rpx;
     }
 
     .home__bg {
@@ -83,11 +85,11 @@
       position: fixed;
       left: 0;
       top: 10%;
+      z-index: -1;
     }
 
     .health-li {
       position: relative;
-      font-size: 28rpx;
       padding: 38rpx 26rpx 26rpx;
       border-radius: 7rpx;
       background-color: #f6f6f6;
@@ -102,12 +104,9 @@
         left: 0;
         top: -30rpx;
         background-color: #020202;
-        color: #fff;
-        font-size: 28rpx;
         min-width: 214rpx;
         height: 54rpx;
-        line-height: 54rpx;
-        text-align: center;
+        @include flex(row, center, center);
         border-radius: 7rpx;
       }
     }

@@ -1,20 +1,26 @@
 <template>
   <view class="splash-page safe-bottom safe-top">
-    <image class="moon-img" src="../../static/images/common/moon.png" mode=""></image>
+    <fui-animation :duration="2000" :animationType="mode" :styles="styles"
+      :visible="isShow">
+      <image class="moon-img" src="../../static/images/common/moon.png" mode="">
+      </image>
+    </fui-animation>
     <view class="inner">
-      <text class="text-white ani-delay1 u-mt-60"
+      <text class="font-f-SanJi text-white ani-delay1 u-mt-60"
         :class="{'ani-visible': delayFlag1}">星辰指引，前方光明</text>
-      <text class="text-white ani-delay2 u-mt-32"
+      <text class="font-f-SanJi text-white ani-delay2 u-mt-32"
         :class="{'ani-visible': delayFlag2}">坚持与乐观将带来意外的好机会</text>
-      <text class="text-white ani-delay3 u-mt-32"
+      <text class="font-f-SanJi text-white ani-delay3 u-mt-32"
         :class="{'ani-visible': delayFlag3}">相信自己，美好即将来临</text>
-      <text class="text-white ani-delay4"
+      <text class="font-f-SanJi text-white ani-delay4"
         :class="{'ani-visible': delayFlag4}">星辰指引着你的方向</text>
-      <text class="text-white ani-delay4 u-mt-12"
+      <text class="font-f-SanJi text-white ani-delay4 u-mt-12"
         :class="{'ani-visible': delayFlag4}">而内心的力量将是你最坚强的后盾</text>
     </view>
     <view class="btn ani-delay5" :class="{'ani-visible': delayFlag5}"
-      @click="goLogin()">立即登录</view>
+      @click="goLogin()">
+      <text class="font-f-SanJi u-font-32" style="color:#000">立即登录</text>
+    </view>
   </view>
 </template>
 
@@ -27,7 +33,13 @@
         delayFlag3: false,
         delayFlag4: false,
         delayFlag5: false,
+        isShow: false,
+        mode: ['fade'] as string[],
+        styles: {} as UTSJSONObject
       }
+    },
+    onReady() {
+      this.ani(['slide-bottom'], false)
     },
     mounted() {
       setTimeout(() => {
@@ -47,6 +59,23 @@
       }, 6300)
     },
     methods: {
+      ani(mode : string[], mask : boolean) {
+        if (mask) {
+          this.styles['background-color'] = 'rgba(0,0,0,0.6)';
+        } else {
+          this.styles['background-color'] = 'rgba(0,0,0,0)';
+        }
+        this.styles['position'] = 'relative'
+        //如果两次设置的动画效果一致则直接显示
+        if (JSON.stringify(mode) == JSON.stringify(this.mode)) {
+          this.isShow = !this.isShow;
+        } else {
+          this.mode = mode;
+          setTimeout(() => {
+            this.isShow = !this.isShow;
+          }, 50)
+        }
+      },
       goLogin() {
         uni.navigateTo({ url: '/commonPages/login/login1', })
       }
@@ -55,17 +84,7 @@
 </script>
 
 <style lang="scss">
-  // @keyframes silde-in {
-  //   from {
-  //     opacity: 0;
-  //     transform: translateY(50vh);
-  //   }
-
-  //   to {
-  //     opacity: 1;
-  //     transform: translateY(0);
-  //   }
-  // }
+  @import "@/static/css/flex.scss";
 
   // @keyframes text-focus-in {
   //   0% {
@@ -82,10 +101,6 @@
   //   }
   // }
 
-  .text-white {
-    color: #fff;
-  }
-
   .splash-page {
     color: #fff;
     background: #171417;
@@ -98,7 +113,7 @@
     .moon-img {
       width: 384rpx;
       height: 384rpx;
-      // animation: silde-in 2s ease forwards;
+      margin-top: 20px;
     }
 
     .inner {
@@ -110,7 +125,7 @@
       .ani-delay2,
       .ani-delay3,
       .ani-delay4 {
-        visibility: hidden;
+        opacity: 0;
       }
 
       .ani-delay1,
@@ -120,46 +135,43 @@
         text-align: center;
       }
 
-      // .ani-delay1 {
-      //   animation: text-focus-in 1s ease-in-out 1.5s;
-      // }
+      .ani-delay1 {
+        transition: opacity 1s ease-in-out;
+      }
 
-      // .ani-delay2 {
-      //   animation: text-focus-in 1s ease-in-out 2.5s;
-      // }
+      .ani-delay2 {
+        transition: opacity 1s ease-in-out;
+      }
 
-      // .ani-delay3 {
-      //   animation: text-focus-in 1s ease-in-out 3.5s;
-      // }
+      .ani-delay3 {
+        transition: opacity 1s ease-in-out;
+      }
 
       .ani-delay4 {
         text-align: center;
         font-size: 28rpx;
         color: #999;
         margin-top: auto;
-        // animation: text-focus-in 1s ease-in-out 4.5s;
+        transition: opacity 1s ease-in-out;
       }
     }
 
     .ani-delay5 {
-      visibility: hidden;
-      // animation: text-focus-in 1s ease-in-out 5.5s;
+      transition: opacity 1.5s ease-in-out;
     }
 
     .btn {
+      opacity: 0;
       width: 600rpx;
       height: 88rpx;
       background: #FFFEFE;
       border-radius: 7rpx 7rpx 7rpx 7rpx;
-      font-size: 32rpx;
-      color: #000;
-      line-height: 88rpx;
-      text-align: center;
       margin-bottom: 20px;
+      @include flex(row, center, center)
     }
 
     .ani-visible {
-      visibility: visible !important;
+      opacity: 1 !important;
     }
 
   }
