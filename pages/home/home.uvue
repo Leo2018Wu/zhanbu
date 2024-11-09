@@ -38,12 +38,12 @@
         <text class="u-font-24 title">您的姓名</text>
         <fui-input borderBottom padding="20rpx 32rpx 10rpx 32rpx"
           textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
-          placeholder="请输入您的姓名" v-model="formData.name as string">
+          placeholder="请输入您的姓名" v-model="name as string">
         </fui-input>
         <view class="sex-list u-mt-42">
-          <view class="sex-li" @click="formData.gender = item.value"
+          <view class="sex-li" @click="gender = item.value"
             v-for="item in genderList" :key="item.value"
-            :class="{'sex-li__active': formData.gender === item.value}">
+            :class="{'sex-li__active': gender === item.value}">
             {{item.label}}
           </view>
         </view>
@@ -218,11 +218,8 @@
           { title: '金', fullColor: '#CD4E4820', activeColor: '#CD4E48', percent: '60%', up: true },
           { title: '金', fullColor: '#5496B820', activeColor: '#5496B8', percent: '40%', up: false },
         ],
-        formData: {
-          name: '',
-          gender: 1,
-        }
-
+        name: '',
+        gender: 1,
       }
     },
     methods: {

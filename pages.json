@@ -53,47 +53,43 @@
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
-    },
-    {
-      "path": "commonPages/login/login3",
-      "style": {
-        "navigationBarTitleText": ""
-      }
-    },
-    {
-      "path": "tabbarPages/home/home",
-      "style": {
-        "navigationBarTitleText": ""
-      }
-    },
-    {
-      "path" : "tabbarPages/mine/mine",
-      "style" : 
-      {
-        "navigationBarTitleText" : ""
-      }
-    },
-    {
-      "path" : "tabbarPages/friendList/friendList",
-      "style" : 
-      {
-        "navigationBarTitleText" : ""
-      }
-    },
-    {
-      "path" : "tabbarPages/middlePage/middlePage",
-      "style" : 
-      {
-        "navigationBarTitleText" : ""
-      }
-    },
-    {
-      "path" : "tabbarPages/matchPage/matchPage",
-      "style" : 
-      {
-        "navigationBarTitleText" : ""
-      }
     }
+    // // {
+    // //   "path": "commonPages/login/login3",
+    // //   "style": {
+    // //     "navigationBarTitleText": ""
+    // //   }
+    // // },
+    // {
+    //   "path": "tabbarPages/home/home",
+    //   "style": {
+    //     "navigationBarTitleText": ""
+    //   }
+    // },
+    // {
+    //   "path": "tabbarPages/mine/mine",
+    //   "style": {
+    //     "navigationBarTitleText": ""
+    //   }
+    // },
+    // {
+    //   "path": "tabbarPages/friendList/friendList",
+    //   "style": {
+    //     "navigationBarTitleText": ""
+    //   }
+    // },
+    // {
+    //   "path": "tabbarPages/middlePage/middlePage",
+    //   "style": {
+    //     "navigationBarTitleText": ""
+    //   }
+    // },
+    // {
+    //   "path": "tabbarPages/matchPage/matchPage",
+    //   "style": {
+    //     "navigationBarTitleText": ""
+    //   }
+    // }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",

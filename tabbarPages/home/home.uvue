@@ -24,7 +24,7 @@
       <view class="health-li__label">
         2023年-健康
       </view>
-      <text>
+      <text class="health-li__desc">
         容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
       </text>
     </view>
@@ -32,7 +32,7 @@
       <view class="health-li__label">
         2024年-健康
       </view>
-      <text>
+      <text class="health-li__desc">
         容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
       </text>
     </view>
@@ -47,7 +47,7 @@
       <view class="health-li__label">
         五行养生
       </view>
-      <text>
+      <text class="health-li__desc">
         容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
       </text>
     </view>
@@ -55,7 +55,7 @@
       <view class="health-li__label">
         命理风水
       </view>
-      <text>
+      <text class="health-li__desc">
         容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
       </text>
     </view>
@@ -116,12 +116,15 @@
 
     .health-li {
       position: relative;
-      line-height: 42rpx;
       font-size: 28rpx;
-      padding: 48rpx 26rpx 26rpx;
+      padding: 38rpx 26rpx 26rpx;
       border-radius: 26rpx;
       background-color: #f6f6f6;
       overflow: visible;
+
+      &__desc {
+        line-height: 1.6 !important;
+      }
 
       &__label {
         position: absolute;
@@ -162,7 +165,6 @@
     position: fixed;
     left: 0;
     top: 10%;
-    z-index: -1;
   }
 
   .fui-filter__item {

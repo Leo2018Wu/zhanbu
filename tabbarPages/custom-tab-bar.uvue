@@ -19,51 +19,60 @@
     <view ref="tabbar" class="tab-bar">
       <view class="tab-item" @click="onTabClick(0)">
         <view ref="tab-item1" class="tab-item-content">
-          <image v-if="selectedIndex === 0" style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex === 0"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_1_active.png" mode="">
           </image>
-          <image v-else style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex !== 0"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_1.png" mode="">
           </image>
         </view>
       </view>
       <view class="tab-item" @click="onTabClick(1)">
         <view ref="tab-item2" class="tab-item-content">
-          <image v-if="selectedIndex === 1" style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex === 1"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_2_active.png" mode="">
           </image>
-          <image v-else style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex !== 1"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_2.png" mode="">
           </image>
         </view>
       </view>
       <view class="tab-item" @click="onTabClick(2)">
         <view ref="tab-item3" class="tab-item-content">
-          <image v-if="selectedIndex === 2"
+          <image v-show="selectedIndex === 2"
             style="width: 100rpx; height: 100rpx;"
             src="../static/tabbar/tabbar_3_active.png" mode="">
           </image>
-          <image v-else style="width: 100rpx; height: 100rpx;"
+          <image v-show="selectedIndex !== 2"
+            style="width: 100rpx; height: 100rpx;"
             src="../static/tabbar/tabbar_3.png" mode="">
           </image>
         </view>
       </view>
       <view class="tab-item" @click="onTabClick(3)">
         <view ref="tab-item4" class="tab-item-content">
-          <image v-if="selectedIndex === 3" style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex === 3"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_4_active.png" mode="">
           </image>
-          <image v-else style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex !== 3"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_4.png" mode="">
           </image>
         </view>
       </view>
       <view class="tab-item" @click="onTabClick(4)">
         <view ref="tab-item5" class="tab-item-content">
-          <image v-if="selectedIndex === 4" style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex === 4"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_5_active.png" mode="">
           </image>
-          <image v-else style="width: 80rpx; height: 80rpx;"
+          <image v-show="selectedIndex !== 4"
+            style="width: 80rpx; height: 80rpx;"
             src="../static/tabbar/tabbar_5.png" mode="">
           </image>
         </view>

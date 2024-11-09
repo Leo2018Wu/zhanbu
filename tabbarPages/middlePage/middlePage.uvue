@@ -1,17 +1,129 @@
 <template>
-  <scroll-view style="flex:1">
-    我是中间页面
+  <scroll-view class="middle-page safe-top safe-bottom">
+    <xNavbar title="桃花" />
+    <image class="home__bg" src="@/static/images/common/home_bg1.png"
+      mode="widthFix"></image>
+    <view class="page-title">
+      趋势
+    </view>
+    <view class="echart-wrapper" style="width: 300px;height: 220px;">
+      <radar-chart></radar-chart>
+    </view>
+    <view class="health-li u-mt-42">
+      <view class="health-li__label">
+        2023年-桃花
+      </view>
+      <text class="health-li__desc">
+        2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+      </text>
+    </view>
+    <view class="divider">
+      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+      <text class="u-font-40 u-mx-10">原局推演</text>
+      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+    </view>
+    <view class="health-li u-mt-72">
+      <view class="health-li__label">
+        未来配偶方向
+      </view>
+      <text class="health-li__desc">
+        2023年为农历笑卯年，子午卯酉为四桃花地，桃花代表人气人缘。因此，相对十二地支而言，2023本身就带有桃花年的意思。
+        那么，今天我们就来带大家看看2023年十二生肖桃花运势如何。
+      </text>
+    </view>
+    <view class="health-li u-mt-72">
+      <view class="health-li__label">
+        婚姻
+      </view>
+      <text class="health-li__desc">
+        2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+
+        2023年，对于您来说将是一年充满桃花的运势之年。在桃花运方面，白羊座将以其独特的魅力和积极的态度吸引着大量令人心动的异性。
+
+        2023年对干你来说将是一年充满桃花的运势之年。在桃花运方固，日干座仔以其独特的魅力和积极的态度吸引看大量令人心动的异性。无论是单身还是有伴，都有机会在这一年中迎来令人难以忘怀的爱情。
+      </text>
+    </view>
   </scroll-view>
 </template>
 
 <script>
+  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import RadarChart from '../comps/RadarChart.uvue'
   export default {
+    components: { xNavbar, RadarChart },
     data() {
       return {}
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  @import "@/static/css/flex.scss";
 
+  .middle-page {
+    flex: 1;
+    align-items: center;
+    color: #000;
+    font-size: 32rpx;
+    padding: 0 52rpx;
+
+    .page-title {
+      font-size: 36rpx;
+      font-weight: bold;
+      color: #000;
+      position: absolute;
+      left: 52rpx;
+      top: 100rpx;
+    }
+
+    .home__bg {
+      width: 623rpx;
+      position: fixed;
+      left: 0;
+      top: 10%;
+    }
+
+    .health-li {
+      position: relative;
+      font-size: 28rpx;
+      padding: 38rpx 26rpx 26rpx;
+      border-radius: 7rpx;
+      background-color: #f6f6f6;
+      overflow: visible;
+
+      &__desc {
+        line-height: 1.6 !important;
+      }
+
+      &__label {
+        position: absolute;
+        left: 0;
+        top: -30rpx;
+        background-color: #020202;
+        color: #fff;
+        font-size: 28rpx;
+        min-width: 214rpx;
+        height: 54rpx;
+        line-height: 54rpx;
+        text-align: center;
+        border-radius: 7rpx;
+      }
+    }
+
+    .divider {
+      margin-top: 42rpx;
+      @include flex(row, space-between, center);
+
+      .img1 {
+        width: 230rpx;
+      }
+
+      .img2 {
+        width: 230rpx;
+        transform: rotate(180deg);
+      }
+    }
+  }
 </style>

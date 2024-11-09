@@ -12,24 +12,22 @@
   const chartRef = ref<LEchartComponentPublicInstance | null>(null);
 
   const option = {
-    legend: {
-      data: []
-    },
+    // legend: {
+    //   data: []
+    // },
     radar: {
       indicator: [
-        {
-          name: '金', max: 100,
-        },
-        { name: '木', max: 100 },
-        { name: '水', max: 100 },
-        { name: '火', max: 100 },
-        { name: '土', max: 100 },
+        { name: '金', max: 100, color: '#000' },
+        { name: '木', max: 100, color: '#000' },
+        { name: '水', max: 100, color: '#000' },
+        { name: '火', max: 100, color: '#000' },
+        { name: '土', max: 100, color: '#000' },
       ],
       axisLine: {
         lineStyle: {
         }
       },
-      splitArea: { areaStyle: Array(6).fill('transparent') },
+      splitArea: { areaStyle: ['transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent'] },
       splitLine: {
         lineStyle: { color: '#020202', width: 0.5 }
       }
