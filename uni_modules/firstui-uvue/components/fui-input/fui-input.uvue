@@ -14,16 +14,16 @@
       v-if="inputBorder"></view>
     <!-- #endif -->
     <view class="fui-input__required" v-if="required">
-      <text :style="getRequiredColor" class="fui-input__asterisk-text"
+      <text :style="getRequiredColor" class="font-f-SanJi fui-input__asterisk-text"
         :class="{'fui-input__asterisk-color':requiredColor==''}">*</text>
     </view>
     <view class="fui-input__label" :style="{minWidth:`${labelWidth}rpx`}"
       v-if="label!=''">
-      <text :class="{'fui-input__label-size':labelSize==0}"
+      <text class="font-f-SanJi" :class="{'fui-input__label-size':labelSize==0}"
         :style="getLabelStyl">{{label}}</text>
     </view>
     <slot name="left"></slot>
-    <input :ref="refId" class="fui-input__self"
+    <input :ref="refId" class="font-f-SanJi fui-input__self"
       :class="{'fui-input__disabled':disabled,'fui-input__size':size==0}"
       :style="{fontSize:`${size}rpx`,color:color,textAlign:textAlign}"
       placeholder-class="fui-input__placeholder" :type="type" :name="name"

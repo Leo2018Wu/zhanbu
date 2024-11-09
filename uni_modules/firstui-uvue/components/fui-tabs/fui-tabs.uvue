@@ -20,7 +20,7 @@
 							v-if="tab.icon!=null && tab.icon!=''">
 						</image>
 						<view class="fui-tabs__text" :style="{transform:`scale(${tabIndex==index?scale:1})`}">
-							<text :class="{'fui-tabs__selected-color':selectedColor=='' && tabIdx==index}"
+							<text class="font-f-SanJi" :class="{'fui-tabs__selected-color':selectedColor=='' && tabIdx==index}"
 								:style="getTextStyl(tabIndex,index)">
 								{{tab.name}}
 							</text>

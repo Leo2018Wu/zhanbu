@@ -11,7 +11,7 @@
       </view>
       <!-- #endif -->
     </view>
-    <text class="fui-button__text"
+    <text class="font-f-SanJi fui-button__text"
       :class="{'fui-btn__gray-color':background=='' && disabledBackground=='' && !plain && type=='gray' && color=='#fff','fui-text__bold':bold,'fui-button__size':size==0 && btnSize=='','fui-button__height-text':height=='' && btnSize==''}"
       v-if="text"
       :style="{fontSize: getSize,color:getColor,height: getHeight,lineHeight:getHeight}">{{text}}</text>

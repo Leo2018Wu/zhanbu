@@ -1,6 +1,6 @@
 <template>
   <view class="splash-page safe-bottom safe-top">
-    <image src="../../static/images/common/moon.png" mode=""></image>
+    <image class="moon-img" src="../../static/images/common/moon.png" mode=""></image>
     <view class="inner">
       <text class="text-white ani-delay1 u-mt-60"
         :class="{'ani-visible': delayFlag1}">星辰指引，前方光明</text>
@@ -55,32 +55,32 @@
 </script>
 
 <style lang="scss">
-  @keyframes silde-in {
-    from {
-      opacity: 0;
-      transform: translateY(50vh);
-    }
+  // @keyframes silde-in {
+  //   from {
+  //     opacity: 0;
+  //     transform: translateY(50vh);
+  //   }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  //   to {
+  //     opacity: 1;
+  //     transform: translateY(0);
+  //   }
+  // }
 
-  @keyframes text-focus-in {
-    0% {
-      -webkit-filter: blur(6px);
-      filter: blur(6px);
-      opacity: 0;
-    }
+  // @keyframes text-focus-in {
+  //   0% {
+  //     -webkit-filter: blur(6px);
+  //     filter: blur(6px);
+  //     opacity: 0;
+  //   }
 
-    100% {
-      -webkit-filter: blur(0px);
-      filter: blur(0px);
-      opacity: 1;
-      visibility: visible;
-    }
-  }
+  //   100% {
+  //     -webkit-filter: blur(0px);
+  //     filter: blur(0px);
+  //     opacity: 1;
+  //     visibility: visible;
+  //   }
+  // }
 
   .text-white {
     color: #fff;
@@ -95,10 +95,10 @@
     justify-content: space-between;
     padding: 20px 0 10px 0;
 
-    image {
+    .moon-img {
       width: 384rpx;
       height: 384rpx;
-      animation: silde-in 2s ease forwards;
+      // animation: silde-in 2s ease forwards;
     }
 
     .inner {
@@ -120,30 +120,30 @@
         text-align: center;
       }
 
-      .ani-delay1 {
-        animation: text-focus-in 1s ease-in-out 1.5s;
-      }
+      // .ani-delay1 {
+      //   animation: text-focus-in 1s ease-in-out 1.5s;
+      // }
 
-      .ani-delay2 {
-        animation: text-focus-in 1s ease-in-out 2.5s;
-      }
+      // .ani-delay2 {
+      //   animation: text-focus-in 1s ease-in-out 2.5s;
+      // }
 
-      .ani-delay3 {
-        animation: text-focus-in 1s ease-in-out 3.5s;
-      }
+      // .ani-delay3 {
+      //   animation: text-focus-in 1s ease-in-out 3.5s;
+      // }
 
       .ani-delay4 {
         text-align: center;
         font-size: 28rpx;
         color: #999;
         margin-top: auto;
-        animation: text-focus-in 1s ease-in-out 4.5s;
+        // animation: text-focus-in 1s ease-in-out 4.5s;
       }
     }
 
     .ani-delay5 {
       visibility: hidden;
-      animation: text-focus-in 1s ease-in-out 5.5s;
+      // animation: text-focus-in 1s ease-in-out 5.5s;
     }
 
     .btn {

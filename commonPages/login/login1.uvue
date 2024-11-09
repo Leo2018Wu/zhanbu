@@ -1,15 +1,15 @@
 <template>
   <view class="login1-page safe-top">
     <view class="inner">
-      <image class="bg" src="@/static/images/login/login_bg1.png"
+      <image class="bg" src="../../static/images/login/login_bg1.png"
         mode="widthFix"></image>
-      <image class="img1" src="@/static/images/login/login_img1.png"
+      <image class="img1" src="../../static/images/login/login_img1.png"
         mode="widthFix"></image>
       <view class="divide">
-        <image class="img2" src="@/static/images/login/line.png"
+        <image class="img2" src="../../static/images/login/line.png"
           mode="widthFix"></image>
         <text class="u-font-40 u-mx-10">让传统变潮流</text>
-        <image class="img3" src="@/static/images/login/line.png"
+        <image class="img3" src="../../static/images/login/line.png"
           mode="widthFix"></image>
       </view>
     </view>

@@ -3,7 +3,7 @@
 		:class="[originLeft?'fui-tag__origin-left':'',originRight?'fui-tag__origin-right':'',background==''?`fui-tag__${type}-${theme}`:'',(background!='' && borderColor=='') || !isBorder?'fui-tag__no-border':'']"
 		:style="{background:background,borderColor:borderColor,transform: `scale(${scaleRatio})`,borderRadius:`${radius}rpx`,padding:padding,marginTop:`${marginTop}rpx`,marginRight:`${marginRight}rpx`,marginBottom:`${marginBottom}rpx`,marginLeft:`${marginLeft}rpx`}"
 		@tap="handleClick" :hover-stay-time="120" :hover-class="highlight?'fui-tag__opacity-active':''">
-		<text v-if="text!=''" class="fui-tag__text" :class="[background==''?`fui-tag_${type}-${theme}`:'']"
+		<text v-if="text!=''" class="font-f-SanJi fui-tag__text" :class="[background==''?`fui-tag_${type}-${theme}`:'']"
 			:style="{fontSize:`${size}rpx`,lineHeight:`${size}rpx`,color:color}">{{text}}</text>
 		<slot></slot>
 	</view>

@@ -43,14 +43,14 @@
   }
   
   // 隐藏scroll-view的滚动条
-  ::-webkit-scrollbar {
-      display: none;  
-      width: 0 !important;  
-      height: 0 !important;  
-      -webkit-appearance: none;  
-      background: transparent;  
-  }
+  // ::-webkit-scrollbar {
+  //     display: none;  
+  //     width: 0 !important;  
+  //     height: 0 !important;  
+  //     -webkit-appearance: none;  
+  //     background: transparent;  
+  // }
   
-  uni-app .uni-input-input, uni-app .uni-textarea-textarea {
+  .uni-input-input, .uni-textarea-textarea {
     caret-color: #121212 !important;
   }

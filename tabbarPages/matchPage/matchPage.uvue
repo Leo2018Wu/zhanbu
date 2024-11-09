@@ -40,7 +40,7 @@
                   :key="word">{{word}}</text>
               </view>
               <view class="right-bottom">
-                综合评分{{item.percent}}
+                综合评分{{subItem.score}}
               </view>
             </view>
           </fui-list-cell>
@@ -53,6 +53,18 @@
 
 <script>
   import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  type InfoType = {
+	  name: string;
+	  gender: string;
+	  birthday: string;
+	  type: string;
+	  score: string;
+	  wx: Array<string>
+  }
+  type IRootType = {
+	  code: string,
+	  list: InfoType[]
+  }
   export default {
     components: { xNavbar },
     data() {
@@ -85,7 +97,7 @@
               { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
             ]
           },
-        ]
+        ] as IRootType[]
       }
     }
   }
