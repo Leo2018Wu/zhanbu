@@ -1,7 +1,7 @@
 <template>
   <view style="padding-bottom:20px;">
     <uni-navbar-lite title="匹配" />
-    <view class="fixed-btn">
+    <view class="fixed-btn" @click="toPage()">
       <text class="font-f-SanJi text-white u-font-32">合盘</text>
     </view>
     <view class="header">
@@ -166,6 +166,13 @@
             ]
           }
         ] as IRootType[]
+      }
+    },
+    methods: {
+      toPage() {
+        uni.navigateTo({
+          url: '/pages/fortuneDetail/fortuneDetail'
+        });
       }
     }
   }

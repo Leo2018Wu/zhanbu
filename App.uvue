@@ -56,6 +56,10 @@
     color: #ffffff;
   }
 
+  .text-black {
+    color: #000000;
+  }
+
   .safe-bottom {
     padding-bottom: calc(constant(safe-area-inset-bottom) + 10px) !important;
     padding-bottom: calc(env(safe-area-inset-bottom) + 10px) !important;

@@ -31,7 +31,8 @@
               style="color: #000;margin-left: 2px;">普通会员</text>
           </view>
           <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
-            background="#000000" text="立即开通"></fui-button>
+            background="#000000" text="立即开通"
+            @click="showVipModal()"></fui-button>
         </view>
       </view>
       <view class="tabs-mine u-mt-32">
@@ -84,6 +85,24 @@
         </view>
       </view>
     </scroll-view>
+    <ux-popup ref="uxPopup" :isMaskClick="false">
+      <view class="popup">
+        <view class="popup_close" @click="close()">
+          <fui-icon name="close" :size="40"></fui-icon>
+        </view>
+        <text class="u-font-36 font-f-SanJi" style="color:#000">提示</text>
+        <image class="img1 u-mt-40"
+          src="../../static/images/mine/vip_modal_line.png" mode=""></image>
+        <text class="u-font-32 font-f-SanJi u-mt-42"
+          style="color: #000;line-height: 54rpx;">开通VIP后</text>
+        <text class="u-font-32 font-f-SanJi"
+          style="color: #000;line-height: 54rpx;">可查看未来走势，以及时间级</text>
+        <image class="img2 u-mt-30"
+          src="../../static/images/mine/vip_modal_line.png" mode=""></image>
+        <fui-button class="u-mt-46" :size="32" height="90rpx" width="400rpx"
+          radius="7rpx" background="#000000" text="立即开通"></fui-button>
+      </view>
+    </ux-popup>
   </view>
 </template>
 
@@ -97,6 +116,14 @@
       }
     },
     methods: {
+      close() {
+        const popup = this.$refs['uxPopup'] as UxPopupComponentPublicInstance
+        popup.close()
+      },
+      showVipModal() {
+        const popup = this.$refs['uxPopup'] as UxPopupComponentPublicInstance
+        popup.open()
+      },
       onClickTab(index : number) {
         this.activeIndex = index
       }
@@ -104,8 +131,35 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "@/static/css/flex.scss";
+
+  .popup {
+    width: 580rpx;
+    height: 520rpx;
+    background-color: #fff;
+    border-radius: 10rpx;
+    border: 1rpx solid #000000;
+    align-items: center;
+    padding: 40rpx 0;
+    position: relative;
+
+    .popup_close {
+      position: absolute;
+      top: 36rpx;
+      right: 56rpx;
+    }
+
+    .img1,
+    .img2 {
+      height: 14rpx;
+      width: 474rpx;
+    }
+
+    .img2 {
+      transform: rotate(-180deg);
+    }
+  }
 
   .mine-page {
     flex: 1;
