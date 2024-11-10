@@ -1,0 +1,197 @@
+<template>
+  <uni-navbar-lite title="分享" />
+  <scroll-view style="flex:1;align-items:center;padding-bottom: 20px"
+    class="u-px-52">
+    <view class="score-box">
+      <view class="score-num">
+        <text class="text-white font-f-SanJi u-font-60">96</text>
+      </view>
+      <image class="score-bg" src="@/static/images/login/login_img1.png"
+        mode="widthFix"></image>
+    </view>
+    <view class="score-title">
+      <image class="moon2" src="@/static/images/common/moon2.png"
+        mode="widthFix">
+      </image>
+      <text class="u-font-32 text-black font-f-SanJi u-ml-20 u-mb-8">综合得分</text>
+    </view>
+    <view class="effect u-mt-30">
+      <text class="u-font-28 text-black font-f-SanJi">2024年TA对你运势的影响</text>
+      <fui-icon style="position: absolute;right:30rpx;top:30rpx;"
+        name="turningdown" :size="32"></fui-icon>
+    </view>
+    <view class="energy-bar-list">
+      <EnergyBar v-for="(item,index) in energyBarList" :key="index"
+        :title="item.title" :full-color="item.fullColor"
+        :active-color="item.activeColor" :percent="item.percent"
+        :up="item.up" />
+    </view>
+    <view class="effect-detail u-mt-60">
+      <view class="top">
+        <text class="u-font-32 text-black font-f-SanJi">TA对你的财运影响</text>
+        <view class="star-box">
+          <image class="star" src="@/static/images/common/star.png" mode="">
+          </image>
+          <text class="u-font-32 text-black font-f-SanJi">85分</text>
+        </view>
+      </view>
+      <text class="u-font-28 text-black font-f-SanJi"
+        style="lines: 2;line-height:56rpx">由于ta的五行多金并有水助，神煞为财星，天干甲己契合你的五行木土，你的财星为禄存...</text>
+      <view class="bottom">
+        <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+        </image>
+        <fui-button :size="28" height="70rpx" width="320rpx" radius="7rpx"
+          background="#000000" text="解锁完整解读"></fui-button>
+      </view>
+    </view>
+    <view class="effect-item u-mt-46">
+      <text style="flex:1"
+        class="u-font-32 text-black font-f-SanJi">TA对你的桃花影响</text>
+      <view class="star-box">
+        <image class="star" src="@/static/images/common/star.png" mode="">
+        </image>
+        <text class="u-font-32 text-black font-f-SanJi">85分</text>
+      </view>
+    </view>
+    <view class="effect-item u-mt-30">
+      <text style="flex:1"
+        class="u-font-32 text-black font-f-SanJi">TA对你的事业影响</text>
+      <view class="star-box">
+        <image class="star" src="@/static/images/common/star.png" mode="">
+        </image>
+        <text class="u-font-32 text-black font-f-SanJi">91分</text>
+      </view>
+    </view>
+    <view class="effect-item u-mt-30">
+      <text style="flex:1"
+        class="u-font-32 text-black font-f-SanJi">TA对你的健康影响</text>
+      <view class="star-box">
+        <image class="star" src="@/static/images/common/star.png" mode="">
+        </image>
+        <text class="u-font-32 text-black font-f-SanJi">95分</text>
+      </view>
+    </view>
+  </scroll-view>
+</template>
+
+<script>
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
+  import EnergyBar from '@/components/common/EnergyBar.uvue'
+
+  type EnergyBarType = {
+    title : string;
+    fullColor : string;
+    activeColor : string;
+    percent : string;
+    up : Boolean;
+  }
+
+  export default {
+    components: { uniNavbarLite, EnergyBar },
+    data() {
+      return {
+        energyBarList: [
+          { title: '财运', fullColor: 'rgba(227, 199, 101, 0.2)', activeColor: 'rgba(227, 199, 101, 1)', percent: '70%', up: true },
+          { title: '桃花', fullColor: 'rgba(102, 160, 124, 0.2)', activeColor: 'rgba(102, 160, 124, 1)', percent: '50%', up: true },
+          { title: '事业', fullColor: 'rgba(150, 118, 83, 0.2)', activeColor: 'rgba(150, 118, 83, 1)', percent: '30%', up: false },
+          { title: '健康', fullColor: 'rgba(205, 78, 72, 0.2)', activeColor: 'rgba(205, 78, 72, 1)', percent: '60%', up: true },
+        ] as EnergyBarType[],
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+  @import "@/static/css/flex.scss";
+
+  .score-box {
+    width: 282rpx;
+    height: 280rpx;
+    position: relative;
+    margin: 20px auto 10px auto;
+
+    .score-num {
+      width: 142rpx;
+      height: 142rpx;
+      border-radius: 142rpx;
+      position: absolute;
+      left: 70rpx;
+      top: 69rpx;
+      z-index: 1;
+      background-color: #000000;
+      @include flex(row, center, center);
+    }
+
+    .score-bg {
+      width: 282rpx;
+      height: 280rpx;
+    }
+  }
+
+  .score-title {
+    width: 282rpx;
+
+    .moon2 {
+      width: 65rpx;
+      height: 58rpx;
+    }
+
+    @include flex(row, flex-start, flex-end);
+
+  }
+
+  .effect {
+    position: relative;
+    width: 600rpx;
+    height: 90rpx;
+    background-color: #f6f6f6;
+    @include flex(row, center, center);
+  }
+
+  .effect-detail {
+    width: 100%;
+    padding: 40rpx 40rpx 70rpx 40rpx;
+    background-color: #f6f6f6;
+
+    .top {
+      margin-bottom: 32rpx;
+      @include flex(row, space-between, center);
+    }
+
+    .bottom {
+      @include flex(row, flex-start, flex-end);
+      margin-top: 64rpx;
+
+      .moon3 {
+        width: 97rpx;
+        height: 54rpx;
+        margin-right: 26rpx;
+
+      }
+    }
+  }
+
+  .star-box {
+    @include flex(row, center, center);
+
+    .star {
+      width: 30rpx;
+      height: 30rpx;
+      margin-right: 6px;
+    }
+  }
+
+  .effect-item {
+    width: 100%;
+    background-color: #f6f6f6;
+    height: 96rpx;
+    padding: 0 32rpx 0 58rpx;
+    @include flex(row, justify-content, center);
+  }
+
+  .energy-bar-list {
+    width: 70%;
+    margin-top: 40px;
+    @include flex(row, space-between, center)
+  }
+</style>

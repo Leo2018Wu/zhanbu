@@ -43,6 +43,9 @@
         "navigationBarTitleText": "",
         "enablePullDownRefresh": false
       }
+    },
+    {
+      "path": "pages/share/share"
     }
     // // {
     // //   "path": "commonPages/login/login3",

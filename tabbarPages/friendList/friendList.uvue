@@ -142,7 +142,9 @@
       flex: 1;
 
       .content-item {
-        padding-bottom: 16px;
+        border-bottom: 1rpx solid #eeeeee;
+        padding-bottom: 14px;
+        margin-bottom: 32rpx;
         @include flex(row, flex-start, flex-start);
 
         &-right {

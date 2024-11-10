@@ -84,6 +84,8 @@
           </view>
         </view>
       </view>
+      <fui-button :size="28" height="72rpx" width="186rpx" radius="6rpx"
+        background="#000000" text="去分享页面" @click="toPage()"></fui-button>
     </scroll-view>
     <ux-popup ref="uxPopup" :isMaskClick="false">
       <view class="popup">
@@ -116,6 +118,11 @@
       }
     },
     methods: {
+      toPage() {
+        uni.navigateTo({
+          url: '/pages/share/share',
+        });
+      },
       close() {
         const popup = this.$refs['uxPopup'] as UxPopupComponentPublicInstance
         popup.close()
