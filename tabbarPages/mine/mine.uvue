@@ -6,15 +6,16 @@
         <fui-avatar :width="116"
           src="/static/images/common/avatar2.png"></fui-avatar>
         <view class="userinfo-content">
-          <text class="u-font-42">自己 <text class="u-font-24"
+          <text class="font-f-SanJi u-font-42" style="line-height: 42rpx;">自己
+            <text class="font-f-SanJi u-font-24"
               style="color:#7e7e7e">@zhudeyong</text></text>
           <view class="userinfo-labels">
             <image class="icon" src="/static/images/mine/xingzuo.png" mode="" />
-            <text class="name">白羊座</text>
+            <text class="font-f-SanJi name">白羊座</text>
             <image class="icon" src="/static/images/mine/wuxing.png" mode="" />
-            <text class="name">水命</text>
+            <text class="font-f-SanJi name">水命</text>
             <image class="icon" src="/static/images/mine/moon.png" mode="" />
-            <text class="name">上升射手</text>
+            <text class="font-f-SanJi name">上升射手</text>
           </view>
         </view>
       </view>
@@ -26,28 +27,61 @@
             <image class="vip-level__img" src="@/static/images/mine/vip.png"
               mode="">
             </image>
-            <text
-              style="color: #000;font-size: 36rpx;margin-left: 2px;">普通会员</text>
+            <text class="font-f-SanJi u-font-36"
+              style="color: #000;margin-left: 2px;">普通会员</text>
           </view>
           <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
             background="#000000" text="立即开通"></fui-button>
         </view>
       </view>
-      <view class="tabs u-mt-32">
+      <view class="tabs-mine u-mt-32">
         <view class="tabs-li">
-          <image src="../../static/images/mine/order.png" mode=""></image>
-          我的订单
+          <view class="li-border">
+            <image class="li-img" src="../../static/images/mine/order.png"
+              mode=""></image>
+            <text class="u-font-32 font-f-SanJi"
+              style="color: #000;">我的订单</text>
+          </view>
         </view>
         <view class="tabs-li">
-          <image src="../../static/images/mine/phone.png" mode=""></image>
-          联系我们
+          <image class="li-img" src="../../static/images/mine/phone.png"
+            mode=""></image>
+          <text class="u-font-32 font-f-SanJi" style="color: #000;">联系我们</text>
         </view>
       </view>
-      <view class="tabs u-mt-36">
-
-      </view>
-      <view class="tabs u-mt-36">
-
+      <view class="tab-list u-mt-36">
+        <view @click="onClickTab(0)" class="tab-list-li"
+          :class="activeIndex === 0 ? 'tab-li__active' : ''">
+          <image class="tab-list-li-img"
+            src="../../static/images/mine/share.png" mode="widthFix"></image>
+          <text class="font-f-SanJi u-font-28" style="color:#000">好友分享</text>
+          <view v-if="activeIndex === 0" class="tab-list-li-border">
+          </view>
+        </view>
+        <view @click="onClickTab(1)" class="tab-list-li"
+          :class="activeIndex === 1 ? 'tab-li__active' : ''">
+          <image class="tab-list-li-img"
+            src="../../static/images/mine/document.png" mode="widthFix"></image>
+          <text class="font-f-SanJi u-font-28" style="color:#000">我的档案</text>
+          <view v-if="activeIndex === 1" class="tab-list-li-border">
+          </view>
+        </view>
+        <view @click="activeIndex = 2" class="tab-list-li"
+          :class="{'tab-li__active':activeIndex === 2}">
+          <image class="tab-list-li-img"
+            src="../../static/images/mine/friend.png" mode="widthFix"></image>
+          <text class="font-f-SanJi u-font-28" style="color:#000">好友列表</text>
+          <view v-if="activeIndex === 2" class="tab-list-li-border">
+          </view>
+        </view>
+        <view @click="activeIndex = 3" class="tab-list-li"
+          :class="{'tab-li__active':activeIndex === 3}">
+          <image class="tab-list-li-img"
+            src="../../static/images/mine/setting.png" mode="widthFix"></image>
+          <text class="font-f-SanJi u-font-28" style="color:#000">设置</text>
+          <view v-if="activeIndex === 3" class="tab-list-li-border">
+          </view>
+        </view>
       </view>
     </scroll-view>
   </view>
@@ -59,7 +93,12 @@
     components: { uniNavbarLite },
     data() {
       return {
-
+        activeIndex: 0 as number,
+      }
+    },
+    methods: {
+      onClickTab(index : number) {
+        this.activeIndex = index
       }
     }
   }
@@ -69,7 +108,6 @@
   @import "@/static/css/flex.scss";
 
   .mine-page {
-    color: #000;
     flex: 1;
     padding: 20rpx 42rpx;
 
@@ -77,7 +115,10 @@
       @include flex(row, flex-start, center);
 
       &-content {
+        overflow: visible;
+        padding-top: 10px;
         @include flex(column, space-around, flex-start);
+        align-self: center;
         flex: 1;
         height: 100%;
         padding-left: 32rpx;
@@ -136,7 +177,7 @@
       }
     }
 
-    .tabs {
+    .tabs-mine {
       width: 100%;
       height: 128rpx;
       border-radius: 10rpx;
@@ -144,28 +185,54 @@
       flex-direction: row;
       align-items: center;
 
-      &-li {
+      .tabs-li {
         flex: 1;
-        height: fit-content;
         @include flex(row, center, center);
 
-        &:first-of-type {
-          // content: '';
-          // position: absolute;
-          // right: 0;
-          // top: 50%;
-          // width: 1rpx;
-          // height: 30rpx;
-          // background-color: #00000050;
-          border-right: 1rpx solid #00000050;
+        .li-border {
+          width: 100%;
+          @include flex(row, center, center);
+
+          border-right: 1rpx solid rgba(0, 0, 0, 0.5);
         }
 
-        image {
+        .li-img {
           width: 40rpx;
           height: 40rpx;
           margin-right: 2px;
           position: relative;
           top: -1px;
+        }
+      }
+    }
+
+    .tab-list {
+      width: 100%;
+      flex-direction: row;
+
+      .tab-li__active {
+        opacity: 1;
+        // border-bottom: 2rpx solid #020202 !important;
+      }
+
+      &-li {
+        flex: 1;
+        align-items: center;
+        padding-bottom: 6px;
+        opacity: .5;
+        border: none;
+
+        &-border {
+          margin-top: 6px;
+          width: 80%;
+          height: 2rpx;
+          background-color: #020202;
+        }
+
+        &-img {
+          width: 52rpx;
+          height: 52rpx;
+          margin-bottom: 15rpx;
         }
       }
     }

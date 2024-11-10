@@ -92,8 +92,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 45px;
+    width: 45;
     height: 100%;
+  }
+
+  .right-content {
+    width: 140px;
   }
 
   .uni-navbar-content {

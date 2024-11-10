@@ -1,42 +1,170 @@
 <template>
-  <scroll-view class="friend-list-page safe-top safe-bottom">
-    <xNavbar title="好友消息" :isBack="false">
-      <template #suffix>
-        <view class="header-left u-mr-24">
-          <image style="width: 26rpx;height: 26rpx;margin-right: 3px;"
-            src="../../static/images/common/clear.png" mode=""></image>
-          全部已读
+  <view style="padding-bottom: 20px;">
+    <uni-navbar-lite title="好友消息">
+      <template #prefix>
+        <view class="">
+
         </view>
-        <fui-icon name="search" :size="32"></fui-icon>
       </template>
-    </xNavbar>
-  </scroll-view>
+      <template #suffix>
+        <view class="header">
+          <view class="header-left u-mr-18">
+            <image style="width: 26rpx;height: 26rpx;margin-right: 3px;"
+              src="../../static/images/common/clear.png" mode=""></image>
+            <text class="font-f-SanJi u-font-24">全部已读</text>
+          </view>
+          <fui-icon name="search" :size="32"></fui-icon>
+        </view>
+      </template>
+    </uni-navbar-lite>
+  </view>
+  <view class="friend-list-page">
+    <list-view class="list-view" :show-scrollbar="false"
+      :refresher-enabled="true" :refresher-triggered="refresherTriggered"
+      refresher-default-style="none" @refresherpulling="onRefresherpulling"
+      @refresherrefresh="onRefresherrefresh"
+      @refresherrestore="onRefreshrestore" @scrolltolower="onScrolltolower"
+      :refresher-threshold="refresherThreshold"
+      :lower-threshold="lowerThreshold">
+      <list-item v-for="i in dataList" class="content-item">
+        <image class="avatar" src="../../static/logo.png" mode="widthFix">
+        </image>
+        <view class="content-item-right">
+          <view class="top">
+            <text class="u-font-32 font-f-SanJi"
+              style="color: #000;">幸运导师顾问</text>
+            <text class="u-font-24 font-f-SanJi"
+              style="color: #999;">29分钟前</text>
+          </view>
+          <text class="bottom u-font-28 font-f-SanJi" style="color: #666;">
+            [19条]消息内容详细，消息内容消息内容消息内容详 消息内容消息内容消息内容消息内容详细消息...
+          </text>
+        </view>
+      </list-item>
+      <list-item>
+        <!-- <text v-if="loadMoreState > 1" class="u-font-24 font-f-SanJi"
+          style="color: #999;">{{loadMoreState === 2 ? '下滑加载更多消息' : '-没有更多了-'}}</text> -->
+        <fui-loadmore color="#999" activeColor="#000" iconColor="#fff"
+          v-if="loadMoreState > 1" :state="loadMoreState" text="下滑加载更多消息"
+          noneText='-没有更多了-'></fui-loadmore>
+      </list-item>
+      <refresh-header slot="refresher" :state="state"
+        :pullingDistance="pullingDistance"></refresh-header>
+    </list-view>
+  </view>
 </template>
 
 <script>
-  import xNavbar from '@/components/x-navbar/x-navbar.uvue'
+  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
+  import refreshHeader from '@/components/custom-refresh-header/refresh-header.uvue';
   export default {
-    components: { xNavbar },
+    components: { uniNavbarLite, refreshHeader },
     data() {
-      return {}
+      return {
+        refresherTriggered: true,
+        refresherThreshold: 40,
+        pullingDistance: 0,
+        resetting: false,
+        lowerThreshold: 40,
+        loadMoreState: 1, // 2 加载中 3 没有更多
+        dataList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      }
+    },
+    computed: {
+      state() : number {
+        if (this.resetting) {
+          return 3;
+        }
+        if (this.refresherTriggered) {
+          return 2
+        }
+        if (this.pullingDistance > this.refresherThreshold) {
+          return 1
+        } else {
+          return 0
+        }
+      }
+    },
+    methods: {
+      getList() {
+        setTimeout(() => {
+          if (this.dataList.length === 50) {
+            this.loadMoreState = 3;
+            return
+          }
+          this.dataList = this.dataList.concat([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+          this.loadMoreState = 1;
+        }, 2000)
+      },
+      onScrolltolower(e : ScrollToLowerEvent) {
+        this.loadMoreState = 2;
+        this.getList()
+      },
+      onRefresherpulling(e : RefresherEvent) {
+        this.pullingDistance = e.detail.dy
+      },
+      onRefresherrefresh() {
+        this.refresherTriggered = true
+        setTimeout(() => {
+          this.refresherTriggered = false
+          this.resetting = true
+        }, 1500)
+      },
+      onRefreshrestore() {
+        this.pullingDistance = 0
+        this.resetting = false;
+      }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "@/static/css/flex.scss";
 
-  .friend-list-page {
-    color: #000;
-    flex: 1;
-    padding: 20rpx 42rpx;
+  .header {
+    @include flex(row, center, center);
+    margin-left: 10px;
 
-    .header-left {
+    &-left {
+      width: 140rpx;
       @include flex(row, flex-start, center);
       padding: 3px 6px;
       border-radius: 6rpx;
-      font-size: 24rpx;
       background-color: #F6F6F6;
+    }
+  }
+
+  .friend-list-page {
+    flex: 1;
+    padding: 0 42rpx;
+
+    .list-view {
+      flex: 1;
+
+      .content-item {
+        padding-bottom: 16px;
+        @include flex(row, flex-start, flex-start);
+
+        &-right {
+          flex: 1;
+
+          .top {
+            @include flex(row, space-between, flex-end, )
+          }
+
+          .bottom {
+            lines: 2;
+            margin-top: 16rpx;
+            line-height: 50rpx;
+          }
+        }
+
+        .avatar {
+          width: 80rpx;
+          height: 80rpx;
+          margin-right: 30rpx;
+        }
+      }
     }
   }
 </style>

@@ -5,16 +5,18 @@
       <homePage ref="homePage" class="tab-page" v-if="tabList[0].init"
         :style="{visibility:(selectedIndex==0?'visible':'hidden')}"></homePage>
       <friendListPage ref="friendListPage" class="tab-page"
-        v-if="tabList[1].init"
+        v-if="tabList[1].init && selectedIndex==1"
         :style="{visibility:(selectedIndex==1?'visible':'hidden')}">
       </friendListPage>
       <middlePage ref="middlePage" class="tab-page" v-if="tabList[2].init"
         :style="{visibility:(selectedIndex==2?'visible':'hidden')}">
       </middlePage>
       <matchPage ref="matchPage" class="tab-page" v-if="tabList[3].init"
-        :style="{visibility:(selectedIndex==3?'visible':'hidden')}"></matchPage>
+        :style="{visibility:(selectedIndex==3?'visible':'hidden')}">
+      </matchPage>
       <minePage ref="minePage" class="tab-page" v-if="tabList[4].init"
-        :style="{visibility:(selectedIndex==4?'visible':'hidden')}"></minePage>
+        :style="{visibility:(selectedIndex==4?'visible':'hidden')}">
+      </minePage>
     </view>
     <view ref="tabbar" class="tab-bar">
       <view class="tab-item" @click="onTabClick(0)">
