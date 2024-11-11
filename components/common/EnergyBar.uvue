@@ -1,6 +1,6 @@
 <template>
   <view class="energy-bar-wrapper">
-    <view class="energy-bar u-font-28">
+    <view class="energy-bar">
       <view class="full-bar" :style="{background: fullColor}">
         <view class="percent-bar" :style="{height: percent, background: activeColor}">
         </view>
