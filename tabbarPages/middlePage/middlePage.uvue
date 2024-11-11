@@ -197,10 +197,11 @@
 
 <script>
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
+  import RadarChart from '../comps/RadarChart.uvue'
   import { FuiDropdownMenuOptionParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
   export default {
-    components: { uniNavbarLite },
+    components: { uniNavbarLite, RadarChart },
     data() {
       return {
         menus: [{

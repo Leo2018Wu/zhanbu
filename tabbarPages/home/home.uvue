@@ -1,207 +1,208 @@
 <template>
-	<view style="padding-bottom: 20px">
-	  <uni-navbar-lite :title="homeTitle" :isBack="false" />
-	  <scroll-view class="home-page" :scroll-with-animation="true"
-		:scroll-into-view="targetEle">
-		<template v-if="!showNextPage">
-		  <image class="home__bg" src="@/static/images/common/home_bg1.png"
-			mode="widthFix"></image>
-		  <view class="header u-mt-40">
-			<image class="img1" src="@/static/images/common/moon1.png"
-			  mode="widthFix"></image>
-			<image class="img2" src="@/static/images/common/moon2.png"
-			  mode="widthFix"></image>
-			<view class="header-inner">
-			  <view class="left">
-				<view class="text-view-border">
-				  <text class="text-view">
-					甲辰
-				  </text>
-				</view>
-				<view class="text-view-border">
-				  <text class="text-view">
-					甲辰
-				  </text>
-				</view>
-				<view class="text-view-border">
-				  <text class="text-view">
-					甲辰
-				  </text>
-				</view>
-				<view style="flex:1; align-items: center;">
-				  <text class="text-view">
-					甲辰
-				  </text>
-				</view>
-			  </view>
-			  <view class="right">
-				<text class="font-f-SanJi u-font-24">甲辰年十月初二 <text
-					class="font-f-SanJi u-font-24 u-ml-20">戌子</text></text>
-				<text class="font-f-SanJi u-font-20 u-mt-20"
-				  style="color: #777379;">2024-10-03
-				  23:12:31</text>
-				<fui-button class="u-mt-30" width="214rpx" height="54rpx" :size="24"
-				  radius="7rpx" background="#020202" text="即时排盘"
-				  @click=""></fui-button>
-			  </view>
-			</view>
-		  </view>
-		  <view class="form u-mt-50">
-			<text class="font-f-SanJi u-font-24 title">您的姓名</text>
-			<fui-input :borderBottom="true" padding="20rpx 32rpx 10rpx 32rpx"
-			  textAlign="center" :size="28" backgroundColor="" borderColor="#E6E6E6"
-			  placeholder="请输入您的姓名" v-model="name as string">
-			</fui-input>
-			<view class="sex-list u-mt-42">
-			  <view class="sex-li"
-				:class="{'sex-li__active': gender === item.value}"
-				@click="gender = item.value" v-for="item in genderList"
-				:key="item.value">
-				<text
-				  :class="gender === item.value ? 'sex-text__active' : 'sex-text'"
-				  class="font-f-SanJi u-font-28">{{item.label}}</text>
-			  </view>
-			</view>
-			<picker-view class="picker-view" :value="pickerValue"
-			  indicator-style="z-index: -1;border-radius: 5px; height: 40px;background: rgba(246, 246, 246, 0.5)"
-			  @change="onPickerChange">
-			  <picker-view-column class="picker-view-column">
-				<view class="picker-view-column__item"
-				  v-for="(item,index) in marryStatusList" :key="index">
-				  <text
-					class="font-f-SanJi picker-view-column__item__text">{{item.label}}</text>
-				</view>
-			  </picker-view-column>
-			</picker-view>
-			<view class="">
-			  <fui-tabs style="width:100%" :tabs="tabs" :height="64"
-				@change="onTabChange" color="#7e7e7e" selectedColor="#000"
-				:short="false" sliderBackground="#000" :size="28"
-				:selectedSize="28"></fui-tabs>
-			</view>
-			<view class="">
-			  <text class="font-f-SanJi u-font-24 title u-mt-40">出生日期</text>
-			</view>
-			<view class="">
-			  <text class="font-f-SanJi u-font-24 title u-mt-60">出生地点</text>
-			</view>
-			<view class="submit-btn" @click="handleSubmit()"><text
-				class="font-f-SanJi u-font-32 text-white">提交</text> </view>
-		  </view>
-		</template>
-		<scroll-view id="placeholder-navbar" class="bazi-page" v-if="showNextPage">
-		  <view id="placeholder-navbar" style="height: 48px;width: 100%;">
-		  </view>
-		  <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
-			selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
-			:selectedSize="28"></fui-tabs>
-		  <view class="bazi-info u-mt-66">
-			<image class="avatar" src="@/static/images/common/avatar1.png"
-			  mode=""></image>
-			<view class="bazi-info-inner">
-			  <text class="u-font-32 u-mt-80">Eddie</text>
-			  <text class="u-font-24 u-my-16">阴历：甲辰年十月初二 戌子</text>
-			  <text class="u-font-20" style="color: #999;">阳历：2024-10-03
-				22:12:31</text>
-			</view>
-			<image class="moon2" src="@/static/images/common/moon2.png" mode="">
-			</image>
-		  </view>
-		  <view class="bazi-report">
-			<view class="title">
-			  <text class="u-font-24 font-f-SanJi">出生报告</text>
-			  <image class="moon3" src="@/static/images/common/moon3.png"
-				mode=""></image>
-			</view>
-			<view class="u-pt-24" style="justify-content: flex-start;">
-			  <text class="font-f-SanJi u-font-28 u-mt-16">阴历：甲辰年十月初二 须子</text>
-			  <text class="font-f-SanJi u-font-28 u-mt-16">北京时间：2024-10-03
-				23:12:31</text>
-			  <text class="font-f-SanJi u-font-28 u-mt-16">出生地：浙江省 杭州市西湖区</text>
-			  <text class="font-f-SanJi u-font-28 u-mt-16">出生节气：秋分</text>
-			  <text class="font-f-SanJi u-font-28 u-mt-16">生肖：龙</text>
-			</view>
-		  </view>
-		  <view class="bazi-wx-report">
-			<view class="title u-mb-16">
-			  <text class="u-font-24 font-f-SanJi">五行能量报告</text>
-			  <image class="moon3" src="@/static/images/common/moon3.png"
-				mode=""></image>
-			</view>
-			<fui-tabs style="width:100%" :tabs="tabs2" :height="64" color="#999999"
-			  selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
-			  :selectedSize="28"></fui-tabs>
-			<view class="energy-bar-list">
-			  <EnergyBar v-for="(item,index) in energyBarList" :key="index"
-				:title="item.title" :full-color="item.fullColor"
-				:active-color="item.activeColor" :percent="item.percent"
-				:up="item.up" />
-			</view>
-			<view class="title u-mt-40 u-mb-20">
-			  <text class="u-font-24 font-f-SanJi">运势</text>
-			  <image class="moon3" src="@/static/images/common/moon3.png"
-				mode=""></image>
-			</view>
-			<view style="width: 200px;height: 220px;">
-			</view>
-			<view class="title u-mb-16">
-			  <text class="u-font-24 font-f-SanJi">性格解析</text>
-			  <image class="moon3" src="@/static/images/common/moon3.png"
-				mode=""></image>
-			</view>
-			<text class="u-font-28 font-f-SanJi"
-			  style="line-height: 24px;width: 75%;text-align: center;">
-			  五行以八字『中和』为贵，太强或太弱的八字，四柱本身或岁运流年若不能得到制衡转化，皆非好事，不能论为好命。亦即日主强旺而喜克泄制化，日主衰弱而喜生扶帮助。
-			</text>
-			<view class="title u-mt-40 u-mb-16">
-			  <text class="u-font-24 font-f-SanJi">今日运势</text>
-			  <image class="moon3" src="@/static/images/common/moon3.png"
-				mode=""></image>
-			</view>
-			<text class="u-font-28 font-f-SanJi"
-			  style="line-height: 24px;width: 80%;text-align: center;">
-			  后端数据
-			</text>
-			<view class="header u-mt-40">
-			  <image class="img1" src="@/static/images/common/moon1.png"
-				mode="widthFix"></image>
-			  <image class="img2" src="@/static/images/common/moon2.png"
-				mode="widthFix"></image>
-			  <view class="header-inner"
-				style="flex-direction: column;padding:64px 0 42rpx 0">
-				<text class="font-f-SanJi">2024年10月16日 甲辰年甲五戌 葵丑日</text>
-				<fui-tag class="u-my-42" style="width:214rpx" text="幸运方向"
-				  background="#000" color="#fff" :size="28"></fui-tag>
-				<text class="font-f-SanJi">今日适宜 东南方向</text>
-				<fui-tag class="u-my-42" style="width:214rpx" text="幸运色"
-				  background="#000" color="#fff" :size="28"></fui-tag>
-				<text class="font-f-SanJi u-font-32">红色</text>
-				<text class="font-f-SanJi u-font-24 u-mt-16"
-				  style="color: #999;">今日多戴红色相关物件，增加火气相旺
-				</text>
-				<fui-tag class="u-my-42" style="width:214rpx" text="幸运数字"
-				  background="#000" color="#fff" :size="28"></fui-tag>
-				<text class="font-f-SanJi u-font-32">20,29,39,1</text>
-				<text class="font-f-SanJi u-font-24 u-mt-16"
-				  style="color: #999;">多使用幸运数字，可增加财气
-				</text>
-				<fui-tag class="u-my-42" style="width:214rpx" text="红中"
-				  background="#000" color="#fff" :size="28"></fui-tag>
-				<text class="font-f-SanJi ">携带关于红中的属性</text>
-			  </view>
-			</view>
-		  </view>
-		  <fui-button width="574rpx" margin="20px auto 0 auto" radius="7rpx"
-			background="#020202" text="跳转tabbarpage"
-			@click="jumpPage()"></fui-button>
-		</scroll-view>
-	  </scroll-view>
-	</view>
+  <view style="padding-bottom: 20px">
+    <uni-navbar-lite :title="homeTitle" :isBack="false" />
+    <scroll-view class="home-page" :scroll-with-animation="true"
+      :scroll-into-view="targetEle">
+      <template v-if="!showNextPage">
+        <image class="home__bg" src="@/static/images/common/home_bg1.png"
+          mode="widthFix"></image>
+        <view class="header u-mt-40">
+          <image class="img1" src="@/static/images/common/moon1.png"
+            mode="widthFix"></image>
+          <image class="img2" src="@/static/images/common/moon2.png"
+            mode="widthFix"></image>
+          <view class="header-inner">
+            <view class="left">
+              <view class="text-view-border">
+                <text class="text-view">
+                  甲辰
+                </text>
+              </view>
+              <view class="text-view-border">
+                <text class="text-view">
+                  甲辰
+                </text>
+              </view>
+              <view class="text-view-border">
+                <text class="text-view">
+                  甲辰
+                </text>
+              </view>
+              <view style="flex:1; align-items: center;">
+                <text class="text-view">
+                  甲辰
+                </text>
+              </view>
+            </view>
+            <view class="right">
+              <text class="font-f-SanJi u-font-24">甲辰年十月初二 <text
+                  class="font-f-SanJi u-font-24 u-ml-20">戌子</text></text>
+              <text class="font-f-SanJi u-font-20 u-mt-20"
+                style="color: #777379;">2024-10-03
+                23:12:31</text>
+              <fui-button class="u-mt-30" width="214rpx" height="54rpx"
+                :size="24" radius="7rpx" background="#020202" text="即时排盘"
+                @click=""></fui-button>
+            </view>
+          </view>
+        </view>
+        <view class="form u-mt-50">
+          <text class="font-f-SanJi u-font-24 title">您的姓名</text>
+          <fui-input :borderBottom="true" padding="20rpx 32rpx 10rpx 32rpx"
+            textAlign="center" :size="28" backgroundColor=""
+            borderColor="#E6E6E6" placeholder="请输入您的姓名"
+            v-model="name as string">
+          </fui-input>
+          <view class="sex-list u-mt-42">
+            <view class="sex-li"
+              :class="{'sex-li__active': gender === item.value}"
+              @click="gender = item.value" v-for="item in genderList"
+              :key="item.value">
+              <text
+                :class="gender === item.value ? 'sex-text__active' : 'sex-text'"
+                class="font-f-SanJi u-font-28">{{item.label}}</text>
+            </view>
+          </view>
+          <picker-view class="picker-view" :value="pickerValue"
+            indicator-style="z-index: -1;border-radius: 5px; height: 40px;background: rgba(246, 246, 246, 0.5)"
+            @change="onPickerChange">
+            <picker-view-column class="picker-view-column">
+              <view class="picker-view-column__item"
+                v-for="(item,index) in marryStatusList" :key="index">
+                <text
+                  class="font-f-SanJi picker-view-column__item__text">{{item.label}}</text>
+              </view>
+            </picker-view-column>
+          </picker-view>
+          <view class="">
+            <fui-tabs style="width:100%" :tabs="tabs" :height="64"
+              @change="onTabChange" color="#7e7e7e" selectedColor="#000"
+              :short="false" sliderBackground="#000" :size="28"
+              :selectedSize="28"></fui-tabs>
+          </view>
+          <view class="">
+            <text class="font-f-SanJi u-font-24 title u-mt-40">出生日期</text>
+          </view>
+          <view class="">
+            <text class="font-f-SanJi u-font-24 title u-mt-60">出生地点</text>
+          </view>
+          <view class="submit-btn" @click="handleSubmit()"><text
+              class="font-f-SanJi u-font-32 text-white">提交</text> </view>
+        </view>
+      </template>
+      <scroll-view id="placeholder-navbar" class="bazi-page"
+        v-show="showNextPage">
+        <view id="placeholder-navbar" style="height: 48px;width: 100%;">
+        </view>
+        <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
+          selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
+          :selectedSize="28"></fui-tabs>
+        <view class="bazi-info u-mt-66">
+          <image class="avatar" src="@/static/images/common/avatar1.png"
+            mode=""></image>
+          <view class="bazi-info-inner">
+            <text class="u-font-32 u-mt-80">Eddie</text>
+            <text class="u-font-24 u-my-16">阴历：甲辰年十月初二 戌子</text>
+            <text class="u-font-20" style="color: #999;">阳历：2024-10-03
+              22:12:31</text>
+          </view>
+          <image class="moon2" src="@/static/images/common/moon2.png" mode="">
+          </image>
+        </view>
+        <view class="bazi-report">
+          <view class="title">
+            <text class="u-font-24 font-f-SanJi">出生报告</text>
+            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+            </image>
+          </view>
+          <view class="u-pt-24" style="justify-content: flex-start;">
+            <text class="font-f-SanJi u-font-28 u-mt-16">阴历：甲辰年十月初二 须子</text>
+            <text class="font-f-SanJi u-font-28 u-mt-16">北京时间：2024-10-03
+              23:12:31</text>
+            <text class="font-f-SanJi u-font-28 u-mt-16">出生地：浙江省 杭州市西湖区</text>
+            <text class="font-f-SanJi u-font-28 u-mt-16">出生节气：秋分</text>
+            <text class="font-f-SanJi u-font-28 u-mt-16">生肖：龙</text>
+          </view>
+        </view>
+        <view class="bazi-wx-report">
+          <view class="title u-mb-16">
+            <text class="u-font-24 font-f-SanJi">五行能量报告</text>
+            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+            </image>
+          </view>
+          <fui-tabs style="width:100%" :tabs="tabs2" :height="64"
+            color="#999999" selectedColor="#000" :short="false"
+            sliderBackground="#000" :size="28" :selectedSize="28"></fui-tabs>
+          <view class="energy-bar-list">
+            <EnergyBar v-for="(item,index) in energyBarList" :key="index"
+              :title="item.title" :full-color="item.fullColor"
+              :active-color="item.activeColor" :percent="item.percent"
+              :up="item.up" />
+          </view>
+          <view class="title u-mt-40 u-mb-20">
+            <text class="u-font-24 font-f-SanJi">运势</text>
+            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+            </image>
+          </view>
+          <view v-if="showNextPage" style="width: 200px;height: 220px;">
+            <RadarChart />
+          </view>
+          <view class="title u-mb-16">
+            <text class="u-font-24 font-f-SanJi">性格解析</text>
+            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+            </image>
+          </view>
+          <text class="u-font-28 font-f-SanJi"
+            style="line-height: 24px;width: 75%;text-align: center;">
+            五行以八字『中和』为贵，太强或太弱的八字，四柱本身或岁运流年若不能得到制衡转化，皆非好事，不能论为好命。亦即日主强旺而喜克泄制化，日主衰弱而喜生扶帮助。
+          </text>
+          <view class="title u-mt-40 u-mb-16">
+            <text class="u-font-24 font-f-SanJi">今日运势</text>
+            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
+            </image>
+          </view>
+          <text class="u-font-28 font-f-SanJi"
+            style="line-height: 24px;width: 80%;text-align: center;">
+            后端数据
+          </text>
+          <view class="header u-mt-40">
+            <image class="img1" src="@/static/images/common/moon1.png"
+              mode="widthFix"></image>
+            <image class="img2" src="@/static/images/common/moon2.png"
+              mode="widthFix"></image>
+            <view class="header-inner"
+              style="flex-direction: column;padding:64px 0 42rpx 0">
+              <text class="font-f-SanJi">2024年10月16日 甲辰年甲五戌 葵丑日</text>
+              <fui-tag class="u-my-42" style="width:214rpx" text="幸运方向"
+                background="#000" color="#fff" :size="28"></fui-tag>
+              <text class="font-f-SanJi">今日适宜 东南方向</text>
+              <fui-tag class="u-my-42" style="width:214rpx" text="幸运色"
+                background="#000" color="#fff" :size="28"></fui-tag>
+              <text class="font-f-SanJi u-font-32">红色</text>
+              <text class="font-f-SanJi u-font-24 u-mt-16"
+                style="color: #999;">今日多戴红色相关物件，增加火气相旺
+              </text>
+              <fui-tag class="u-my-42" style="width:214rpx" text="幸运数字"
+                background="#000" color="#fff" :size="28"></fui-tag>
+              <text class="font-f-SanJi u-font-32">20,29,39,1</text>
+              <text class="font-f-SanJi u-font-24 u-mt-16"
+                style="color: #999;">多使用幸运数字，可增加财气
+              </text>
+              <fui-tag class="u-my-42" style="width:214rpx" text="红中"
+                background="#000" color="#fff" :size="28"></fui-tag>
+              <text class="font-f-SanJi ">携带关于红中的属性</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </scroll-view>
+  </view>
 </template>
 
 <script lang="uts">
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
   import EnergyBar from '@/components/common/EnergyBar.uvue';
+  import RadarChart from '@/components/common/RadarChart.uvue';
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
   type Gender = {
@@ -221,7 +222,7 @@
   }
 
   export default {
-    components: { uniNavbarLite, EnergyBar },
+    components: { uniNavbarLite, EnergyBar, RadarChart },
     data() {
       return {
         targetEle: '',
@@ -263,11 +264,6 @@
       }
     },
     methods: {
-      jumpPage() {
-        uni.navigateTo({
-          url: '/tabbarPages/custom-tab-bar',
-        });
-      },
       handleSubmit() {
         this.showNextPage = true;
         this.homeTitle = '八字'
@@ -322,10 +318,6 @@
   .home-page {
     flex: 1;
     padding: 0 52rpx;
-
-    .title {
-      color: #4C4A4D;
-    }
 
     .header {
       width: 100%;

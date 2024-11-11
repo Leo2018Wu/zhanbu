@@ -196,7 +196,7 @@
     height: 90rpx;
     border-radius: 90rpx;
     @include flex(row, center, center);
-    position: fixed;
+    position: absolute;
     bottom: 120px;
     right: 15px;
     z-index: 2;
