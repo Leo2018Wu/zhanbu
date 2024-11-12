@@ -186,7 +186,7 @@
     background-color: #f6f6f6;
     height: 96rpx;
     padding: 0 32rpx 0 58rpx;
-    @include flex(row, justify-content, center);
+    @include flex(row, space-between, center);
   }
 
   .energy-bar-list {
