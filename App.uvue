@@ -1,8 +1,9 @@
 <script lang="uts">
+  import { setGlobalUserInfo } from '@/store/index.uts'
   let firstBackTime = 0
   export default {
     onLaunch: function () {
-      console.log('App Launch')
+      this.checkLoginStatus()
       uni.loadFontFace({
         global: true,
         family: 'SanJiHuaChaoTi',
@@ -10,15 +11,34 @@
       })
     },
     onShow: function () {
+      // uni.clearStorage()
+
       console.log('App Show')
     },
     onHide: function () {
       console.log('App Hide')
     },
+    methods: {
+      checkLoginStatus() {
+        const userInfo = uni.getStorageSync('USER_INFO') as string;
+        if (userInfo === '') {
+          uni.redirectTo({
+            url: '/commonPages/splash/splash',
+            success: res => { },
+            fail: () => { },
+            complete: () => {
+              uni.hideLoading()
+            }
+          });
+        } else {
+          setGlobalUserInfo(JSON.parse(userInfo) as UTSJSONObject)
+        }
+      }
+    },
     // #ifdef APP-ANDROID
     onLastPageBackPress: function () {
       console.log('App LastPageBackPress')
-      if (firstBackTime == 0) {
+      if (firstBackTime === 0) {
         uni.showToast({
           title: '再按一次退出应用',
           position: 'bottom',

@@ -3,10 +3,10 @@
     <uni-navbar-lite title="个人中心" :isBack="false" />
     <scroll-view class="mine-page">
       <view class="userinfo">
-        <fui-avatar :width="116"
-          src="/static/images/common/avatar2.png"></fui-avatar>
+        <fui-avatar :width="116" :src="userInfo['avatar']"></fui-avatar>
         <view class="userinfo-content">
-          <text class="font-f-SanJi u-font-42" style="line-height: 42rpx;">自己
+          <text class="font-f-SanJi u-font-42"
+            style="line-height: 42rpx;">{{userInfo['username']}}
             <text class="font-f-SanJi u-font-24"
               style="color:#7e7e7e">@zhudeyong</text></text>
           <view class="userinfo-labels">
@@ -28,7 +28,7 @@
               mode="">
             </image>
             <text class="font-f-SanJi u-font-36"
-              style="color: #000;margin-left: 2px;">普通会员</text>
+              style="color: #000;margin-left: 2px;">{{userInfo['vipcategory']}}</text>
           </view>
           <fui-button :size="24" height="46rpx" width="146rpx" radius="6rpx"
             background="#000000" text="立即开通"
@@ -109,13 +109,22 @@
 </template>
 
 <script>
+  import { state } from '@/store/index.uts'
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
   export default {
+    computed: {
+      userInfo() : UTSJSONObject { //定义可绑定在界面上的globalNum
+        return state.userInfo
+      }
+    },
     components: { uniNavbarLite },
     data() {
       return {
         activeIndex: 0 as number,
       }
+    },
+    created() {
+      console.log(this.userInfo);
     },
     methods: {
       toPage() {

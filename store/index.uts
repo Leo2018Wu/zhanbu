@@ -1,0 +1,22 @@
+export type State = {
+  userInfo : UTSJSONObject,
+  token : string
+}
+
+export const state = reactive({
+  userInfo: {},
+  token: '',
+} as State)
+
+export const setGlobalUserInfo = (data : UTSJSONObject) => {
+  const user = data['user'] as UTSJSONObject
+  state.userInfo = user;
+  state.token = data['token'] as string;
+  uni.setStorage({
+    key: 'USER_INFO',
+    data: JSON.stringify(data),
+    success() {
+      console.log('缓存用户信息成功');
+    }
+  })
+}

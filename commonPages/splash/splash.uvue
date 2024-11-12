@@ -102,7 +102,6 @@
   // }
 
   .splash-page {
-    color: #fff;
     background: #171417;
     display: flex;
     flex: 1;

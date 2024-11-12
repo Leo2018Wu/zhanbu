@@ -1,6 +1,6 @@
 import { RequestConfig } from '@/uni_modules/kux-request';
 import { http } from '../http/index';
 
-export const loginBySms = () : Promise<any> => {
-  return http.post('/login/mobilelogin', { debug: true } as RequestConfig);
+export const loginBySms = (data : any) : Promise<any> => {
+  return http.post('/login/mobilelogin', { data } as RequestConfig);
 }

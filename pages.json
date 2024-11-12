@@ -6,14 +6,11 @@
     }
   },
   "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-    
-	{
-	  "path": "commonPages/splash/splash"
-	},{
-      "path": "tabbarPages/custom-tab-bar",
-      "style": {
-        "navigationBarTitleText": ""
-      }
+    {
+      "path": "tabbarPages/custom-tab-bar"
+    },
+    {
+      "path": "commonPages/splash/splash"
     },
     {
       "path": "pages/fortuneDetail/fortuneDetail"
