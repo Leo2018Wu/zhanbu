@@ -1,0 +1,12 @@
+type CityRes = {
+  value : number;
+  label : string;
+}
+type IRootCityType = {
+  code : number;
+  data : CityRes[];
+}
+
+export {
+  IRootCityType
+}
