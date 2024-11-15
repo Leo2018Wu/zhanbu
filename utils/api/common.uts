@@ -5,6 +5,6 @@ import { IRootCityType } from './types.uts'
 
 
 
-export const getCitys = () : Promise<any> => {
-  return http.get('/index/area', {} as RequestConfig);
+export const getCitys = (query?: UTSJSONObject) : Promise<any> => {
+  return http.get('/index/area', {query} as RequestConfig);
 }
