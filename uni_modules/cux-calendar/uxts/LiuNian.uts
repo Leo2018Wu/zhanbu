@@ -1,0 +1,62 @@
+import {DaYun} from './DaYun';
+import {Lunar} from './Lunar';
+import {LunarUtil} from './LunarUtil';
+import {LiuYue} from './LiuYue';
+
+export class LiuNian {
+    private readonly year: number;
+    private readonly age: number;
+    private readonly index: number;
+    private daYun: DaYun;
+    private readonly lunar: Lunar;
+
+    constructor(daYun: DaYun, index: number) {
+        this.year = daYun.getStartYear() + index;
+        this.age = daYun.getStartAge() + index;
+        this.index = index;
+        this.daYun = daYun;
+        this.lunar = daYun.getLunar();
+    }
+
+    getYear(): number {
+        return this.year;
+    }
+
+    getAge(): number {
+        return this.age;
+    }
+
+    getIndex(): number {
+        return this.index;
+    }
+
+    getLunar(): Lunar {
+        return this.lunar;
+    }
+
+    getGanZhi(): string {
+		let index = this.lunar.getJieQiTable().findIndex((element):boolean => element.name == '立春');
+        let offset = LunarUtil.getJiaZiIndex(this.lunar.getJieQiTable()[index].solar.getLunar().getYearInGanZhiExact()) + this.index;
+        if (this.daYun.getIndex() > 0) {
+            offset += this.daYun.getStartAge() - 1;
+        }
+        offset %= LunarUtil.JIA_ZI.length;
+        return LunarUtil.JIA_ZI[offset];
+    }
+
+    getXun(): string {
+        return LunarUtil.getXun(this.getGanZhi());
+    }
+
+    getXunKong(): string {
+        return LunarUtil.getXunKong(this.getGanZhi());
+    }
+
+    getLiuYue(): LiuYue[] {
+        const l: LiuYue[] = [];
+        for (let i = 0; i < 12; i++) {
+            l.push(new LiuYue(this, i));
+        }
+        return l;
+    }
+}

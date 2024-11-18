@@ -1,41 +1,68 @@
 <template>
-	<view class="loading-page flex">
-		<image src="@/static/images/logo.png" mode=""></image>
-	</view>
+  <view class="loading-page flex">
+    <image ref="refImg" class="img" src="@/static/images/logo.png" mode="">
+    </image>
+  </view>
 </template>
 
-<script setup>
-	
+<script>
+  export default {
+    props: {
+      loading: {
+        type: Boolean,
+        default: false
+      }
+    },
+    data() {
+      return {
+        element: null as UniElement | null,
+        isSpin: false,
+      }
+    },
+    created() {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.startSpin();
+        }, 150)
+      })
+    },
+    methods: {
+      startSpin() {
+        if (this.element == null) {
+          this.element = this.$refs['refImg'] as UniElement;
+        }
+        setTimeout(() => { this.element!.style.setProperty('opacity', this.isSpin ? 1 : 0.01) }, 400)
+        setInterval(() => {
+          this.element!.style.setProperty('opacity', this.isSpin ? 1 : 0.01)
+          this.isSpin = !this.isSpin
+        }, 1000)
+        this.element!.style.setProperty('transition', `all .5s ease-in-out`)
+      },
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
-	.loading-page {
-		width: 100vw;
-		height: 100vh;
-		position: fixed;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		z-index: 9999;
-	}
-	.flex {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	@keyframes blink {
-	  0%, 100% {
-	    opacity: 0; /* 开始和结束时透明度为0，即隐藏 */
-	  }
-	  50% {
-	    opacity: 1; /* 中间时透明度为1，即显示 */
-	  }
-	}
-	 
-	image {
-		animation: blink 2s infinite;
-		width: 73px;
-		height: 73px;
-	}
+  .loading-page {
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+  }
+
+  .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .img {
+    width: 73px;
+    height: 73px;
+  }
 </style>

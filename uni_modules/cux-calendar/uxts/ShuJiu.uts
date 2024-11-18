@@ -1,0 +1,29 @@
+export class ShuJiu {
+    private name: string;
+    private index: number;
+
+    constructor(name: string, index: number) {
+        this.name = name;
+        this.index = index;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    setName(name: string) {
+        this.name = name;
+    }
+
+    getIndex(): number {
+        return this.index;
+    }
+
+    setIndex(index: number) {
+        this.index = index;
+    }
+
+    toFullString(): string {
+        return this.getName() + '第' + this.getIndex() + '天';
+    }
+}

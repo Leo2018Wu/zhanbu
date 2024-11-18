@@ -1,0 +1,8 @@
+export class NineStarUtil {
+    static NUMBER: string[] = ['一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    static WU_XING: string[] = ['水', '土', '木', '木', '土', '金', '金', '土', '火'];
+    static POSITION: string[] = ['坎', '坤', '震', '巽', '中', '乾', '兑', '艮', '离'];
+    static LUCK_XUAN_KONG: string[] = ['吉', '凶', '凶', '吉', '凶', '吉', '凶', '吉', '吉'];
+    static YIN_YANG_QI_MEN: string[] = ['阳', '阴', '阳', '阳', '阳', '阴', '阴', '阳', '阴'];
+    static COLOR: string[] = ['白', '黒', '碧', '绿', '黄', '白', '赤', '白', '紫'];
+}

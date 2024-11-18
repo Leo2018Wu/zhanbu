@@ -1,0 +1,25 @@
+export class TaoFestival {
+    private readonly name: string;
+    private readonly remark: string;
+
+    constructor(name: string, remark: string = '') {
+        this.name = name;
+        this.remark = remark;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    getRemark(): string {
+        return this.remark;
+    }
+
+    toFullString(): string {
+        const l = [this.name];
+        if (this.remark != '') {
+            l.push('['+this.remark+']');
+        }
+        return l.join('');
+    }
+}

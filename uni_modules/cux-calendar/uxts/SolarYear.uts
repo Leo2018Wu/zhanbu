@@ -1,0 +1,40 @@
+import {SolarMonth} from './SolarMonth';
+
+export class SolarYear {
+
+    private readonly year: number;
+
+    static fromYear(year: number): SolarYear {
+        return new SolarYear(year);
+    }
+
+    static fromDate(date: Date): SolarYear {
+        return SolarYear.fromYear(date.getFullYear());
+    }
+
+    constructor(year: number) {
+        this.year = year;
+    }
+
+    getYear(): number {
+        return this.year;
+    }
+
+    next(years: number): SolarYear {
+        return SolarYear.fromYear(this.year + years);
+    }
+
+    getMonths(): SolarMonth[] {
+        const l: SolarMonth[] = [];
+        const m = SolarMonth.fromYm(this.year, 1);
+        l.push(m);
+        for (let i = 1; i < 12; i++) {
+            l.push(m.next(i));
+        }
+        return l;
+    }
+
+    toFullString(): string {
+        return `${this.getYear()}年`;
+    }
+}

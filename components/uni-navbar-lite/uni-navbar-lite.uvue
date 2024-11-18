@@ -23,6 +23,10 @@
   export default {
     name: "uni-navbar",
     props: {
+      backEventCustom: {
+        type: Boolean,
+        default: false
+      },
       isBack: {
         type: Boolean,
         default: true
@@ -62,7 +66,11 @@
     },
     methods: {
       back() {
-        uni.navigateBack({})
+        if (this.backEventCustom) {
+          this.$emit('back')
+        } else {
+          uni.navigateBack({})
+        }
       }
     },
   }

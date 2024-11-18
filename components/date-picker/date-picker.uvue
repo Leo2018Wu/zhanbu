@@ -1,0 +1,284 @@
+<template>
+  <scroll-view class="popup-inner">
+    <view class="popup-header">
+      <fui-button height="48rpx" width="96rpx" text="取消" radius="4rpx"
+        background="#020202" :size="28" @click="cancel()"></fui-button>
+      <fui-tabs style="width:140px" :current="current" :tabs="calendarType"
+        :height="64" color="#666" selectedColor="#000000" :short="false"
+        sliderBackground="#000" :size="28" :selectedSize="28"
+        @change="onTabChange"></fui-tabs>
+      <fui-button height="48rpx" width="96rpx" text="确认" radius="4rpx"
+        background="#020202" :size="28" @click="confirm()"></fui-button>
+    </view>
+    <picker-view class="picker-view"
+      indicator-style="z-index: -1;border-radius: 5px; height: 40px;background: rgba(246, 246, 246, 0.5)"
+      :value="value" @change="onPickerChange">
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in years"
+          :key="index">
+          <text
+            class="font-f-SanJi picker-view-column__item__text">{{item}}年</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in months"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item}}月</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in days"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item}}日</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in hours"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item}}时</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in minutes"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item}}分</text>
+        </view>
+      </picker-view-column>
+    </picker-view>
+  </scroll-view>
+</template>
+
+<script>
+  import { getCitys } from '@/utils/api';
+  import { dayjs } from '@/uni_modules/kux-dayjs';
+  import { Solar, Lunar, LunarMonth } from "@/uni_modules/cux-calendar";
+  import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
+
+  export default {
+    name: 'date-picker',
+    props: {
+      visible: {
+        type: Boolean,
+        default: false
+      },
+      type: {
+        type: Number,
+        default: 0
+      },
+      defaultValue: {
+        type: String,
+        default: ''
+      }
+    },
+    data() {
+      const kuxDayjs = dayjs();
+      const _years : number[] = []
+      const _year = kuxDayjs.year()
+      const _months : number[] = []
+      const _days : number[] = []
+      const _hours : string[] = []
+      const _minutes : string[] = []
+      for (let i = _year; i >= 1900; i--) {
+        _years.push(i)
+      }
+      for (let i = 1; i <= 12; i++) {
+        _months.push(i)
+      }
+      for (let i = 1; i <= 31; i++) {
+        _days.push(i)
+      }
+      for (let i = 1; i <= 23; i++) {
+        _hours.push(i.toString().padStart(2, '0'));
+      }
+      for (let i = 1; i <= 60; i++) {
+        _minutes.push(i.toString().padStart(2, '0'))
+      }
+
+      return {
+        current: 0, // 0 公历 1 阴历
+        calendarType: [
+          { name: '公历' }, // solar
+          { name: '阴历' }, // lunar
+        ],
+        years: _years as number[],
+        year: _year as number,
+        month: '01' as string,
+        day: '01' as string,
+        hour: '' as string,
+        mint: '' as string,
+        months: _months as number[],
+        days: _days as number[],
+        hours: _hours as string[],
+        minutes: _minutes as string[],
+        value: [_year - 2000, 0, 0, 0, 0] as number[],
+      }
+    },
+    watch: {
+      visible: {
+        handler: function (val : boolean) {
+          this.current = this.type as number
+          if (!val) return
+          let date : string
+          if (this.defaultValue !== '') {
+            date = this.defaultValue
+          } else {
+            this.setYMD()
+            date = `${this.year}-${this.month}-${this.day}`
+          }
+          // if (this.current === 1) {
+          //   // 阴历zhuanwei
+          //   const solar = Solar.fromDate(new Date(date))
+          //   this.year = solar.getYear()
+          //   this.month = solar.getMonth().toString()
+          //   this.day = solar.getDay().toString()
+          // } else {
+          //   const lunar = Lunar.fromDate(new Date(date))
+          //   this.year = lunar.getYear()
+          //   this.month = lunar.getMonth().toString()
+          //   this.day = lunar.getDay().toString()
+          // }
+        },
+        immediate: true
+      },
+      "year": function (nVal : number, oVal : number) {
+        this.setMonthDays()
+      },
+      "month": function (nVal : string, oVal : string) {
+        this.setMonthDays()
+      },
+      value: function (newVal : number[], oldVal : number[]) {
+        this.setYMD()
+      },
+    },
+    created() {
+      // this.setYMD()
+    },
+    methods: {
+      setMonthDays() {
+        if (this.current === 0) {
+          // 公历获取月份天数
+          const dates : number = dayjs(`${this.year}-${this.month.padStart(2, '0')}-12`).daysInMonth()
+          this.days = []
+          for (let i = 1; i <= dates; i++) {
+            this.days.push(i)
+          }
+        } else {
+          const lunarMonth = LunarMonth.fromYm(year as number, this.month.toInt());
+          this.days = []
+          for (let i = 1; i <= lunarMonth.getDayCount(); i++) {
+            this.days.push(i)
+          }
+        }
+      },
+      setYMD() {
+        const [y, m, d, h, f] = this.value
+        this.year = this.years[y]
+        this.month = this.months[m].toString().padStart(2, '0')
+        this.day = this.days[d].toString().padStart(2, '0')
+        this.hour = this.hours[h].toString().padStart(2, '0')
+        this.mint = this.minutes[f].toString().padStart(2, '0')
+      },
+      confirm() {
+        this.$emit('confirm', {
+          date: `${this.year}-${this.month}-${this.day} ${this.hour}:${this.mint}`,
+          type: this.current
+        } as UTSJSONObject)
+      },
+      cancel() {
+        this.$emit('cancel')
+      },
+      onPickerChange(e : UniPickerViewChangeEvent) {
+        this.value = e.detail.value
+      },
+      changeDatePickType() {
+        let year : number, month : number, day : number;
+        if (this.current === 1) {
+          // 阳历转阴历
+          const lunlar = Solar.fromDate(new Date(`${this.year}-${this.month}-${this.day}`)).getLunar();
+          year = lunlar.getYear()
+          month = lunlar.getMonth()
+          day = lunlar.getDay()
+
+          for (let i = 0; i < this.years.length; i++) {
+            if (this.years[i] === year) {
+              this.value[0] = i
+            }
+          }
+          for (let i = 0; i < this.months.length; i++) {
+            if (this.months[i] === month) {
+              this.value[1] = i
+            }
+          }
+          for (let i = 0; i < this.days.length; i++) {
+            if (this.days[i] === day) {
+              this.value[2] = i
+            }
+          }
+          this.value = JSON.parse(JSON.stringify(this.value)) as number[];
+          this.setYMD()
+        } else if (this.current === 0) {
+          const lunar = Lunar.fromYmd(this.year, this.month.toInt(), this.day.toInt());
+          // 转阳历
+          const solar = lunar.getSolar();
+          year = solar.getYear()
+          month = solar.getMonth()
+          day = solar.getDay()
+          for (let i = 0; i < this.years.length; i++) {
+            if (this.years[i] === year) {
+              this.value[0] = i
+            }
+          }
+          for (let i = 0; i < this.months.length; i++) {
+            if (this.months[i] === month) {
+              this.value[1] = i
+            }
+          }
+          for (let i = 0; i < this.days.length; i++) {
+            if (this.days[i] === day) {
+              this.value[2] = i
+            }
+          }
+          this.value = JSON.parse(JSON.stringify(this.value)) as number[];
+          this.setYMD()
+        }
+      },
+      onTabChange(e : FuiTabsItemParam) {
+        this.current = e.index as number;
+        this.changeDatePickType()
+      }
+    }
+  }
+</script>
+
+<style lang="scss">
+  @import "@/static/css/flex.scss";
+
+  .picker-view {
+    width: 100%;
+    height: 680rpx;
+    margin-top: 16px;
+
+    &-column {
+      &__item {
+        height: 40px;
+        border: none;
+
+        &__text {
+          line-height: 40px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .popup-inner {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+
+  .popup-header {
+    @include flex(row, space-between, center);
+    padding: 20rpx 32rpx;
+  }
+</style>

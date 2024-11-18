@@ -1,0 +1,36 @@
+import {LiuNian} from './LiuNian';
+import {LunarUtil} from './LunarUtil';
+
+export class LiuYue {
+    private readonly index: number;
+    private liuNian: LiuNian;
+
+    constructor(liuNian: LiuNian, index: number) {
+        this.liuNian = liuNian;
+        this.index = index;
+    }
+
+    getIndex(): number {
+        return this.index;
+    }
+
+    getMonthInChinese(): string {
+        return LunarUtil.MONTH[this.index + 1];
+    }
+
+    getGanZhi(): string {
+        const yearGanIndex = (LunarUtil.find(this.liuNian.getGanZhi(), LunarUtil.GAN)!.get('index') as number) - 1;
+        const offset = [2, 4, 6, 8, 0][yearGanIndex % 5];
+        const gan = LunarUtil.GAN[(this.index + offset) % 10 + 1];
+        const zhi = LunarUtil.ZHI[(this.index + LunarUtil.BASE_MONTH_ZHI_INDEX) % 12 + 1];
+        return gan + zhi;
+    }
+
+    getXun(): string {
+        return LunarUtil.getXun(this.getGanZhi());
+    }
+
+    getXunKong(): string {
+        return LunarUtil.getXunKong(this.getGanZhi());
+    }
+}

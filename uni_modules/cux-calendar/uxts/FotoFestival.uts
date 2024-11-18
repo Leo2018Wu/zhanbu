@@ -1,0 +1,40 @@
+export class FotoFestival {
+    private readonly name: string;
+    private readonly result: string;
+    private readonly everyMonth: boolean;
+    private readonly remark: string;
+
+    constructor(name: string, result: string = '', everyMonth: boolean = false, remark: string = '') {
+        this.name = name;
+        this.result = result;
+        this.everyMonth = everyMonth;
+        this.remark = remark;
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    getResult(): string {
+        return this.result;
+    }
+
+    isEveryMonth(): boolean {
+        return this.everyMonth;
+    }
+
+    getRemark(): string {
+        return this.remark;
+    }
+
+    toFullString(): string {
+        const l = [this.name];
+        if (this.result != '') {
+            l.push(this.result);
+        }
+        if (this.remark != '') {
+            l.push(this.remark);
+        }
+        return l.join(' ');
+    }
+}

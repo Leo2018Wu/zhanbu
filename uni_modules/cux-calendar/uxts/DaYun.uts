@@ -1,0 +1,112 @@
+import {Lunar} from './Lunar';
+import {Yun} from './Yun';
+import {LunarUtil} from './LunarUtil';
+import {LiuNian} from './LiuNian';
+import {XiaoYun} from './XiaoYun';
+
+export class DaYun {
+    private readonly startYear: number;
+    private readonly endYear: number;
+    private readonly startAge: number;
+    private readonly endAge: number;
+    private readonly index: number;
+    private yun: Yun;
+    private readonly lunar: Lunar;
+
+    constructor(yun: Yun, index: number) {
+        const lunar = yun.getLunar();
+        const birthYear = lunar.getSolar().getYear();
+        const year = yun.getStartSolar().getYear();
+        let startYear: number, startAge: number, endYear: number, endAge: number;
+        if (index < 1) {
+            startYear = birthYear;
+            startAge = 1;
+            endYear = year - 1;
+            endAge = year - birthYear;
+        } else {
+            startYear = year + (index - 1) * 10;
+            startAge = startYear - birthYear + 1;
+            endYear = startYear + 9;
+            endAge = startAge + 9;
+        }
+        this.startYear = startYear;
+        this.endYear = endYear;
+        this.startAge = startAge;
+        this.endAge = endAge;
+        this.index = index;
+        this.yun = yun;
+        this.lunar = lunar;
+    }
+
+    getStartYear(): number {
+        return this.startYear;
+    }
+
+    getEndYear(): number {
+        return this.endYear;
+    }
+
+    getStartAge(): number {
+        return this.startAge;
+    }
+
+    getEndAge(): number {
+        return this.endAge;
+    }
+
+    getIndex(): number {
+        return this.index;
+    }
+
+    getLunar(): Lunar {
+        return this.lunar;
+    }
+
+    getGanZhi(): string {
+        if (this.index < 1) {
+            return '';
+        }
+        let offset = LunarUtil.getJiaZiIndex(this.lunar.getMonthInGanZhiExact());
+        offset += this.yun.isForward() ? this.index : -this.index;
+        const size = LunarUtil.JIA_ZI.length;
+        if (offset >= size) {
+            offset -= size;
+        }
+        if (offset < 0) {
+            offset += size;
+        }
+        return LunarUtil.JIA_ZI[offset];
+    }
+
+    getXun(): string {
+        return LunarUtil.getXun(this.getGanZhi());
+    }
+
+    getXunKong(): string {
+        return LunarUtil.getXunKong(this.getGanZhi());
+    }
+
+    getLiuNian(n : number = 10): LiuNian[] {
+		let j: number = n;
+        if (this.index < 1) {
+            j = this.endYear - this.startYear + 1;
+        }
+        const l: LiuNian[] = [];
+        for (let i = 0; i < j; i++) {
+            l.push(new LiuNian(this, i));
+        }
+        return l;
+    }
+
+    getXiaoYun(n : number = 10): XiaoYun[] {
+		let j: number = n;
+        if (this.index < 1) {
+            j = this.endYear - this.startYear + 1;
+        }
+        const l: XiaoYun[] = [];
+        for (let i = 0; i < j; i++) {
+            l.push(new XiaoYun(this, i, this.yun.isForward()));
+        }
+        return l;
+    }
+}

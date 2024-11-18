@@ -1,6 +1,7 @@
 <template>
   <view style="padding-bottom: 20px">
-    <uni-navbar-lite :title="homeTitle" :isBack="false" />
+    <uni-navbar-lite :title="homeTitle" :isBack="homeTitle === '八字'"
+      @back="onNavBack" :backEventCustom="true" />
     <scroll-view class="home-page" :scroll-with-animation="true"
       :scroll-into-view="targetEle">
       <template v-if="!showNextPage">
@@ -15,34 +16,32 @@
             <view class="left">
               <view class="text-view-border">
                 <text class="text-view">
-                  甲辰
+                  {{ganzhi['year']}}
                 </text>
               </view>
               <view class="text-view-border">
                 <text class="text-view">
-                  甲辰
+                  {{ganzhi['month']}}
                 </text>
               </view>
               <view class="text-view-border">
                 <text class="text-view">
-                  甲辰
+                  {{ganzhi['day']}}
                 </text>
               </view>
               <view style="flex:1; align-items: center;">
                 <text class="text-view">
-                  甲辰
+                  {{ganzhi['hour']}}
                 </text>
               </view>
             </view>
             <view class="right">
-              <text class="font-f-SanJi u-font-24">甲辰年十月初二 <text
-                  class="font-f-SanJi u-font-24 u-ml-20">戌子</text></text>
+              <text class="font-f-SanJi u-font-24">{{lundarDate}}</text>
               <text class="font-f-SanJi u-font-20 u-mt-20"
-                style="color: #777379;">2024-10-03
-                23:12:31</text>
+                style="color: #777379;">{{nowTime}}</text>
               <fui-button class="u-mt-30" width="214rpx" height="54rpx"
                 :size="24" radius="7rpx" background="#020202" text="即时排盘"
-                @click=""></fui-button>
+                @click="submit()"></fui-button>
             </view>
           </view>
         </view>
@@ -50,16 +49,14 @@
           <text class="font-f-SanJi u-font-24 title">您的姓名</text>
           <fui-input :borderBottom="true" padding="20rpx 32rpx 10rpx 32rpx"
             textAlign="center" :size="28" backgroundColor=""
-            borderColor="#E6E6E6" placeholder="请输入您的姓名"
-            v-model="name as string">
+            borderColor="#E6E6E6" placeholder="可获姓名解析" v-model="name as string">
           </fui-input>
           <view class="sex-list u-mt-42">
-            <view class="sex-li"
-              :class="{'sex-li__active': gender === item.value}"
-              @click="gender = item.value" v-for="item in genderList"
+            <view class="sex-li" :class="{'sex-li__active': sex === item.value}"
+              @click="sex = item.value" v-for="item in sexList"
               :key="item.value">
               <text
-                :class="gender === item.value ? 'sex-text__active' : 'sex-text'"
+                :class="sex === item.value ? 'sex-text__active' : 'sex-text'"
                 class="font-f-SanJi u-font-28">{{item.label}}</text>
             </view>
           </view>
@@ -74,29 +71,29 @@
               </view>
             </picker-view-column>
           </picker-view>
-          <view class="">
-            <fui-tabs style="width:100%" :tabs="tabs" :height="64"
-              @change="onTabChange" color="#7e7e7e" selectedColor="#000"
-              :short="false" sliderBackground="#000" :size="28"
-              :selectedSize="28"></fui-tabs>
+          <view class="u-mt-40">
+            <fui-tabs :current="dateType" style="width:100%" :tabs="tabs"
+              :height="64" @change="onTabChange" color="#7e7e7e"
+              selectedColor="#000" :short="false" sliderBackground="#000"
+              :size="28" :selectedSize="28"></fui-tabs>
           </view>
           <view class="">
             <text class="font-f-SanJi u-font-24 title u-mt-40">出生日期</text>
           </view>
+          <view @click="showPopup1 = true"
+            style="width:100%;border-bottom: 1rpx solid #E6E6E6;align-items: center">
+            <text
+              class="font-f-SanJi u-font-28 title u-py-40">{{date === '' ? '请选择时间' : date}}</text>
+          </view>
           <view class="">
             <text class="font-f-SanJi u-font-24 title u-mt-60">出生地点</text>
           </view>
-          <view @click="onAddressFocus()"
-            style="width:100%;border-bottom: 1rpx solid #E6E6E6;">
+          <view @click="showPopup = true"
+            style="width:100%;border-bottom: 1rpx solid #E6E6E6;align-items: center">
             <text
-              class="font-f-SanJi u-font-28 title u-py-40">{{address === '' ? '选择出生地点' : address}}</text>
+              class="font-f-SanJi u-font-28 title u-py-40">{{address === '' ? '请选择出生地点' : address}}</text>
           </view>
-          <fui-input :borderBottom="true" @focus="onAddressFocus()"
-            padding="20rpx 32rpx 10rpx 32rpx" textAlign="center" :size="28"
-            backgroundColor="" borderColor="#E6E6E6" placeholder="选择出生地点"
-            v-model="address as string">
-          </fui-input>
-          <view class="submit-btn" @click="handleSubmit()"><text
+          <view class="submit-btn" @click="submit()"><text
               class="font-f-SanJi u-font-32 text-white">提交</text> </view>
         </view>
       </template>
@@ -104,120 +101,714 @@
         v-show="showNextPage">
         <view id="placeholder-navbar" style="height: 48px;width: 100%;">
         </view>
-        <fui-tabs style="width:100%" :tabs="tabs1" :height="64" color="#999999"
-          selectedColor="#000" :short="false" sliderBackground="#000" :size="28"
+        <fui-tabs @change="onTab1Change" :current="current" style="width:100%;"
+          :tabs="tabs1" :height="64" color="#999999" selectedColor="#000"
+          :short="false" sliderBackground="#000" :size="28"
           :selectedSize="28"></fui-tabs>
         <view class="bazi-info u-mt-66">
           <image class="avatar" src="@/static/images/common/avatar1.png"
             mode=""></image>
           <view class="bazi-info-inner">
-            <text class="u-font-32 u-mt-80">Eddie</text>
-            <text class="u-font-24 u-my-16">阴历：甲辰年十月初二 戌子</text>
-            <text class="u-font-20" style="color: #999;">阳历：2024-10-03
-              22:12:31</text>
+            <text
+              class="u-font-32 u-mt-80">{{name === '' ? '不知名网友' : name}}</text>
+            <text class="u-font-24 u-my-16">阴历：{{lundarDate}}</text>
+            <text class="u-font-20"
+              style="color: #999;">阳历：{{datetime['solar']}}</text>
           </view>
           <image class="moon2" src="@/static/images/common/moon2.png" mode="">
           </image>
         </view>
-        <view class="bazi-report">
-          <view class="title">
-            <text class="u-font-24 font-f-SanJi">出生报告</text>
-            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
-            </image>
-          </view>
-          <view class="u-pt-24" style="justify-content: flex-start;">
-            <text class="font-f-SanJi u-font-28 u-mt-16">阴历：甲辰年十月初二 须子</text>
-            <text class="font-f-SanJi u-font-28 u-mt-16">北京时间：2024-10-03
-              23:12:31</text>
-            <text class="font-f-SanJi u-font-28 u-mt-16">出生地：浙江省 杭州市西湖区</text>
-            <text class="font-f-SanJi u-font-28 u-mt-16">出生节气：秋分</text>
-            <text class="font-f-SanJi u-font-28 u-mt-16">生肖：龙</text>
-          </view>
-        </view>
-        <view class="bazi-wx-report">
-          <view class="title u-mb-16">
-            <text class="u-font-24 font-f-SanJi">五行能量报告</text>
-            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
-            </image>
-          </view>
-          <fui-tabs style="width:100%" :tabs="tabs2" :height="64"
-            color="#999999" selectedColor="#000" :short="false"
-            sliderBackground="#000" :size="28" :selectedSize="28"></fui-tabs>
-          <view class="energy-bar-list">
-            <EnergyBar v-for="(item,index) in energyBarList" :key="index"
-              :title="item.title" :full-color="item.fullColor"
-              :active-color="item.activeColor" :percent="item.percent"
-              :up="item.up" />
-          </view>
-          <view class="title u-mt-40 u-mb-20">
-            <text class="u-font-24 font-f-SanJi">运势</text>
-            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
-            </image>
-          </view>
-          <view v-if="showNextPage" style="width: 200px;height: 220px;">
-            <RadarChart />
-          </view>
-          <view class="title u-mb-16">
-            <text class="u-font-24 font-f-SanJi">性格解析</text>
-            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
-            </image>
-          </view>
-          <text class="u-font-28 font-f-SanJi"
-            style="line-height: 24px;width: 75%;text-align: center;">
-            五行以八字『中和』为贵，太强或太弱的八字，四柱本身或岁运流年若不能得到制衡转化，皆非好事，不能论为好命。亦即日主强旺而喜克泄制化，日主衰弱而喜生扶帮助。
-          </text>
-          <view class="title u-mt-40 u-mb-16">
-            <text class="u-font-24 font-f-SanJi">今日运势</text>
-            <image class="moon3" src="@/static/images/common/moon3.png" mode="">
-            </image>
-          </view>
-          <text class="u-font-28 font-f-SanJi"
-            style="line-height: 24px;width: 80%;text-align: center;">
-            后端数据
-          </text>
-          <view class="header u-mt-40">
-            <image class="img1" src="@/static/images/common/moon1.png"
-              mode="widthFix"></image>
-            <image class="img2" src="@/static/images/common/moon2.png"
-              mode="widthFix"></image>
-            <view class="header-inner"
-              style="flex-direction: column;padding:64px 0 42rpx 0">
-              <text class="font-f-SanJi">2024年10月16日 甲辰年甲五戌 葵丑日</text>
-              <fui-tag class="u-my-42" style="width:214rpx" text="幸运方向"
-                background="#000" color="#fff" :size="28"></fui-tag>
-              <text class="font-f-SanJi">今日适宜 东南方向</text>
-              <fui-tag class="u-my-42" style="width:214rpx" text="幸运色"
-                background="#000" color="#fff" :size="28"></fui-tag>
-              <text class="font-f-SanJi u-font-32">红色</text>
-              <text class="font-f-SanJi u-font-24 u-mt-16"
-                style="color: #999;">今日多戴红色相关物件，增加火气相旺
-              </text>
-              <fui-tag class="u-my-42" style="width:214rpx" text="幸运数字"
-                background="#000" color="#fff" :size="28"></fui-tag>
-              <text class="font-f-SanJi u-font-32">20,29,39,1</text>
-              <text class="font-f-SanJi u-font-24 u-mt-16"
-                style="color: #999;">多使用幸运数字，可增加财气
-              </text>
-              <fui-tag class="u-my-42" style="width:214rpx" text="红中"
-                background="#000" color="#fff" :size="28"></fui-tag>
-              <text class="font-f-SanJi ">携带关于红中的属性</text>
+        <template v-if="current === 0">
+          <view class="bazi-report">
+            <view class="title">
+              <text class="u-font-24 font-f-SanJi">出生报告</text>
+              <image class="moon3" src="@/static/images/common/moon3.png"
+                mode="">
+              </image>
+            </view>
+            <view class="u-pt-24" style="justify-content: flex-start;">
+              <text
+                class="font-f-SanJi u-font-28 u-mt-16">阴历：{{lundarDate}}</text>
+              <text
+                class="font-f-SanJi u-font-28 u-mt-16">北京时间：{{datetime['solar']}}</text>
+              <text
+                class="font-f-SanJi u-font-28 u-mt-16">出生地：{{address === '' ? '未知' : address}}</text>
+              <text
+                class="font-f-SanJi u-font-28 u-mt-16">出生节气：{{baziInfo.getString('festival.pre.label')}}</text>
+              <text
+                class="font-f-SanJi u-font-28 u-mt-16">生肖：{{baziInfo['zodiac']}}</text>
             </view>
           </view>
-        </view>
+          <view class="bazi-wx-report">
+            <view class="title u-mb-16">
+              <text class="u-font-24 font-f-SanJi">五行能量报告</text>
+              <image class="moon3" src="@/static/images/common/moon3.png"
+                mode="">
+              </image>
+            </view>
+            <fui-tabs style="width:100%" :tabs="tabs2" :height="64"
+              color="#999999" selectedColor="#000" :current="tab2Current"
+              :short="false" sliderBackground="#000" :size="28"
+              @change="onTab2Change" :selectedSize="28"></fui-tabs>
+            <view class="energy-bar-list">
+              <EnergyBar v-for="(item,index) in energyBarList" :key="index"
+                :title="item.title" :full-color="item.fullColor"
+                :active-color="item.activeColor" :percent="item.percent"
+                :up="item.up" />
+            </view>
+            <view class="title u-mt-40 u-mb-20">
+              <text class="u-font-24 font-f-SanJi">运势</text>
+              <image class="moon3" src="@/static/images/common/moon3.png"
+                mode="">
+              </image>
+            </view>
+            <view v-if="showNextPage" style="width: 200px;height: 220px;">
+              <RadarChart />
+            </view>
+            <view class="title u-mb-16">
+              <text class="u-font-24 font-f-SanJi">性格解析</text>
+              <image class="moon3" src="@/static/images/common/moon3.png"
+                mode="">
+              </image>
+            </view>
+            <text class="u-font-28 font-f-SanJi"
+              style="line-height: 24px;width: 75%;text-align: center;">
+              {{judgeInfo}}
+            </text>
+            <view class="title u-mt-40 u-mb-16">
+              <text class="u-font-24 font-f-SanJi">今日运势</text>
+              <image class="moon3" src="@/static/images/common/moon3.png"
+                mode="">
+              </image>
+            </view>
+            <text class="u-font-28 font-f-SanJi"
+              style="line-height: 24px;width: 80%;text-align: center;">
+              后端数据
+            </text>
+            <view class="header u-mt-40">
+              <image class="img1" src="@/static/images/common/moon1.png"
+                mode="widthFix"></image>
+              <image class="img2" src="@/static/images/common/moon2.png"
+                mode="widthFix"></image>
+              <view class="header-inner"
+                style="flex-direction: column;padding:64px 0 42rpx 0">
+                <text class="font-f-SanJi">2024年10月16日 甲辰年甲五戌 葵丑日</text>
+                <fui-tag class="u-my-42" style="width:214rpx" text="幸运方向"
+                  background="#000" color="#fff" :size="28"></fui-tag>
+                <text class="font-f-SanJi">今日适宜 东南方向</text>
+                <fui-tag class="u-my-42" style="width:214rpx" text="幸运色"
+                  background="#000" color="#fff" :size="28"></fui-tag>
+                <text class="font-f-SanJi u-font-32">红色</text>
+                <text class="font-f-SanJi u-font-24 u-mt-16"
+                  style="color: #999;">今日多戴红色相关物件，增加火气相旺
+                </text>
+                <fui-tag class="u-my-42" style="width:214rpx" text="幸运数字"
+                  background="#000" color="#fff" :size="28"></fui-tag>
+                <text class="font-f-SanJi u-font-32">20,29,39,1</text>
+                <text class="font-f-SanJi u-font-24 u-mt-16"
+                  style="color: #999;">多使用幸运数字，可增加财气
+                </text>
+                <fui-tag class="u-my-42" style="width:214rpx" text="红中"
+                  background="#000" color="#fff" :size="28"></fui-tag>
+                <text class="font-f-SanJi ">携带关于红中的属性</text>
+              </view>
+            </view>
+          </view>
+        </template>
+        <template v-if="current === 1 || current === 2">
+          <fui-row v-if="current === 1" :width="666"
+            style="background-color: #f6f6f6;margin-top: 10px;">
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">日期
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">主神
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">天干
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">地支
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">小运
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('start.main.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">年柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('start.main.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">月柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('start.main.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.month')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.month')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">日柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('start.main.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.day')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.day')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">时柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('start.main.time')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.time')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.time')}}
+              </text>
+            </fui-col>
+          </fui-row>
+          <fui-row v-if="current === 1" :width="666"
+            style="background-color: #f6f6f6;border-bottom: 1rpx solid #E9E9E9;">
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black">藏干
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGanShiShen.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="4">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGanShiShen.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="4">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.month')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGanShiShen.month')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="4">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.day')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGanShiShen.day')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="4">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.time')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGanShiShen.time')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+          </fui-row>
+          <fui-row v-if="current === 1" :width="666"
+            style="background-color: #f6f6f6;">
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">星运
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">自坐
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">空亡
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">纳音
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('empty.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('empty.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.month')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('empty.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.month')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.day')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('empty.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.day')}}
+              </text>
+            </fui-col>
+            <fui-col :span="4">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.time')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.time')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('empty.time')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.time')}}
+              </text>
+
+            </fui-col>
+          </fui-row>
+          <fui-row v-if="current === 2" :width="666"
+            style="background-color: #f6f6f6;margin-top: 10px;">
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">时间
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">主星
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">天干
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">地支
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">年柱
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.shiShenGanz.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">月柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.shiShenGanz.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.month')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.month')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">日柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.shiShenGanz.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.day')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.day')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">时柱</text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.shiShenGanz.time')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.time')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.time')}}
+              </text>
+            </fui-col>
+          </fui-row>
+          <fui-row v-if="current === 2" :width="666"
+            style="background-color: #f6f6f6;border-bottom: 1rpx solid #E9E9E9;">
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black">藏干
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="5">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.year')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="5">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.month')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+            <fui-col :span="5">
+              <view class="u-py-16"
+                style="flex-direction: row;justify-content: center;">
+                <view>
+                  <text
+                    v-for="(item,index) in baziInfo.getArray('base.canGan.day')"
+                    class="th font-f-SanJi text-center u-font-24 u-py-8 text-black">{{item}}
+                  </text>
+                </view>
+              </view>
+            </fui-col>
+          </fui-row>
+          <fui-row v-if="current === 2" :width="666"
+            style="background-color: #f6f6f6;">
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">副星
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">星运
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">自坐
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">空亡
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">纳音
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{shishenZhi[0]}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.year')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.empty.year')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.year')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{shishenZhi[1]}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.month')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.empty.month')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.month')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{shishenZhi[2]}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.day')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.empty.day')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.day')}}
+              </text>
+            </fui-col>
+            <fui-col :span="5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{shishenZhi[3]}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('trend.time')}}
+              </text>
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('selfsit.time')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('base.empty.time')}}
+              </text><text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('nayin.time')}}
+              </text>
+            </fui-col>
+          </fui-row>
+          <fui-row :width="666"
+            style="background-color: #f6f6f6;padding: 16rpx 0; border-bottom: 1rpx solid #E9E9E9;">
+            <fui-col :span="current === 1 ? 4 : 5">
+              <text
+                class="th font-f-SanJi text-center u-font-24 u-py-16 text-black">神煞
+              </text>
+            </fui-col>
+            <fui-col v-if="current === 1" :span="current === 1 ? 4 : 5">
+              <text v-for="(item,index) in baziInfo.getArray('gods.year')"
+                class="th font-f-SanJi text-center u-font-24 text-black">{{item}}
+              </text>
+            </fui-col><fui-col :span="current === 1 ? 4 : 5">
+              <text v-for="(item,index) in baziInfo.getArray('gods.year')"
+                class="th font-f-SanJi text-center u-font-24 text-black">{{item}}
+              </text>
+            </fui-col>
+            <fui-col :span="current === 1 ? 4 : 5">
+              <text v-for="(item,index) in baziInfo.getArray('gods.month')"
+                class="th font-f-SanJi text-center u-font-24 text-black">{{item}}
+              </text>
+            </fui-col>
+            <fui-col :span="current === 1 ? 4 : 5">
+              <text v-for="(item,index) in baziInfo.getArray('gods.day')"
+                class="th font-f-SanJi text-center u-font-24 text-black">{{item}}
+              </text>
+            </fui-col>
+            <fui-col :span="current === 1 ? 4 : 5">
+              <text v-for="(item,index) in baziInfo.getArray('gods.time')"
+                class="th font-f-SanJi text-center u-font-24 text-black">{{item}}
+              </text>
+            </fui-col>
+          </fui-row>
+        </template>
       </scroll-view>
     </scroll-view>
-    <CityPicker ref="cityPicker" />
+    <fui-bottom-popup :visible="showPopup" @close="closePopup">
+      <city-picker @cancel="closePopup()" @confirm="confirm" />
+    </fui-bottom-popup>
+    <fui-bottom-popup :visible="showPopup1" @close="closePopup">
+      <date-picker :defaultValue="date" :visible="showPopup1" :type="dateType"
+        @cancel="closePopup()" @confirm="datePickerConfirm" />
+    </fui-bottom-popup>
+    <ZBLoading v-if="loading" />
   </view>
 </template>
 
 <script lang="uts">
+  import { dayjs } from '@/uni_modules/kux-dayjs';
+  import { Solar, Lunar } from "@/uni_modules/cux-calendar";
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
   import EnergyBar from '@/components/common/EnergyBar.uvue';
   import RadarChart from '@/components/common/RadarChart.uvue';
+  import ZBLoading from '@/components/common/ZBLoading.uvue';
   import CityPicker from '@/components/city-picker/city-picker.uvue';
+  import DatePicker from '@/components/date-picker/date-picker.uvue';
+
+  import { saveBazi, getCategory, getJudgment } from '@/utils/api';
+
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
-  type Gender = {
+  type Sex = {
     label : string;
     value : number;
   }
@@ -234,58 +825,149 @@
   }
 
   export default {
-    components: { uniNavbarLite, EnergyBar, RadarChart, CityPicker },
+    props: {
+      visible: {
+        type: Boolean,
+        default: false
+      }
+    },
+    components: { uniNavbarLite, EnergyBar, RadarChart, CityPicker, DatePicker, ZBLoading },
     data() {
       return {
+        loading: false,
         targetEle: '',
         homeTitle: '首页',
         showNextPage: false,
+        showPopup: false,
+        showPopup1: false,
+        dateType: 0,
         pickerValue: [] as number[],
         tabs: [
           { name: '阳历' },
           { name: '阴历' },
         ],
+        current: 0,
         tabs1: [
           { name: '命主信息' },
           { name: '专业细盘' },
           { name: '基本命盘' },
         ],
+        tab2Current: 0,
         tabs2: [
           { name: '五行能量' },
           { name: '五行个数' },
-          { name: '基本命盘' },
+          { name: '含藏个数' },
         ],
-        genderList: [
-          { label: '男', value: 1 },
-          { label: '女', value: 2 },
-        ] as Gender[],
+        sexList: [
+          { label: '男', value: 0 },
+          { label: '女', value: 1 },
+        ] as Sex[],
         marryStatusList: [
           { label: '未婚', value: 1 },
           { label: '已婚', value: 2 },
           { label: '已有恋人', value: 3 },
         ] as MarryType[],
         energyBarList: [
-          { title: '金', fullColor: 'rgba(227, 199, 101, 0.2)', activeColor: 'rgba(227, 199, 101, 1)', percent: '70%', up: true },
+          { title: '金', fullColor: 'rgba(227, 199, 101, 0.2)', activeColor: 'rgba(227, 199, 101, 1)', percent: '100%', up: true },
           { title: '木', fullColor: 'rgba(102, 160, 124, 0.2)', activeColor: 'rgba(102, 160, 124, 1)', percent: '50%', up: true },
           { title: '土', fullColor: 'rgba(150, 118, 83, 0.2)', activeColor: 'rgba(150, 118, 83, 1)', percent: '30%', up: false },
           { title: '火', fullColor: 'rgba(205, 78, 72, 0.2)', activeColor: 'rgba(205, 78, 72, 1)', percent: '60%', up: true },
           { title: '水', fullColor: 'rgba(84, 150, 184, 0.2)', activeColor: 'rgba(84, 150, 184, 1)', percent: '40%', up: false },
         ] as EnergyBarType[],
+        area: null as UTSJSONObject | null,
         name: '' as string,
         date: '' as string,
         address: '' as string,
-        gender: 1 as number,
+        sex: 0 as number,
+        nowTime: '' as string,
+        timer: 0 as number | null,
+        ganzhi: {
+          year: '' as string,
+          moth: '' as string,
+          day: '' as string,
+          hour: '' as string,
+        } as UTSJSONObject,
+        lundarDate: '' as string,
+        baziInfo: {} as UTSJSONObject,
+        datetime: {} as UTSJSONObject,
+        nincludeList: [] as UTSJSONObject[],
+        includeList: [] as UTSJSONObject[],
+        judgeInfo: '' as string,
+        shishenZhi: [] as string[],
       }
     },
-    computed: {
-
+    created() {
+      const lunar = Lunar.fromDate(new Date())
+      this.ganzhi['year'] = lunar.getYearInGanZhi()
+      this.ganzhi['month'] = lunar.getMonthInGanZhi()
+      this.ganzhi['day'] = lunar.getDayInGanZhi()
+      this.ganzhi['hour'] = lunar.getTimeInGanZhi()
+      this.lundarDate = `${lunar.getYearInGanZhi()}年${lunar.getMonthInChinese()}月${lunar.getDayInChinese()}日  ${lunar.getTimeInGanZhi()}`
+      this.timer = setInterval(() => {
+        this.nowTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+      }, 1000)
     },
-
+    destroyed() {
+      this.timer && clearInterval(this.timer)
+    },
     methods: {
-
-      onAddressFocus() {
-        const cityPickerRef = this.$refs['cityPicker'] as CityPickerComponentPublicInstance
-        cityPickerRef.showModal()
+      async submit() : Promise<any | null> {
+        try {
+          this.loading = true
+          const form = {
+            name: '' as string,
+            Lon: '' as string,
+            area: null as UTSJSONObject | null,
+            date: this.date as string,
+            isSunTime: 0,
+            sect: 1,
+            sex: 0
+          }
+          form.date = this.date === '' ? dayjs().format('YYYY-MM-DD HH:mm:ss') : this.date;
+          form.name = this.name === '' ? '不知名网友' : this.name;
+          form.area = this.area;
+          form.sex = this.sex;
+          // 即时排盘
+          const response = await saveBazi(form);
+          const response1 = await getJudgment({ channel: 'fortune', ids: 370 })
+          let res = (response as UTSJSONObject)
+          let res1 = (response1 as UTSJSONObject)
+          if (res['code'] as number === 1) {
+            this.baziInfo = res['data'] as UTSJSONObject
+            this.datetime = this.baziInfo['datetime'] as UTSJSONObject
+            this.shishenZhi = res.getArray('data.base.shishenZhi') as string[]
+            this.nincludeList = this.baziInfo.getArray<UTSJSONObject>('element.ninclude.list') as UTSJSONObject[];
+            this.includeList = this.baziInfo.getArray<UTSJSONObject>('element.include.list') as UTSJSONObject[];
+            this.setEnergyBar()
+            this.handleSubmit()
+          }
+          if (res1['code'] as number === 1) {
+            this.judgeInfo = res1.getArray("data[0].content")?.join('') as string
+          }
+          setTimeout(() => { this.loading = false }, 3000)
+          return response;
+        } catch (e) {
+          console.error(e)
+          this.loading = false
+          return null
+        }
+      },
+      datePickerConfirm(data : UTSJSONObject) {
+        this.date = data['date'] as string;
+        this.dateType = data['type'] as number;
+        this.closePopup();
+      },
+      confirm(data : UTSJSONObject) {
+        this.area = data;
+        const province = data['province'] as UTSJSONObject
+        const city = data['city'] as UTSJSONObject
+        const area = data['area'] as UTSJSONObject
+        this.address = [province['label'], city['label'], area['label']].join('  ')
+        this.closePopup()
+      },
+      closePopup() {
+        this.showPopup = false;
+        this.showPopup1 = false;
       },
       handleSubmit() {
         this.showNextPage = true;
@@ -295,7 +977,70 @@
         }, 200);
       },
       onTabChange(e : FuiTabsItemParam) {
-        console.log(JSON.stringify(e))
+        this.dateType = e.index as number;
+        if (this.date === '') return;
+      },
+      onTab1Change(e : FuiTabsItemParam) {
+        this.current = e.index as number;
+      },
+      setEnergyBar() {
+        if (this.tab2Current === 0) {
+          this.energyBarList[1].percent = this.nincludeList[0]['sacle'].toString() + '%';
+          this.energyBarList[3].percent = this.nincludeList[1]['sacle'].toString() + '%';
+          this.energyBarList[2].percent = this.nincludeList[2]['sacle'].toString() + '%';
+          this.energyBarList[0].percent = this.nincludeList[3]['sacle'].toString() + '%';
+          this.energyBarList[4].percent = this.nincludeList[4]['sacle'].toString() + '%';
+
+          this.energyBarList[1].title = '金';
+          this.energyBarList[3].title = '木';
+          this.energyBarList[2].title = '水';
+          this.energyBarList[0].title = '火';
+          this.energyBarList[4].title = '土';
+        } else if (this.tab2Current === 1) {
+          const f = this.nincludeList[0]['total'] as number;
+          const s = this.nincludeList[1]['total'] as number;
+          const t = this.nincludeList[2]['total'] as number;
+          const th = this.nincludeList[3]['total'] as number;
+          const fi = this.nincludeList[4]['total'] as number;
+          const total : number = f + s + t + th + fi;
+          this.energyBarList[1].title = f.toString() + '个';
+          this.energyBarList[3].title = s.toString() + '个';
+          this.energyBarList[2].title = t.toString() + '个';
+          this.energyBarList[0].title = th.toString() + '个';
+          this.energyBarList[4].title = fi.toString() + '个';
+
+          this.energyBarList[1].percent = (f / total) * 100 + '%';
+          this.energyBarList[3].percent = (s / total) * 100 + '%';
+          this.energyBarList[2].percent = (t / total) * 100 + '%';
+          this.energyBarList[0].percent = (th / total) * 100 + '%';
+          this.energyBarList[4].percent = (fi / total) * 100 + '%';
+        } else {
+          const f = this.includeList[0]['total'] as number;
+          const s = this.includeList[1]['total'] as number;
+          const t = this.includeList[2]['total'] as number;
+          const th = this.includeList[3]['total'] as number;
+          const fi = this.includeList[4]['total'] as number;
+          const total : number = f + s + t + th + fi;
+          this.energyBarList[1].title = f.toString() + '个';
+          this.energyBarList[3].title = s.toString() + '个';
+          this.energyBarList[2].title = t.toString() + '个';
+          this.energyBarList[0].title = th.toString() + '个';
+          this.energyBarList[4].title = fi.toString() + '个';
+
+          this.energyBarList[1].percent = (f / total) * 100 + '%';
+          this.energyBarList[3].percent = (s / total) * 100 + '%';
+          this.energyBarList[2].percent = (t / total) * 100 + '%';
+          this.energyBarList[0].percent = (th / total) * 100 + '%';
+          this.energyBarList[4].percent = (fi / total) * 100 + '%';
+        }
+      },
+      onNavBack() {
+        this.showNextPage = false;
+        this.homeTitle = '首页'
+      },
+      onTab2Change(e : FuiTabsItemParam) {
+        this.tab2Current = e.index as number;
+        this.setEnergyBar()
       },
       onPickerChange(e : UniPickerViewChangeEvent) {
         console.log(111, e);
@@ -330,6 +1075,28 @@
     text-align: center;
   }
 
+  .tr {
+    @include flex(row);
+
+    .text-view__border {
+      border-right: 1rpx solid #4C4A4D;
+    }
+
+    .text-view {
+      flex: 1;
+      @include flex(row, center, center);
+      position: relative;
+      height: 22rpx;
+    }
+
+    .text-view1 {
+      flex: 1;
+      @include flex(row, center, center);
+      position: relative;
+      height: 32rpx;
+    }
+  }
+
   .home__bg {
     width: 623rpx;
     position: fixed;
@@ -340,7 +1107,7 @@
 
   .home-page {
     flex: 1;
-    padding: 0 52rpx;
+    padding: 0 42rpx;
 
     .header {
       width: 100%;

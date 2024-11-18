@@ -1,26 +1,36 @@
 <template>
-    <scroll-view class="popup-inner">
-      <view class="popup-header">
-        <text class="u-font-36 font-f-SanJi" style="color:#000"
-          >提示</text>
-      </view>
-      <picker-view class="picker-view" indicator-style="z-index: -1;border-radius: 5px; height: 40px;background: rgba(246, 246, 246, 0.5)" :value="value" @change="onPickerChange">
-        <picker-view-column class="picker-view-column">
-          <view class="picker-view-column__item" v-for="(item,index) in provinces" :key="index">
-            <text class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text>
-          </view>
-        </picker-view-column>
-        <picker-view-column class="picker-view-column">
-          <view class="picker-view-column__item" v-for="(item,index) in citys" :key="index"><text
-              class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text>
-          </view>
-        </picker-view-column>
-        <picker-view-column class="picker-view-column">
-          <view class="picker-view-column__item" v-for="(item,index) in areas" :key="index"><text
-              class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text></view>
-        </picker-view-column>
-      </picker-view>
-    </scroll-view>
+  <scroll-view class="popup-inner">
+    <view class="popup-header">
+      <fui-button height="48rpx" width="96rpx" text="取消" radius="4rpx"
+        background="#020202" :size="28" @click="cancel()"></fui-button>
+      <text class="u-font-32 font-f-SanJi" style="color:#000">出生地点</text>
+      <fui-button height="48rpx" width="96rpx" text="确认" radius="4rpx"
+        background="#020202" :size="28" @click="confirm()"></fui-button>
+    </view>
+    <picker-view class="picker-view"
+      indicator-style="z-index: -1;border-radius: 5px; height: 40px;background: rgba(246, 246, 246, 0.5)"
+      :value="value" @change="onPickerChange">
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in provinces"
+          :key="index">
+          <text
+            class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in citys"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text>
+        </view>
+      </picker-view-column>
+      <picker-view-column class="picker-view-column">
+        <view class="picker-view-column__item" v-for="(item,index) in areas"
+          :key="index"><text
+            class="font-f-SanJi picker-view-column__item__text">{{item['label']}}</text>
+        </view>
+      </picker-view-column>
+    </picker-view>
+  </scroll-view>
 </template>
 
 <script>
@@ -28,70 +38,77 @@
   import { IRootCityType } from '@/utils/api/types.uts';
 
   export default {
+    name: 'city-picker',
     data() {
       return {
         provinces: [] as UTSJSONObject[],
         citys: [] as UTSJSONObject[],
         areas: [] as UTSJSONObject[],
-        value: [0,0,0] as number[],
+        value: [0, 0, 0] as number[],
       }
     },
-	watch: {
-		value: function(newVal: number[], oldVal: number[]) {
-			const [pIndex, cIndex, aIndex] = newVal;
-			const province = this.provinces[pIndex];
-			if(oldVal.length === 0) {
-				this.getCityList({province: province['value']})
-			}else {
-				const [opIndex, ocIndex, oaIndex] = oldVal;
-				if(opIndex !== pIndex) {
-					this.getCityList({province: province['value']})
-				}
-				if(ocIndex !== cIndex) {
-					const city = this.citys[cIndex];
-					this.getCityList({city: city['value']})
-				}
-			}
-		}
-	},
-	created() {
-		this.getCityList({})
-	},
+    watch: {
+      value: function (newVal : number[], oldVal : number[]) {
+        const [pIndex, cIndex] = newVal;
+        const province = this.provinces[pIndex];
+        if (oldVal.length === 0) {
+          this.getCityList({ province: province['value'] })
+        } else {
+          const [opIndex, ocIndex] = oldVal;
+          if (opIndex !== pIndex) {
+            this.getCityList({ province: province['value'] })
+          }
+          if (ocIndex !== cIndex) {
+            const city = this.citys[cIndex];
+            this.getCityList({ city: city['value'] })
+          }
+        }
+      }
+    },
+    created() {
+      this.getCityList({})
+    },
     methods: {
-      async getCityList(query?: UTSJSONObject) : Promise<any> {
+      async getCityList(query ?: UTSJSONObject) : Promise<any> {
         try {
-			console.log('query',query);
           const response = await getCitys(query);
-		  console.log('response',response);
           let res = response as UTSJSONObject
-          console.log(111, res);
           const isSuccess = res['code'] as number === 1
           if (isSuccess) {
-			  const provinceId = query?.getAny('province')
-			  const cityId = query?.getAny('city')
-			  console.log('provinceId',provinceId);
-			  const [pIndex, cIndex, aIndex] = this.value;
-			  if(provinceId !== null) {
-				this.citys = res['data'] as UTSJSONObject[];
-				const city = this.citys[cIndex];
-				this.getCityList({city: city['value']})
-			  }else if(cityId !== null){
-				this.areas = res['data'] as UTSJSONObject[]
-			  }else {
-				this.provinces = res['data'] as UTSJSONObject[]
-				const province = this.provinces[pIndex];
-				this.getCityList({province: province['value']})
-			  }
+            const provinceId = query?.getAny('province')
+            const cityId = query?.getAny('city')
+            const [pIndex, cIndex] = this.value;
+            if (provinceId !== null) {
+              this.citys = res['data'] as UTSJSONObject[];
+              const city = this.citys[cIndex];
+              this.getCityList({ city: city['value'] })
+            } else if (cityId !== null) {
+              this.areas = res['data'] as UTSJSONObject[]
+            } else {
+              this.provinces = res['data'] as UTSJSONObject[]
+              const province = this.provinces[pIndex];
+              this.getCityList({ province: province['value'] })
+            }
           }
-          console.log('this.provinces', res['data']);
           return res['data'];
         } catch (err) {
-          console.log(err);
           return null;
         }
       },
+      confirm() {
+        const [a, b, c] = this.value;
+        let location = {
+          province: this.provinces[a],
+          city: this.citys[b],
+          area: this.areas[c]
+        }
+        this.$emit('confirm', location as UTSJSONObject)
+      },
+      cancel() {
+        this.$emit('cancel')
+      },
       onPickerChange(e : UniPickerViewChangeEvent) {
-		  this.value = e.detail.value
+        this.value = e.detail.value
       }
     }
   }
@@ -99,17 +116,17 @@
 
 <style lang="scss">
   @import "@/static/css/flex.scss";
-  
+
   .picker-view {
     width: 100%;
     height: 680rpx;
     margin-top: 16px;
-  
+
     &-column {
       &__item {
         height: 40px;
         border: none;
-  
+
         &__text {
           line-height: 40px;
           text-align: center;
@@ -125,7 +142,7 @@
   }
 
   .popup-header {
-    @include flex(row, center, center);
+    @include flex(row, space-between, center);
+    padding: 20rpx 32rpx;
   }
-
 </style>

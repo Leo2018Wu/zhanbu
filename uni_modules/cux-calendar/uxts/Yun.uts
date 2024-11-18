@@ -1,0 +1,107 @@
+import {Lunar} from './Lunar';
+import {Solar} from './Solar';
+import {LunarUtil} from './LunarUtil';
+import {DaYun} from './DaYun';
+
+export class Yun {
+    private readonly gender: number;
+    private readonly startYear: number;
+    private readonly startMonth: number;
+    private readonly startDay: number;
+    private readonly startHour: number;
+    private readonly forward: boolean;
+    private readonly lunar: Lunar;
+
+    constructor(lunar: Lunar, gender: number, sect: number = 1) {
+        this.gender = gender;
+        this.lunar = lunar;
+        const yang = lunar.getYearGanIndexExact() % 2 == 0;
+        const man = gender == 1;
+        const forward = (yang && man) || (!yang && !man);
+        this.forward = forward;
+        const prev = lunar.getPrevJie();
+        const next = lunar.getNextJie();
+        const current = lunar.getSolar();
+        const start = forward ? current : prev.getSolar();
+        const end = forward ? next.getSolar() : current;
+
+        let year: number;
+        let month: number;
+        let day: number;
+        let hour = 0;
+        if (sect == 2) {
+            let minutes = end.subtractMinute(start);
+            year = Math.floor(minutes / 4320);
+            minutes -= year * 4320;
+            month = Math.floor(minutes / 360);
+            minutes -= month * 360;
+            day = Math.floor(minutes / 12);
+            minutes -= day * 12;
+            hour = minutes * 2;
+        } else {
+            const endTimeZhiIndex = (end.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(end.toYmdHms().substring(11, 5));
+            const startTimeZhiIndex = (start.getHour() == 23) ? 11 : LunarUtil.getTimeZhiIndex(start.toYmdHms().substring(11, 5));
+            // 时辰差
+            let hourDiff = endTimeZhiIndex - startTimeZhiIndex;
+            // 天数差
+            let dayDiff = end.subtract(start);
+            if (hourDiff < 0) {
+                hourDiff += 12;
+                dayDiff--;
+            }
+            let monthDiff = Math.floor(hourDiff * 10 / 30);
+            month = dayDiff * 4 + monthDiff;
+            day = hourDiff * 10 - monthDiff * 30;
+            year = Math.floor(month / 12);
+            month = month - year * 12;
+        }
+        this.startYear = year;
+        this.startMonth = month;
+        this.startDay = day;
+        this.startHour = hour;
+    }
+
+    getGender(): number {
+        return this.gender;
+    }
+
+    getStartYear(): number {
+        return this.startYear;
+    }
+
+    getStartMonth(): number {
+        return this.startMonth;
+    }
+
+    getStartDay(): number {
+        return this.startDay;
+    }
+
+    getStartHour(): number {
+        return this.startHour;
+    }
+
+    isForward(): boolean {
+        return this.forward;
+    }
+
+    getLunar(): Lunar {
+        return this.lunar;
+    }
+
+    getStartSolar(): Solar {
+        let solar = this.lunar.getSolar();
+        solar = solar.nextYear(this.startYear);
+        solar = solar.nextMonth(this.startMonth);
+        solar = solar.next(this.startDay);
+        return solar.nextHour(this.startHour);
+    }
+
+    getDaYun(n : number = 10): DaYun[] {
+        const l: DaYun[] = [];
+        for (let i = 0; i < n; i++) {
+            l.push(new DaYun(this, i));
+        }
+        return l;
+    }
+}

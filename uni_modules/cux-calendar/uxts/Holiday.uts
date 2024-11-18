@@ -1,0 +1,62 @@
+export class Holiday {
+	private day: string;
+	private name: string;
+	private work: boolean;
+	private target: string;
+	
+	private static padding(n: number): string {
+	    return (n < 10 ? '0' : '') + n;
+	}
+	
+	constructor(day: string, name: string, work: boolean, target: string) {
+	    this.day = Holiday.ymd(day);
+	    this.name = name;
+	    this.work = work;
+	    this.target = Holiday.ymd(target);
+	}
+	
+	private static ymd(s: string): string {
+		let year = parseInt(s.substring(0,4));
+		let month = parseInt(s.substring(4,6))-1;
+		let day = parseInt(s.substring(6,8));
+		let date: Date = new Date(year,month,day);
+		
+	    return s.indexOf('-') < 0 ? date.getFullYear() + '-' + Holiday.padding(date.getMonth()+1) + '-' + Holiday.padding(date.getDate()) : s;
+	}
+
+    getDay(): string {
+        return this.day;
+    }
+
+    setDay(value: string) {
+        this.day = Holiday.ymd(value);
+    }
+
+    getName(): string {
+        return this.name;
+    }
+
+    setName(value: string) {
+        this.name = value;
+    }
+
+    isWork(): boolean {
+        return this.work;
+    }
+
+    setWork(value: boolean) {
+        this.work = value;
+    }
+
+    getTarget(): string {
+        return this.target;
+    }
+
+    setTarget(value: string) {
+        this.target = Holiday.ymd(value);
+    }
+
+    toHolidayString(): string {
+        return this.day + ' ' + this.name + (this.work ? '调休' : '') + ' ' + this.target;
+    }
+}
