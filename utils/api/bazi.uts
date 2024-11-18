@@ -13,3 +13,7 @@ export const getCategory = () : Promise<any> => {
 export const getJudgment = (query : UTSJSONObject) : Promise<any> => {
   return http.get('/bazinew/judgmentByFileId', { query } as RequestConfig);
 }
+// ?ids=370&type=year&year=&month=&day=
+export const getHealthForSave = (query : UTSJSONObject) : Promise<any> => {
+  return http.get('/bazinew/HealthForSave', { query } as RequestConfig);
+}

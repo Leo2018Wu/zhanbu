@@ -147,23 +147,16 @@
     <scroll-view class="home-page" style="padding-bottom: 20px;">
       <image class="home__bg" src="@/static/images/common/home_bg1.png"
         mode="widthFix"></image>
-      <view class="echart-wrapper" style="width: 200px;height: 220px;">
+      <view class="echart-wrapper u-mb-40" style="width: 200px;height: 220px;">
         <radar-chart></radar-chart>
       </view>
-      <view class="health-li u-mt-40">
+      <view class="health-li " v-for="item in taohuaList">
         <view class="health-li__label">
-          <text class="font-f-SanJi text-white u-font-28">2023年-健康</text>
+          <text
+            class="font-f-SanJi text-white u-font-28">{{item['title']}}</text>
         </view>
         <text class="font-f-SanJi health-li__desc">
-          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
-        </text>
-      </view>
-      <view class="health-li">
-        <view class="health-li__label">
-          <text class="font-f-SanJi text-white u-font-28">2024年-健康</text>
-        </view>
-        <text class="font-f-SanJi health-li__desc">
-          容易出现心脏和小肠相关的问题，心脏和小肠的疾病可以被归为火属性的疾病。这些疾病包括心脏病、冠心病心肌梗塞、心律失常、高血压、低血压、贫血、小肠炎症、腰泻等。
+          {{item['content']}}
         </text>
       </view>
       <view class="divider">
@@ -196,6 +189,7 @@
 </template>
 
 <script>
+  import { getHealthForSave } from '@/utils/api'
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
   import RadarChart from '../comps/RadarChart.uvue'
   import { FuiDropdownMenuOptionParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
@@ -209,20 +203,44 @@
           value: '1',
         }, {
           text: '桃花',
-          value: '2'
+          value: '2',
+          checked: true
         }, {
           text: '配偶',
           value: '3'
         }, {
           text: '婚姻',
-          value: '4',
-          checked: true
+          value: '4'
         }] as FuiDropdownMenuOptionParam[],
-        range: '婚姻',
-        rangeShow: false
+        range: '桃花',
+        rangeShow: false,
+        healthInfo: {} as UTSJSONObject,
+        taohuaList: [] as UTSJSONObject[]
       }
     },
+    created() {
+      this.getHealthForSave()
+    },
     methods: {
+      async getHealthForSave() : Promise<any | null> {
+        try {
+          const response = await getHealthForSave({ ids: 370, type: 'year' })
+          console.log(123, response);
+          const res = response as UTSJSONObject
+          if (res.getNumber('code') === 1) {
+            this.healthInfo = res.getJSON('data') as UTSJSONObject
+            this.taohuaList = res.getArray('data.default') as UTSJSONObject[]
+            console.log(12311213);
+            this.taohuaList.forEach(item => {
+              item['content'] = (item['contnet'] as Array).join(' ') as string
+              console.log(1231123, item['content']);
+            })
+          }
+          return response;
+        } catch (e) {
+          return null
+        }
+      },
       filterTap() {
         (this.$refs['ddmRange'] as FuiDropdownMenuComponentPublicInstance).show()
         this.rangeShow = true;
@@ -272,6 +290,7 @@
         top: -30rpx;
         background-color: #020202;
         min-width: 214rpx;
+        padding: 0 24rpx;
         height: 54rpx;
         @include flex(row, center, center);
         border-radius: 27rpx;
