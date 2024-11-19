@@ -85,38 +85,7 @@
             logoPath: "/static/images/login/login_img1.png"
           } as UniverifyStyle,
           success: (res : LoginSuccess) => {
-            console.log("login success => " + JSON.stringify(res));
-            // 云函数取号
-            // uniCloud.callFunction({
-            //   name: 'univerify',
-            //   data: {
-            //     access_token: res.accessToken, // 客户端一键登录接口返回的access_token
-            //     openid: res.openId // 客户端一键登录接口返回的openid
-            //   }
-            // }).then(res => {
-            //   // 关闭登录页
-            //   this.univerifyManager?.close();
-            //   setTimeout(() => {
-            //     uni.showModal({
-            //       title: '取号成功',
-            //       content: res.result.getJSON("res")?.getString("phoneNumber"),
-            //       showCancel: false
-            //     });
-            //   }, 100);
-            // }).catch(err => {
-            //   console.error(JSON.stringify(err));
-            //   // 关闭登录页
-            //   this.univerifyManager?.close();
-            //   setTimeout(() => {
-            //     uni.showModal({
-            //       title: '取号失败',
-            //       content: (err as Error).message,
-            //       showCancel: false
-            //     });
-            //   }, 100);
-            // });
-            // 先默认取号成功
-            this.loginPost();
+            this.loginPost(res.accessToken as string, res.openId as string);
           },
           fail: (err : LoginFail) => {
             console.error("login fail => " + err);
@@ -128,13 +97,13 @@
           }
         } as LoginOptions);
       },
-      async loginPost() : Promise<any | null> {
+      async loginPost(access_token : string, openid : string) : Promise<any | null> {
         try {
           uni.showLoading({
             title: '正在登录...',
             mask: false
           });
-          const response = await loginBySms({ mobile: '18858523045', captcha: '111111', source: 1 });
+          const response = await loginBySms({ access_token, openid });
           let res = (response as UTSJSONObject)
           const isSuccess = res['code'] as number === 1
           if (isSuccess) {
@@ -152,6 +121,7 @@
           return res;
         } catch (err) {
           console.log(err);
+          uni.hideLoading()
           return null;
         }
       },

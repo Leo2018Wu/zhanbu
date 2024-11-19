@@ -1,9 +1,10 @@
 import App from './App.uvue'
+import interceptors from './utils/http/interceptors'
 
 import { createSSRApp } from 'vue'
 export function createApp() {
-	const app = createSSRApp(App)
-	return {
-		app
-	}
+  const app = createSSRApp(App)
+  return {
+    app
+  }
 }

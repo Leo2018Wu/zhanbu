@@ -80,6 +80,7 @@
         </view>
       </view>
     </view>
+    <!-- <ZBLoading ></ZBLoading> -->
   </view>
 </template>
 
@@ -89,6 +90,7 @@
   import middlePage from './middlePage/middlePage.uvue';
   import matchPage from './matchPage/matchPage.uvue';
   import minePage from './mine/mine.uvue';
+  import ZBLoading from '@/components/common/ZBLoading.uvue';
 
   type TabItem = {
     init : boolean,
@@ -101,7 +103,8 @@
       minePage,
       friendListPage,
       matchPage,
-      middlePage
+      middlePage,
+      ZBLoading
     },
     data() {
       return {
