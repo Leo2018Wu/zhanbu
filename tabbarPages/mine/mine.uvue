@@ -8,7 +8,7 @@
           <text class="font-f-SanJi u-font-42"
             style="line-height: 42rpx;">{{userInfo['username']}}
             <text class="font-f-SanJi u-font-24"
-              style="color:#7e7e7e">@zhudeyong</text></text>
+              style="color:#7e7e7e">{{userInfo['code']}}</text></text>
           <view class="userinfo-labels">
             <image class="icon" src="/static/images/mine/xingzuo.png" mode="" />
             <text class="font-f-SanJi name">白羊座</text>

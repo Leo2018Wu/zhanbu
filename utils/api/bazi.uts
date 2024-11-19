@@ -17,3 +17,6 @@ export const getJudgment = (query : UTSJSONObject) : Promise<any> => {
 export const getHealthForSave = (query : UTSJSONObject) : Promise<any> => {
   return http.get('/bazinew/HealthForSave', { query } as RequestConfig);
 }
+export const getBaziList = (query : UTSJSONObject) : Promise<any> => {
+  return http.get('/bazinew/baziList', { query } as RequestConfig);
+}

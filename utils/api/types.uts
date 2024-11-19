@@ -1,10 +1,35 @@
-type CityRes = {
-  value : number;
-  label : string;
+type ItemBaziType = {
+  id : number;
+  group_id : number;
+  user_id : number;
+  realname : string;
+  mobile : string;
+  gender : number;
+  birthday : string;
+  marriage : number;
+  area : any | null;
+  lon : number;
+  lat : number;
+  detail : string;
+  books : string;
+  duan : any | null;
+  msg : any | null;
+  type : any | null;
+  tend : any | null;
+  viewtimes : number;
+  updatetimes : number;
+  lasttime : number;
+  createtime : number;
+  updatetime : number;
+  status : string;
+  group_name : string;
+  marriage_name : any | null;
 }
-type IRootCityType = {
+// 匹配列表
+type IRootBaziListType = {
   code : number;
-  data : CityRes[];
+  desc : string;
+  data : ItemBaziType[];
 }
 
 export {

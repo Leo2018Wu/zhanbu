@@ -115,6 +115,9 @@
 </template>
 
 <script>
+  import { IRootBaziListType } from '@/utils/api/types.uts';
+  import { getBaziList } from '@/utils/api';
+  import { BASE_URL, API } from '@/env.uts'
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
 
   type InfoType = {
@@ -168,7 +171,41 @@
         ] as IRootType[]
       }
     },
+    created() {
+      this.getList()
+    },
     methods: {
+      getList() {
+        uni.request<IRootBaziListType>({
+          url: `${BASE_URL}${API}/bazinew/baziList`,
+          data: {
+            page: 0, //当前页码
+            page_size: 99 //每页列表项目数量
+          },
+          success: (res) => {
+            console.log(132, res);
+            // 						const responseData = res.data
+            // 						if (responseData == null) {
+            // 							return
+            // 						}
+
+            // 						//...是展开运算符，本句用于把联网获取的数组合并到data数组里。当第一次执行时，dataList为空，push进去了第一页的数据，后续页面也同理
+            // 						this.dataList.push(...responseData.data)
+
+            // 						if (responseData.data.length == 0) {
+            // 							this.isEnded = true
+            // 						} else {
+            // 							this.$currentPage++
+            // 						}
+          },
+          fail: (err) => {
+            // this.loadingError = err.errMsg
+          },
+          complete: () => {
+            // this.loading = false
+          }
+        })
+      },
       toPage() {
         uni.navigateTo({
           url: '/pages/fortuneDetail/fortuneDetail'

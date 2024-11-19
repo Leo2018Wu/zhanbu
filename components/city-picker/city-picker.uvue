@@ -35,7 +35,6 @@
 
 <script>
   import { getCitys } from '@/utils/api';
-  import { IRootCityType } from '@/utils/api/types.uts';
 
   export default {
     name: 'city-picker',
