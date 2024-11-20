@@ -230,9 +230,8 @@
           if (res.getNumber('code') === 1) {
             this.healthInfo = res.getJSON('data') as UTSJSONObject
             this.taohuaList = res.getArray('data.default') as UTSJSONObject[]
-            console.log(12311213);
             this.taohuaList.forEach(item => {
-              item['content'] = (item['contnet'] as Array).join(' ') as string
+              item['content'] = (item['contnet'] as Array).toString() as string
               console.log(1231123, item['content']);
             })
           }

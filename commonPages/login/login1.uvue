@@ -3,23 +3,25 @@
     <view class="inner">
       <image class="bg" src="../../static/images/login/login_bg1.png"
         mode="widthFix"></image>
-      <image class="img1" src="../../static/images/login/login_img1.png"
+      <image class="img1" src="../../static/images/login/login_img2.png"
         mode="widthFix"></image>
       <view class="divide">
         <image class="img2" src="../../static/images/login/line.png"
           mode="widthFix"></image>
-        <text class="font-f-SanJi u-font-40 u-mx-10">让传统变潮流</text>
+        <text class="font-f-SanJi u-font-40 u-mx-10"
+          style="color: #fff;">让传统变潮流</text>
         <image class="img3" src="../../static/images/login/line.png"
           mode="widthFix"></image>
       </view>
     </view>
     <fui-button width="534rpx" margin="30% auto 0 auto" radius="7rpx"
-      background="#020202" text="立即登录" @click="verify(false)"></fui-button>
+      background="#fff" color="#020202" text="立即登录"
+      @click="verify(false)"></fui-button>
   </view>
 </template>
 
 <script lang="uts">
-  import { state, setGlobalUserInfo } from '@/store/index.uts'
+  import { state, setGlobalUserInfo, setGlobalToken } from '@/store/index.uts'
   import { loginBySms } from '@/utils/api';
   export default {
     data() {
@@ -103,11 +105,14 @@
             title: '正在登录...',
             mask: false
           });
-          const response = await loginBySms({ access_token, openid });
+          // const response = await loginBySms({ access_token, openid });
+          const response = await loginBySms({ mobile: '18858523045', captcha: '111111', source: 1 });
           let res = (response as UTSJSONObject)
+          console.log('res', res);
           const isSuccess = res['code'] as number === 1
           if (isSuccess) {
             setGlobalUserInfo(res['data'] as UTSJSONObject)
+            setGlobalToken(res.getString('data.token') as string)
             this.univerifyManager?.close();
             uni.redirectTo({
               url: '/tabbarPages/custom-tab-bar',
@@ -136,6 +141,8 @@
   @import "@/static/css/flex.scss";
 
   .login1-page {
+    background-color: #000;
+    flex: 1;
     padding-top: 100rpx;
     @include flex(column, flex-start, center);
 

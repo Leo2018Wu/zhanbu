@@ -1,5 +1,5 @@
 <script lang="uts">
-  import { setGlobalUserInfo } from '@/store/index.uts'
+  import { setGlobalUserInfo, setGlobalToken } from '@/store/index.uts'
   let firstBackTime = 0
   export default {
     onLaunch: function () {
@@ -21,6 +21,10 @@
     methods: {
       checkLoginStatus() {
         const userInfo = uni.getStorageSync('USER_INFO') as string;
+        const token = uni.getStorageSync('TOKEN') as string;
+        if (token !== '') {
+          setGlobalToken(token)
+        }
         if (userInfo === '') {
           uni.redirectTo({
             url: '/commonPages/splash/splash',

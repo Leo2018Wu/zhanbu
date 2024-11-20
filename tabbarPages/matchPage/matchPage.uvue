@@ -20,11 +20,13 @@
     <list-view id="list-view" class="match-page">
       <sticky-section v-for="(item,index) in dataList" :key="index"
         :push-pinned-header="true" :padding="[0,0,0,0]">
-        <sticky-header :id="item.code">
+        <sticky-header :id="item['first_letter']">
           <text
-            class="sticky-header-text font-f-SanJi li-code">{{item.code}}</text>
+            class="sticky-header-text font-f-SanJi li-code">{{item['first_letter']}}</text>
         </sticky-header>
-        <list-item v-for="(subItem,subIndex) in item.list" :key="subIndex">
+        <list-item
+          v-for="(subItem,subIndex) in getSubList(item['detail'] as string)"
+          :key="subIndex">
           <view class="list-item">
             <view class="left">
               <image class="avatar" src="../../static/images/common/avatar1.png"
@@ -32,12 +34,12 @@
               </image>
               <view class="info">
                 <text class="font-f-SanJi" style="color: #000;">
-                  {{subItem.name}} <text class="font-f-SanJi u-font-24"
-                    style="color: #7e7e7e">{{subItem.gender}}</text>
+                  {{subItem['realname']}} <text class="font-f-SanJi u-font-24"
+                    style="color: #7e7e7e">{{subItem['gender']}}</text>
                 </text>
                 <text class="font-f-SanJi u-font-20 u-mt-12"
-                  style="color: #7e7e7e;">{{subItem.type}}
-                  {{subItem.birthday}}</text>
+                  style="color: #7e7e7e;">阴历
+                  {{subItem.getString('datetime.lunar')}}</text>
               </view>
             </view>
             <view class="right">
@@ -58,6 +60,7 @@
         </list-item>
       </sticky-section>
     </list-view>
+
     <!-- <scroll-view class="match-page" style="padding-bottom: 20px;">
       <view class="header">
         <fui-input v-model="searchValue" :radius="6" padding="16rpx 32rpx"
@@ -137,74 +140,47 @@
     data() {
       return {
         searchValue: '',
-        dataList: [
-          {
-            code: 'A',
-            list: [
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-            ]
-          },
-          {
-            code: 'B',
-            list: [
-              { name: '艾默默1', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-              { name: '艾默默', gender: '女', birthday: '1991-12-23 17:23:41', type: '阳历', score: '10%', wx: ['辛', '庚', '丙', '甲'] },
-            ]
-          }
-        ] as IRootType[]
+        dataList: [] as UTSJSONObject[]
       }
     },
     created() {
       this.getList()
     },
     methods: {
-      getList() {
-        uni.request<IRootBaziListType>({
-          url: `${BASE_URL}${API}/bazinew/baziList`,
-          data: {
-            page: 0, //当前页码
-            page_size: 99 //每页列表项目数量
-          },
-          success: (res) => {
-            console.log(132, res);
-            // 						const responseData = res.data
-            // 						if (responseData == null) {
-            // 							return
-            // 						}
-
-            // 						//...是展开运算符，本句用于把联网获取的数组合并到data数组里。当第一次执行时，dataList为空，push进去了第一页的数据，后续页面也同理
-            // 						this.dataList.push(...responseData.data)
-
-            // 						if (responseData.data.length == 0) {
-            // 							this.isEnded = true
-            // 						} else {
-            // 							this.$currentPage++
-            // 						}
-          },
-          fail: (err) => {
-            // this.loadingError = err.errMsg
-          },
-          complete: () => {
-            // this.loading = false
+      getSubList(data : string) : UTSJSONObject[] {
+        return JSON.parse(data) as UTSJSONObject[]
+      },
+      async getList() : Promise<any | null> {
+        try {
+          const response = await getBaziList({ page: 1, limit: 20 });
+          const res = response as UTSJSONObject
+          console.log(23213, response, res);
+          if (res['code'] as number === 1) {
+            console.log(response, res['data.data']);
+            const arr = res.getArray('data.data')
+            // const list = arr as UTSJSONObject[]
+            // console.log(3333, list.length);
+            // let result: UTSJSONObject[] = []
+            // list.forEach((i : UTSJSONObject) => {
+            //   console.log('i', i);
+            //   i['list'] = JSON.parse(i['detail'] as string) as UTSJSONObject[]
+            // })
+            this.dataList = arr as Array<UTSJSONObject>
+            // const sortList : UTSJSONObject[] = list.sort((a : UTSJSONObject, b : UTSJSONObject) : number => {
+            //   console.log(123, a['first_letter'], b);
+            //   const f = a['first_letter'] as string
+            //   const d = b['first_letter'] as string
+            //   const c = 'x'
+            //   const m = 'f'
+            //   console.log('fff', c.localeCompare(m));
+            //   return 1
+            // })
+            // console.log('sortList', sortList);
           }
-        })
+          return response;
+        } catch (e) {
+          return null
+        }
       },
       toPage() {
         uni.navigateTo({
