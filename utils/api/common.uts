@@ -1,10 +1,9 @@
 
 import { RequestConfig } from '@/uni_modules/kux-request';
 import { http } from '../http/index';
-import { IRootCityType } from './types.uts'
 
 
 
-export const getCitys = (query?: UTSJSONObject) : Promise<any> => {
-  return http.get('/index/area', {query} as RequestConfig);
+export const getCitys = (query ?: UTSJSONObject) : Promise<any> => {
+  return http.get('/index/area', { query } as RequestConfig);
 }

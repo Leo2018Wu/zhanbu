@@ -1,429 +1,109 @@
 <template>
-  <uni-navbar-lite title="命盘详解" />
-  <scroll-view style="flex:1;padding: 20rpx 36rpx;">
-    <view class="info-list">
-      <view class="info-li">
-        <view class="u-px-22">
-          <text class="font-f-SanJi text-black u-font-28">姓 名 <text
-              class="font-f-SanJi text-black u-font-46">殷幼宁</text></text>
-          <text class="u-font-24 text-black font-f-SanJi u-mt-14">2024年十月初二
-            戌子</text>
-          <view class="divider u-my-20" />
-        </view>
-        <view class="tr">
-          <view class="text-view"
-            :class="{'text-view__border':index < timeList.length - 1}"
-            v-for="(word, index) in timeList" :key="word">
-            <text class="font-f-SanJi u-font-24 text-black">{{word}}</text>
-          </view>
-        </view>
-        <view class="tr u-mt-20">
-          <view class="text-view1"
-            :class="{'text-view__border':index < times.length - 1}"
-            v-for="(word, index) in times" :key="word">
-            <text class="font-f-SanJi u-font-32 text-black"
-              style="font-weight: bold;">{{word}}</text>
-          </view>
-        </view>
-        <view class="tr u-mt-20">
-          <view class="text-view1"
-            :class="{'text-view__border':index < times.length - 1}"
-            v-for="(word, index) in times" :key="word">
-            <text class="font-f-SanJi u-font-32 text-black"
-              style="font-weight: bold;">{{word}}</text>
-          </view>
-        </view>
-      </view>
-      <view style="width:32rpx" />
-      <view class="info-li">
-        <view class="u-px-22">
-          <text class="font-f-SanJi text-black u-font-28">姓 名 <text
-              class="font-f-SanJi text-black u-font-46">董瑞霖</text></text>
-          <text class="u-font-24 text-black font-f-SanJi u-mt-14">2024年十月初二
-            戌子</text>
-          <view class="divider u-my-20" />
-        </view>
-        <view class="tr">
-          <view class="text-view"
-            :class="{'text-view__border':index < timeList.length - 1}"
-            v-for="(word, index) in timeList" :key="word">
-            <text class="font-f-SanJi u-font-24 text-black">{{word}}</text>
-          </view>
-        </view>
-        <view class="tr u-mt-20">
-          <view class="text-view1"
-            :class="{'text-view__border':index < times.length - 1}"
-            v-for="(word, index) in times" :key="word">
-            <text class="font-f-SanJi u-font-32 text-black"
-              style="font-weight: bold;">{{word}}</text>
-          </view>
-        </view>
-        <view class="tr u-mt-20">
-          <view class="text-view1"
-            :class="{'text-view__border':index < times.length - 1}"
-            v-for="(word, index) in times" :key="word">
-            <text class="font-f-SanJi u-font-32 text-black"
-              style="font-weight: bold;">{{word}}</text>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="match-num">
-      <image class="bg" src="../../static/images/common/match_bg.png"
-        mode="widthFix"></image>
-      <view class="score">
-        <text class="font-f-SanJi text-white u-font-36">综合评分90%</text>
-        <text class="font-f-SanJi text-white u-font-36">相合</text>
-      </view>
-      <view class="num-list">
-        <view class="num-li">
-          <text class="text-white u-font-32 font-f-SanJi u-mb-18">财运</text>
-          <text class="text-white u-font-46 font-f-SanJi">50</text>
-        </view>
-        <view class="num-li">
-          <text class="text-white u-font-32 font-f-SanJi u-mb-18">事业</text>
-          <text class="text-white u-font-46 font-f-SanJi">99</text>
-        </view>
-        <view class="num-li">
-          <text class="text-white u-font-32 font-f-SanJi u-mb-18">桃花</text>
-          <text class="text-white u-font-46 font-f-SanJi">80</text>
-        </view>
-      </view>
-    </view>
-    <fui-row :width="696" style="background-color: #f6f6f6;" marginTop="42rpx">
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-32 u-py-28 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">参数
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">生肖
-        </text> <text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">日元
-        </text> <text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">夫妻宫
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-32 u-py-28 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">殷幼宁
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">龙
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">戍
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">戍
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-32 u-py-28 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">董瑞霖</text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">虎
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">戍
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">戍
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-32 u-py-28 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">解析</text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">无
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">半合
-        </text>
-      </fui-col>
-    </fui-row>
-    <view class="img-divider">
-      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-      <text class="font-f-SanJi u-font-36 u-mx-10">四柱参数</text>
-      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-    </view>
-    <fui-row :width="696" style="background-color: #f6f6f6;">
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">年支
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">月支
-        </text> <text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">日支
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">龙
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">龙
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">戍
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">虎</text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">虎
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">戍
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合</text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
-        </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">相刑
-        </text>
-      </fui-col>
-    </fui-row>
-    <view class="img-divider">
-      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-      <text class="font-f-SanJi u-font-36 u-mx-10">纳音参数</text>
-      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-    </view>
-    <fui-row :width="696" style="background-color: #f6f6f6;">
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">年纳音
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">日纳音
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">城头土
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">
-          城头土
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">城头土
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">
-          城头土
-        </text>
-      </fui-col>
-      <fui-col :span="6">
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
-        </text>
-        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">
-          无
-        </text>
-      </fui-col>
-    </fui-row>
-    <view class="img-divider">
-      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-      <text class="font-f-SanJi u-font-36 u-mx-10">神刹参数</text>
-      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
-      </image>
-    </view>
-    <view class="sc-info">
-      <view class="top">
-        <view class="top-label u-mr-20">
-          <text class="font-f-SanJi u-font-28" style="color: #222;">夫妻宫</text>
-        </view>
-        <fui-row style="align-self: center;padding-left: 16px" :width="360">
-          <fui-col :span="9">
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">城头土
-            </text>
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-          </fui-col>
-          <fui-col :span="9" :offset="5">
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">城头土
-            </text>
-            <text class="th font-f-SanJi u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-            <text class="th font-f-SanJi  u-font-28 u-py-10 text-black">
-              城头土
-            </text>
-          </fui-col>
-        </fui-row>
-      </view>
-      <view class="bottom">
-        <view class="bottom-label u-mr-20">
-          <view style="width: 30px;" class="u-ml-20">
-            <text class="font-f-SanJi u-font-28"
-              style="color: #222;">相互关系</text>
-          </view>
-        </view>
-        <fui-row style="align-self: center;padding-left: 16px;" :width="360">
-          <fui-col :span="24">
-            <text class="font-f-SanJi u-font-28 text-black"
-              style="line-height: 50rpx;">
-              【殷女士】的”戍”，是【董先生】的“天乙贵人寓意：催旺贵人运，遇 事有人帮助，大富大贵之命。
-            </text>
-          </fui-col>
-        </fui-row>
-      </view>
-    </view>
-  </scroll-view>
+  <list-view style="flex: 1;background-color: #ffffff;"
+    @scrolltolower="loadData">
+    <template v-for="(item, index) in dataList" :key="index">
+      <list-item
+        style="flex-direction: row; margin-top: 10px; padding: 10px; height: 100px;">
+        <image :src="item.plugin_img_link" style="width: 120px;"></image>
+        <text style="flex: 1;">{{item.plugin_name}}</text>
+      </list-item>
+      <list-item key="loading" v-if="index==dataList.length-1">
+        <text
+          style="padding: 10px; text-align: center; background-color: #f8f8f8; margin-bottom: 1px;">{{loadingText}}</text>
+      </list-item>
+    </template>
+  </list-view>
 </template>
 
 <script>
-  import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue'
+  type Data = {
+    plugin_id : number;
+    plugin_name : string;
+    plugin_img_link : string;
+    plugin_intro : string;
+    is_paid : number;
+    collection_count : number;
+    support_count : number;
+    buy_count : number;
+    download_count : number;
+    score : number;
+    rater_count : number;
+    tags : string[];
+    category_level1_name : string;
+    category_level2_name : string;
+    update_date : string;
+    author_avatar_link : string;
+    author_name : string;
+  }
+
+  type IRootType = {
+    code : number;
+    desc : string;
+    data : Data[];
+  }
+
   export default {
-    components: { uniNavbarLite },
     data() {
       return {
-        timeList: ['年', '月', '日', '时'],
-        times: ['甲', '辰', '戌', '戌'],
+        dataList: [] as Data[],
+        loading: false,
+        isEnded: false,
+        loadingError: '',
+        $currentPage: 1
       }
+    },
+    computed: {
+      loadingText() : string {
+        if (this.loading) {
+          return "加载中..."
+        } else if (this.isEnded) {
+          return "没有更多了"
+        } else if (this.loadingError.length > 0) {
+          return this.loadingError
+        } else {
+          return ""
+        }
+      }
+    },
+    onLoad() {
+      this.loadData()
+    },
+    methods: {
+      loadData() {
+        if (this.loading || this.isEnded) {
+          return
+        }
+        this.loading = true
+
+        uni.request<IRootType>({
+          url: "https://ext.dcloud.net.cn/plugin/uniappx-plugin-list",
+          data: {
+            page: this.$currentPage, //当前页码
+            page_size: 10 //每页列表项目数量
+          },
+          success: (res) => {
+            const responseData = res.data
+            if (responseData == null) {
+              return
+            }
+
+            //...是展开运算符，本句用于把联网获取的数组合并到data数组里。当第一次执行时，dataList为空，push进去了第一页的数据，后续页面也同理
+            this.dataList.push(...responseData.data)
+
+            if (responseData.data.length == 0) {
+              this.isEnded = true
+            } else {
+              this.$currentPage++
+            }
+          },
+          fail: (err) => {
+            this.loadingError = err.errMsg
+          },
+          complete: () => {
+            this.loading = false
+          }
+        })
+      },
     }
   }
 </script>
-
-<style lang="scss">
-  @import "@/static/css/flex.scss";
-  $bg-main: #f6f6f6;
-
-  .text-center {
-    text-align: center;
-  }
-
-  .info-list {
-    @include flex(row, space-between, center);
-
-    .info-li {
-      flex: 1;
-      background-color: $bg-main;
-      border-radius: 10rpx;
-      padding: 36rpx 0 28rpx 0;
-
-      .divider {
-        height: 1rpx;
-        width: 100%;
-        background-color: rgba(34, 34, 34, 0.2);
-      }
-
-      .tr {
-        @include flex(row);
-
-        .text-view__border {
-          border-right: 1rpx solid #4C4A4D;
-        }
-
-        .text-view {
-          flex: 1;
-          @include flex(row, center, center);
-          position: relative;
-          height: 22rpx;
-        }
-
-        .text-view1 {
-          flex: 1;
-          @include flex(row, center, center);
-          position: relative;
-          height: 32rpx;
-        }
-      }
-    }
-  }
-
-  .match-num {
-    min-height: 280rpx;
-    margin-top: 20rpx;
-    position: relative;
-
-    .bg {
-      position: absolute;
-      width: 680rpx;
-      left: 0;
-      bottom: 0;
-      top: 0;
-      right: 0;
-      z-index: -1;
-    }
-
-    .score {
-      @include flex(row, space-between, center);
-      border-bottom: 1rpx solid #333333;
-      padding: 26rpx 38rpx;
-    }
-
-    .num-list {
-      flex: 1;
-      @include flex(row);
-
-      .num-li {
-        @include flex(column, center, center);
-        flex: 1;
-      }
-    }
-  }
-
-  .img-divider {
-    margin: 36rpx 0;
-    @include flex(row, space-between, center);
-
-    .img1 {
-      width: 230rpx;
-    }
-
-    .img2 {
-      width: 230rpx;
-      transform: rotate(180deg);
-    }
-  }
-
-  .sc-info {
-    background-color: #f6f6f6;
-    height: 550rpx;
-    padding: 0 46rpx;
-
-    .top,
-    .bottom {
-      flex: 1;
-      flex-direction: row;
-    }
-
-    .top {
-      border-bottom: 1rpx solid #E9E9E9;
-    }
-
-    .top-label,
-    .bottom-label {
-      align-self: center;
-      width: 140rpx;
-      height: 130rpx;
-      border-right: 1rpx solid #e9e9e9;
-      justify-content: center;
-    }
-
-  }
-</style>

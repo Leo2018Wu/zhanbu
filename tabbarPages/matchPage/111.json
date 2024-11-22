@@ -1,0 +1,467 @@
+//‍[⁠UTSJSONObject⁠]‍
+{
+  "code":
+    //‍[Number]‍
+    1,
+  "msg": "加载成功",
+  "time": "1732199101",
+  "data":
+  //‍[⁠UTSJSONObject⁠]‍
+  {
+    "total":
+      //‍[Number]‍
+      3,
+    "per_page":
+      //‍[Number]‍
+      20,
+    "current_page":
+      //‍[Number]‍
+      1,
+    "last_page":
+      //‍[Number]‍
+      1,
+    "data":
+      //‍[Array]‍
+      [
+        //‍[⁠UTSJSONObject⁠]‍
+        {
+          "id":
+            //‍[Number]‍
+            370,
+          "group_id":
+            //‍[Number]‍
+            23,
+          "user_id":
+            //‍[Number]‍
+            320,
+          "realname": "吴",
+          "mobile": "",
+          "gender":
+            //‍[Number]‍
+            0,
+          "birthday": "1998-02-20 00:00:00",
+          "marriage":
+            //‍[Number]‍
+            6,
+          "area": null,
+          "lon":
+            //‍[Number]‍
+            120,
+          "lat":
+            //‍[Number]‍
+            0,
+          "detail":
+          //‍[⁠UTSJSONObject⁠]‍
+          {
+            "realname": "吴",
+            "gender":
+              //‍[Number]‍
+              0,
+            "area": null,
+            "dayun":
+              //‍[Array]‍
+              ["", "乙卯", "丙辰", "丁巳", "戊午", "己未", "庚申", "辛酉", "壬戌", "癸亥"],
+            "sect":
+              //‍[Number]‍
+              1,
+            "timestamp": "1998-02-20 00:00:00",
+            "datetime":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "solar": "1998-02-20 00:00:00",
+              "lunar": "1998年正月廿四 壬子"
+            },
+            "festival":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "pre":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "label": "雨水",
+                "time": "1998-02-19 04:54:53"
+              },
+              "next":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "label": "惊蛰",
+                "time": "1998-03-06 02:57:15"
+              }
+            },
+            "constellation": "双鱼",
+            "zodiac": "虎",
+            "top":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "戊",
+              "month": "甲",
+              "day": "戊",
+              "time": "壬"
+            },
+            "bottom":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "寅",
+              "month": "寅",
+              "day": "戌",
+              "time": "子"
+            },
+            "bottom_hide":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year":
+                //‍[Array]‍
+                ["甲", "丙", "戊"],
+              "month":
+                //‍[Array]‍
+                ["甲", "丙", "戊"],
+              "day":
+                //‍[Array]‍
+                ["戊", "辛", "丁"],
+              "time":
+                //‍[Array]‍
+                ["癸"]
+            },
+            "start":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "main":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "year": "比肩",
+                "month": "七杀",
+                "day": "日主",
+                "time": "偏财"
+              },
+              "assiste":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "year": "七杀",
+                "month": "七杀",
+                "day": "比肩",
+                "time": "正财"
+              }
+            },
+            "empty":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "申酉",
+              "month": "子丑",
+              "day": "辰巳",
+              "time": "寅卯"
+            },
+            "trend":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "长生",
+              "month": "长生",
+              "day": "墓",
+              "time": "胎"
+            },
+            "nayin":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "城头土",
+              "month": "大溪水",
+              "day": "平地木",
+              "time": "桑柘木"
+            },
+            "element":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "pro_decl":
+                //‍[Array]‍
+                ["木旺", "火相", "水休", "金囚", "土死"],
+              "ninclude":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "list":
+                  //‍[Array]‍
+                  [
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        3,
+                      "sacle":
+                        //‍[Number]‍
+                        33.33333333333333
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        0,
+                      "sacle":
+                        //‍[Number]‍
+                        11.666666666666666
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        3,
+                      "sacle":
+                        //‍[Number]‍
+                        30
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        0,
+                      "sacle":
+                        //‍[Number]‍
+                        3.3333333333333335
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        2,
+                      "sacle":
+                        //‍[Number]‍
+                        21.666666666666668
+                    }
+                  ],
+                "total":
+                  //‍[Number]‍
+                  8
+              },
+              "include":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "list":
+                  //‍[Array]‍
+                  [
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        3,
+                      "sacle":
+                        //‍[Number]‍
+                        33.33333333333333
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        3,
+                      "sacle":
+                        //‍[Number]‍
+                        11.666666666666666
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        5,
+                      "sacle":
+                        //‍[Number]‍
+                        30
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        1,
+                      "sacle":
+                        //‍[Number]‍
+                        3.3333333333333335
+                    },
+                    //‍[⁠UTSJSONObject⁠]‍
+                    {
+                      "total":
+                        //‍[Number]‍
+                        2,
+                      "sacle":
+                        //‍[Number]‍
+                        21.666666666666668
+                    }
+                  ],
+                "total":
+                  //‍[Number]‍
+                  14
+              },
+              "relation":
+                //‍[Array]‍
+                ["官杀", "印绶", "比劫", "食伤", "财才"]
+            },
+            "selfsit":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year": "长生",
+              "month": "临官",
+              "day": "墓",
+              "time": "帝旺"
+            },
+            "embryo":
+              //‍[Array]‍
+              [
+                //‍[Array]‍
+                ["乙巳", "覆灯火"],
+                //‍[Array]‍
+                ["癸卯", "金箔金"],
+                //‍[Array]‍
+                ["乙卯", "大溪水"],
+                //‍[Array]‍
+                ["乙卯", "大溪水"]
+              ],
+            "tb_relation":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "top":
+                //‍[Array]‍
+                [],
+              "bottom":
+                //‍[Array]‍
+                []
+            },
+            "start_tend":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year":
+                //‍[Number]‍
+                4,
+              "month":
+                //‍[Number]‍
+                8,
+              "day":
+                //‍[Number]‍
+                10,
+              "time":
+                //‍[Number]‍
+                0,
+              "solar": "2002-10-30 00:00:00"
+            },
+            "gods":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "year":
+                //‍[Array]‍
+                ["国印", "德[秀]"],
+              "month":
+                //‍[Array]‍
+                ["国印", "戟锋煞"],
+              "day":
+                //‍[Array]‍
+                ["太极贵人", "天官贵人", "破祖", "华盖", "墓杀", "德[秀]", "大败", "魁罡", "八专",
+                  "墓库", "兼刃"
+                ],
+              "time":
+                //‍[Array]‍
+                ["国印", "灾煞", "天德合", "注受", "孤鸾", "飞刃", "童子", "截路", "隔角煞"]
+            },
+            "base":
+            //‍[⁠UTSJSONObject⁠]‍
+            {
+              "bazi":
+                //‍[Array]‍
+                ["戊寅", "甲寅", "戊戌", "壬子"],
+              "wuxing":
+                //‍[Array]‍
+                ["土木", "木木", "土土", "水水"],
+              "shengxiao": "虎",
+              "shishenGan":
+                //‍[Array]‍
+                ["比肩", "七杀", "日主", "偏财"],
+              "shishenZhi":
+                //‍[Array]‍
+                ["七杀", "七杀", "比肩", "正财"],
+              "canGan":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "year":
+                  //‍[Array]‍
+                  ["甲", "丙", "戊"],
+                "month":
+                  //‍[Array]‍
+                  ["甲", "丙", "戊"],
+                "day":
+                  //‍[Array]‍
+                  ["戊", "辛", "丁"],
+                "time":
+                  //‍[Array]‍
+                  ["癸"]
+              },
+              "nayin":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "year": "城头土",
+                "month": "大溪水",
+                "day": "平地木",
+                "time": "桑柘木"
+              },
+              "canGanShiShen":
+              //‍[⁠UTSJSONObject⁠]‍
+              {
+                "year":
+                  //‍[Array]‍
+                  ["七杀", "偏印", "比肩"],
+                "month":
+                  //‍[Array]‍
+                  ["七杀", "偏印", "比肩"],
+                "day": "~数据超出限制，请打印具体子项",
+                "time": "~数据超出限制，请打印具体子项"
+              },
+              "deLing":
+                //‍[Number]‍
+                0,
+              "deShi":
+                //‍[Number]‍
+                1,
+              "deDi":
+                //‍[Number]‍
+                1,
+              "top": "~数据超出限制，请打印具体子项",
+              "baziGan": "~数据超出限制，请打印具体子项",
+              "bottom": "~数据超出限制，请打印具体子项",
+              "baziZhi": "~数据超出限制，请打印具体子项",
+              "wxGan": "~数据超出限制，请打印具体子项",
+              "wxZhi": "~数据超出限制，请打印具体子项",
+              "12SSGan": "~数据超出限制，请打印具体子项",
+              "12SSZhi": "~数据超出限制，请打印具体子项",
+              "shiShenGanz": "~数据超出限制，请打印具体子项",
+              "shiShenZhiz": "~数据超出限制，请打印具体子项",
+              "empty": "~数据超出限制，请打印具体子项",
+              "embryo": "~数据超出限制，请打印具体子项",
+              "bigStrong":
+                //‍[Number]‍
+                0,
+              "bigRuo":
+                //‍[Number]‍
+                0,
+              "qiangRuo": "~数据超出限制，请打印具体子项",
+              "qiangRuoScores": "~数据超出限制，请打印具体子项"
+            },
+            "id": ""
+          },
+          "books": ""
+          "",
+          "duan": null,
+          "msg": null,
+          "type": null,
+          "tend": null,
+          "viewtimes":
+            //‍[Number]‍
+            2,
+          "updatetimes":
+            //‍[Number]‍
+            0,
+          "lasttime":
+            //‍[Number]‍
+            1729312151,
+          "createtime":
+            //‍[Number]‍
+            1729312151,
+          "updatetime":
+            //‍[Number]‍
+            1729312152,
+          "status": "",
+          "group_name": "自己",
+          "marriage_name": "已经结婚",
+          "first_letter": "W"
+        }, ,
+      ]
+  }
+}

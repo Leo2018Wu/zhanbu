@@ -18,170 +18,127 @@
       </fui-input>
     </view>
     <list-view id="list-view" class="match-page">
-      <sticky-section v-for="(item,index) in dataList" :key="index"
+      <!-- <sticky-section v-for="(item,index) in dataList" :key="index"
         :push-pinned-header="true" :padding="[0,0,0,0]">
         <sticky-header :id="item['first_letter']">
           <text
             class="sticky-header-text font-f-SanJi li-code">{{item['first_letter']}}</text>
-        </sticky-header>
-        <list-item
-          v-for="(subItem,subIndex) in getSubList(item['detail'] as string)"
-          :key="subIndex">
-          <view class="list-item">
-            <view class="left">
-              <image class="avatar" src="../../static/images/common/avatar1.png"
-                mode="widthFix">
-              </image>
-              <view class="info">
-                <text class="font-f-SanJi" style="color: #000;">
-                  {{subItem['realname']}} <text class="font-f-SanJi u-font-24"
-                    style="color: #7e7e7e">{{subItem['gender']}}</text>
-                </text>
-                <text class="font-f-SanJi u-font-20 u-mt-12"
-                  style="color: #7e7e7e;">阴历
-                  {{subItem.getString('datetime.lunar')}}</text>
-              </view>
+        </sticky-header> -->
+      <list-item v-for="(item,index) in dataList" :key="index">
+        <view class="list-item">
+          <!-- <view class="left">
+            <image class="avatar" src="../../static/images/common/avatar1.png"
+              mode="widthFix">
+            </image>
+            <view class="info">
+              <text class="font-f-SanJi" style="color: #000;">
+                {{item['realname']}} <text class="font-f-SanJi u-font-24"
+                  style="color: #7e7e7e">{{item.gender === 0 ? '男' : item.gender === 1 ? '女' : '未知'}}</text>
+              </text>
+              <text class="font-f-SanJi u-font-20 u-mt-12"
+                style="color: #7e7e7e;">阴历
+                {{item.detail.datetime.lunar }}
+              </text>
             </view>
-            <view class="right">
+          </view> -->
+          <!-- <view class="right">
               <view class="right-top">
-                <view class="text-view"
-                  :class="{'text-view__border':index < subItem.wx.length - 1}"
-                  v-for="(word, index) in subItem.wx" :key="word">
+                <view class="text-view__border text-view">
                   <text class="font-f-SanJi u-font-24"
-                    style="color: #000;">{{word}}</text>
+                    style="color: #000;">{{item.getString('detail.top.year')}}</text>
+                </view>
+                <view class="text-view__border text-view">
+                  <text class="font-f-SanJi u-font-24"
+                    style="color: #000;">{{item.getString('detail.top.month')}}</text>
+                </view>
+                <view class="text-view__border text-view">
+                  <text class="font-f-SanJi u-font-24"
+                    style="color: #000;">{{item.getString('detail.top.day')}}</text>
+                </view>
+                <view class="text-view">
+                  <text class="font-f-SanJi u-font-24"
+                    style="color: #000;">{{item.getString('detail.top.time')}}</text>
                 </view>
               </view>
               <view class="right-bottom">
                 <text
-                  class="font-f-SanJi u-font-20">综合评分{{subItem.score}}</text>
+                  class="font-f-SanJi u-font-20">综合评分{{(Math.random() * 100).toFixed(0)}}</text>
               </view>
-            </view>
-          </view>
-        </list-item>
-      </sticky-section>
+            </view> -->
+        </view>
+      </list-item>
+      <!-- </sticky-section> -->
     </list-view>
 
-    <!-- <scroll-view class="match-page" style="padding-bottom: 20px;">
-      <view class="header">
-        <fui-input v-model="searchValue" :radius="6" padding="16rpx 32rpx"
-          backgroundColor="#F6F6F6" placeholderStyle="color:#666" width="100%"
-          :borderBottom="false" :size="28" placeholder="请输入搜索内容">
-          <template #left>
-            <fui-icon style="margin-right: 8px;" name="search"
-              :size="32"></fui-icon>
-          </template>
-          <template #default>
-            <text class="font-f-SanJi">查询</text>
-          </template>
-        </fui-input>
-      </view>
-      <view class="list">
-        <view class="li" v-for="(item,index) in dataList" :key="index">
-          <text class="font-f-SanJi li-code">{{item.code}}</text>
-          <fui-list v-for="(subItem,subIndex) in item.list" :key="subIndex"
-            :topBorder="false">
-            <fui-list-cell padding="32rpx 0">
-              <view class="left">
-                <image class="avatar"
-                  src="../../static/images/common/avatar1.png" mode="widthFix">
-                </image>
-                <view class="info">
-                  <text class="font-f-SanJi">
-                    {{subItem.name}} <text class="font-f-SanJi u-font-24"
-                      style="color: #7e7e7e">{{subItem.gender}}</text>
-                  </text>
-                  <text class="font-f-SanJi u-font-20 u-mt-12"
-                    style="color: #7e7e7e;">{{subItem.type}}
-                    {{subItem.birthday}}</text>
-                </view>
-              </view>
-              <view class="right">
-                <view class="right-top">
-                  <view class="text-view"
-                    :class="{'text-view__border':index < subItem.wx.length - 1}"
-                    v-for="(word, index) in subItem.wx" :key="word">
-                    <text class="font-f-SanJi u-font-24">{{word}}</text>
-                  </view>
-                </view>
-                <view class="right-bottom">
-                  <text
-                    class="font-f-SanJi u-font-20">综合评分{{subItem.score}}</text>
-                </view>
-              </view>
-            </fui-list-cell>
-          </fui-list>
-        </view>
-
-      </view>
-    </scroll-view> -->
   </view>
 </template>
 
 <script>
-  import { IRootBaziListType } from '@/utils/api/types.uts';
+  import { state } from '@/store/index.uts'
+  import { IRootType, Data } from './types.uts';
   import { getBaziList } from '@/utils/api';
   import { BASE_URL, API } from '@/env.uts'
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
-
-  type InfoType = {
-    name : string;
-    gender : string;
-    birthday : string;
-    type : string;
-    score : string;
-    wx : Array<string>
-  }
-  type IRootType = {
-    code : string,
-    list : InfoType[]
-  }
+  // type IRootType = {
+  //   msg : string;
+  //   time : string;
+  //   data : UTSJSONObject;
+  // }
   export default {
     components: { uniNavbarLite },
     data() {
       return {
         searchValue: '',
-        dataList: [] as UTSJSONObject[]
+        dataList: [] as Data[]
       }
     },
-    created() {
+    onLoad() {
+      console.log(2131123);
       this.getList()
     },
     methods: {
       getSubList(data : string) : UTSJSONObject[] {
         return JSON.parse(data) as UTSJSONObject[]
       },
-      async getList() : Promise<any | null> {
-        try {
-          const response = await getBaziList({ page: 1, limit: 20 });
-          const res = response as UTSJSONObject
-          console.log(23213, response, res);
-          if (res['code'] as number === 1) {
-            console.log(response, res['data.data']);
-            const arr = res.getArray('data.data')
-            // const list = arr as UTSJSONObject[]
-            // console.log(3333, list.length);
-            // let result: UTSJSONObject[] = []
-            // list.forEach((i : UTSJSONObject) => {
-            //   console.log('i', i);
-            //   i['list'] = JSON.parse(i['detail'] as string) as UTSJSONObject[]
-            // })
-            this.dataList = arr as Array<UTSJSONObject>
-            // const sortList : UTSJSONObject[] = list.sort((a : UTSJSONObject, b : UTSJSONObject) : number => {
-            //   console.log(123, a['first_letter'], b);
-            //   const f = a['first_letter'] as string
-            //   const d = b['first_letter'] as string
-            //   const c = 'x'
-            //   const m = 'f'
-            //   console.log('fff', c.localeCompare(m));
-            //   return 1
-            // })
-            // console.log('sortList', sortList);
+      getList() {
+        console.log('state.token', state.token, BASE_URL + API + '/bazinew/baziList');
+        uni.request<IRootType>({
+          url: BASE_URL + API + '/bazinew/baziList',
+          method: 'GET',
+          header: {
+            token: state.token,
+          },
+          success: (res) => {
+            const responseData = res.data
+            console.log('rwess', responseData?.data);
+            if (responseData == null) {
+              return
+            }
+            // this.dataList = responseData.data.data
+            // console.log('this.dataList', this.dataList);
+          },
+          fail: (err) => {
+          },
+          complete: (res) => {
+            console.log('res', res);
           }
-          return response;
-        } catch (e) {
-          return null
-        }
+        })
       },
+      // async getList() : Promise<any | null> {
+      //   try {
+      //     const response = await getBaziList({ page: 1, limit: 20 });
+      //     const res = response as UTSJSONObject
+      //     console.log(23213, response);
+      //     if (res['code'] as number === 1) {
+      //       console.log(response, res['data.data']);
+      //       const arr = res.getArray('data.data')
+      //       this.dataList = arr as Array<UTSJSONObject>
+      //     }
+      //     return response;
+      //   } catch (e) {
+      //     return null
+      //   }
+      // },
       toPage() {
         uni.navigateTo({
           url: '/pages/fortuneDetail/fortuneDetail'
@@ -197,11 +154,6 @@
   .header {
     width: 100%;
     padding: 10rpx 40rpx 0 40rpx;
-    // width: 670rpx;
-    // height: 40px;
-    // top: calc(var(--status-bar-height) + 50px);
-    // left: 40rpx;
-    // background-color: #fff;
   }
 
   .fixed-btn {

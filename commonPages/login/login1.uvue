@@ -105,8 +105,8 @@
             title: '正在登录...',
             mask: false
           });
-          // const response = await loginBySms({ access_token, openid });
-          const response = await loginBySms({ mobile: '18858523045', captcha: '111111', source: 1 });
+          const response = await loginBySms({ access_token, openid });
+          // const response = await loginBySms({ mobile: '18858523045', captcha: '111111', source: 1 });
           let res = (response as UTSJSONObject)
           console.log('res', res);
           const isSuccess = res['code'] as number === 1

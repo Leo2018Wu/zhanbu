@@ -33,5 +33,6 @@ type IRootBaziListType = {
 }
 
 export {
-  IRootCityType
+  IRootBaziListType,
+  ItemBaziType
 }
