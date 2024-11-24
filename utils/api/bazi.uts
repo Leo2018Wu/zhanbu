@@ -20,6 +20,9 @@ export const getHealthForSave = (query : UTSJSONObject) : Promise<any> => {
 export const getBaziList = (query : UTSJSONObject) : Promise<any> => {
   return http.get('/bazinew/myBaziList', { query } as RequestConfig);
 }
+export const getHealthForArea = (query : UTSJSONObject) : Promise<any> => {
+  return http.get('/bazinew/HealthForArea', { query } as RequestConfig);
+}
 export const getBaziHepan = (data : number[]) : Promise<any> => {
   return http.post('/bazinew/baziHePan', { data: { ids: data } } as RequestConfig);
 }

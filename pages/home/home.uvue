@@ -201,7 +201,7 @@
 <script lang="uts">
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
   import EnergyBar from '@/components/common/EnergyBar.uvue';
-  import RadarChart from '@/components/common/RadarChart.uvue';
+  import RadarChart from '@/components/radar-chart/radar-chart.uvue';
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
   type Gender = {

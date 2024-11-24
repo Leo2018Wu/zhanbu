@@ -163,7 +163,7 @@
               </image>
             </view>
             <view v-if="showNextPage" style="width: 200px;height: 220px;">
-              <RadarChart />
+              <radar-chart ref="radarChart" />
             </view>
             <view class="title u-mb-16">
               <text class="u-font-24 font-f-SanJi">性格解析</text>
@@ -780,6 +780,146 @@
               </text>
             </fui-col>
           </fui-row>
+          <view style="background-color: #f6f6f6;" class="u-mt-20 u-pt-20"
+            v-if="current === 2">
+            <text class="font-f-SanJi u-font-28"
+              style="text-align: center;">干支关系图</text>
+            <fui-row :width="666"
+              style="background-color: #f6f6f6;padding: 16rpx 0;">
+              <fui-col :span="24"
+                style="flex-direction: row;align-items: center;">
+                <text class="ganzhi-label font-f-SanJi u-font-26">天干留意</text>
+                <text v-if="tb_relation_top.getString('title') !== ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">{{tb_relation_top.getString('title')}}</text>
+                <text v-if="tb_relation_top.getString('title') === ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">无合冲关系</text>
+              </fui-col>
+            </fui-row>
+            <fui-row :width="666"
+              style="background-color: #f6f6f6;padding-bottom: 32rpx;">
+              <fui-col :span="24"
+                style="flex-direction: row;align-items: center;">
+                <text class="ganzhi-label font-f-SanJi u-font-26">地支留意</text>
+                <text v-if="tb_relation_bottom.getString('title') !== ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">{{tb_relation_bottom.getString('title')}}</text>
+                <text v-if="tb_relation_bottom.getString('title') === ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">无合冲关系</text>
+              </fui-col>
+            </fui-row>
+            <fui-row :width="666"
+              style="background-color: #f6f6f6;padding-bottom: 32rpx;">
+              <fui-col :span="6">
+                <text
+                  class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">年柱</text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.year')}}
+                </text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.year')}}
+                </text>
+              </fui-col><fui-col :span="6">
+                <text
+                  class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">月柱</text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.month')}}
+                </text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.month')}}
+                </text>
+              </fui-col><fui-col :span="6">
+                <text
+                  class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">日柱</text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.day')}}
+                </text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.day')}}
+                </text>
+              </fui-col><fui-col :span="6">
+                <text
+                  class="th font-f-SanJi text-center u-font-26 u-py-20 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">时柱</text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('top.time')}}
+                </text>
+                <text
+                  class="th font-f-SanJi text-center u-font-24 u-py-16 text-black"
+                  style="border-bottom: 1rpx solid #E9E9E9;">{{baziInfo.getString('bottom.time')}}
+                </text>
+              </fui-col>
+            </fui-row>
+          </view>
+          <view v-if="current === 1">
+            <view class="pro-decl-list u-mt-20">
+              <text class="font-f-SanJi pro-decl-list-li text-white u-font-26"
+                v-for="(word, widx) in baziInfo.getArray<string>('element.pro_decl')">{{word}}</text>
+            </view>
+            <fui-row :width="666" style="padding: 16rpx 0;">
+              <fui-col :span="24"
+                style="flex-direction: row;align-items: center;">
+                <text class="ganzhi-label font-f-SanJi u-font-26">天干留意</text>
+                <text v-if="tb_relation_top.getString('title') !== ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">{{tb_relation_top.getString('title')}}</text>
+                <text v-if="tb_relation_top.getString('title') === ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">无合冲关系</text>
+              </fui-col>
+            </fui-row>
+            <fui-row :width="666" style="padding-bottom: 16rpx;">
+              <fui-col :span="24"
+                style="flex-direction: row;align-items: center;">
+                <text class="ganzhi-label font-f-SanJi u-font-26">地支留意</text>
+                <text v-if="tb_relation_bottom.getString('title') !== ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">{{tb_relation_bottom.getString('title')}}</text>
+                <text v-if="tb_relation_bottom.getString('title') === ''"
+                  class="u-ml-16 font-f-SanJi u-font-26">无合冲关系</text>
+              </fui-col>
+            </fui-row>
+            <view style="background-color: #f6f6f6;padding: 28rpx 24rpx;">
+              <text class="font-f-SanJi text-center u-font-42">四柱神煞</text>
+              <view class="sizhu-row">
+                <text class="u-font-26 font-f-SanJi">年柱: </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in baziInfo.getArray<string>('gods.year')">{{god}}</text>
+                </view>
+              </view>
+              <view class="sizhu-row">
+                <text class="u-font-26 font-f-SanJi">月柱: </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in baziInfo.getArray<string>('gods.month')">{{god}}</text>
+                </view>
+              </view>
+              <view class="sizhu-row">
+                <text class="u-font-26 font-f-SanJi">日柱: </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in baziInfo.getArray<string>('gods.day')">{{god}}</text>
+                </view>
+              </view>
+              <view class="sizhu-row">
+                <text class="u-font-26 font-f-SanJi">时柱: </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in baziInfo.getArray<string>('gods.time')">{{god}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
         </template>
       </scroll-view>
     </scroll-view>
@@ -799,12 +939,12 @@
   import { Solar, Lunar } from "@/uni_modules/cux-calendar";
   import uniNavbarLite from '@/components/uni-navbar-lite/uni-navbar-lite.uvue';
   import EnergyBar from '@/components/common/EnergyBar.uvue';
-  import RadarChart from '@/components/common/RadarChart.uvue';
+  import RadarChart from '@/components/radar-chart/radar-chart.uvue';
   import ZBLoading from '@/components/common/ZBLoading.uvue';
   import CityPicker from '@/components/city-picker/city-picker.uvue';
   import DatePicker from '@/components/date-picker/date-picker.uvue';
 
-  import { saveBazi, getCategory, getJudgment } from '@/utils/api';
+  import { saveBazi, getCategory, getJudgment, getHealthForArea } from '@/utils/api';
 
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
@@ -834,6 +974,7 @@
     components: { uniNavbarLite, EnergyBar, RadarChart, CityPicker, DatePicker, ZBLoading },
     data() {
       return {
+        chartComponent: null as RadarChartComponentPublicInstance | null,
         loading: false,
         targetEle: '',
         homeTitle: '首页',
@@ -889,6 +1030,8 @@
         } as UTSJSONObject,
         lundarDate: '' as string,
         baziInfo: {} as UTSJSONObject,
+        tb_relation_top: {} as UTSJSONObject,
+        tb_relation_bottom: {} as UTSJSONObject,
         datetime: {} as UTSJSONObject,
         nincludeList: [] as UTSJSONObject[],
         includeList: [] as UTSJSONObject[],
@@ -930,19 +1073,28 @@
           // 即时排盘
           const response = await saveBazi(form);
           const response1 = await getJudgment({ channel: 'fortune', ids: 370 })
+          const response2 = await getHealthForArea({ ids: 370 })
           let res = (response as UTSJSONObject)
           let res1 = (response1 as UTSJSONObject)
+          let res2 = (response2 as UTSJSONObject)
           if (res['code'] as number === 1) {
             this.baziInfo = res['data'] as UTSJSONObject
             this.datetime = this.baziInfo['datetime'] as UTSJSONObject
             this.shishenZhi = res.getArray('data.base.shishenZhi') as string[]
             this.nincludeList = this.baziInfo.getArray<UTSJSONObject>('element.ninclude.list') as UTSJSONObject[];
             this.includeList = this.baziInfo.getArray<UTSJSONObject>('element.include.list') as UTSJSONObject[];
+            this.tb_relation_top = ((this.baziInfo.getArray('tb_relation.top') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.top[0]') : { title: '' }) as UTSJSONObject
+            this.tb_relation_bottom = ((this.baziInfo.getArray('tb_relation.bottom') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.bottom[0]') : { title: '' }) as UTSJSONObject
+            // this.tb_relation_bottom = this.baziInfo.getJSON('tb_relation.bottom[0]') as UTSJSONObject
             this.setEnergyBar()
             this.handleSubmit()
+            console.log('baziInfo', this.tb_relation_top, this.tb_relation_bottom);
           }
           if (res1['code'] as number === 1) {
             this.judgeInfo = res1.getArray("data[0].content")?.join('') as string
+          }
+          if (res1.getNumber('code') === 1) {
+            // console.log('sss', this.$refs['chartComponent'] as RadarChartComponentPublicInstance);
           }
           setTimeout(() => { this.loading = false }, 3000)
           return response;
@@ -1271,6 +1423,36 @@
         margin-top: 40rpx;
         @include flex(row, space-between, center)
       }
+    }
+
+    .ganzhi-label {
+      background-color: #7948ea;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 2px;
+      margin-left: 24rpx;
+    }
+
+    .pro-decl-list {
+      @include flex(row, flex-start, center);
+
+      &-li {
+        flex: 1;
+        background-color: #020202;
+        border-radius: 4rpx;
+        padding: 4px 8px;
+        text-align: center;
+      }
+    }
+
+    .pro-decl-list-li+.pro-decl-list-li {
+      border-left: 1rpx solid #fff;
+    }
+
+    .sizhu-row {
+      margin-top: 16rpx;
+      @include flex(row, flex-start, center);
     }
   }
 </style>

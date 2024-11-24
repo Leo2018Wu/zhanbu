@@ -20,7 +20,7 @@ interceptors
     return options;
   })
   .useRequest((options) : RequestConfig => {
-    console.log('请求拦截', options);
+    // console.log('请求拦截', options);
     // options.data = Object.assign(options.data ?? {}, {
     //     a: 1
     // })
@@ -28,7 +28,7 @@ interceptors
   })
   .useResponse((res) : any => {
     if (typeof res === 'object') {
-      console.log('响应拦截', (res as UTSJSONObject).getAny('route'));
+      // console.log('响应拦截', (res as UTSJSONObject).getAny('route'));
       // (res as UTSJSONObject).set('route', '/a/b/c');
     }
 
