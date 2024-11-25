@@ -173,12 +173,12 @@
         <text class="th font-f-SanJi text-center u-font-32 u-py-28 text-black"
           style="border-bottom: 1rpx solid #E9E9E9;">解析</text>
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[0]')}}
         </text><text
           class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">无
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[1]')}}
         </text><text
-          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">半合
+          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">{{infos.getString('chonghe[2]')}}
         </text>
       </fui-col>
     </fui-row>
@@ -270,26 +270,26 @@
       </fui-col>
       <fui-col :span="6">
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合</text>
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[3]')}}</text>
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[4]')}}
         </text><text
           class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">相刑
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[5]')}}
         </text><text
           class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合</text>
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[6]')}}</text>
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[7]')}}
         </text><text
           class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">相刑
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[8]')}}
         </text>
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[9]')}}
         </text><text
           class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">相刑
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[10]')}}
         </text>
       </fui-col>
     </fui-row>
@@ -327,10 +327,10 @@
       </fui-col>
       <fui-col :span="6">
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
-          style="border-bottom: 1rpx solid #E9E9E9;">半合
+          style="border-bottom: 1rpx solid #E9E9E9;">{{infos.getString('chonghe[11]')}}
         </text>
         <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black">
-          无
+          {{infos.getString('chonghe[12]')}}
         </text>
       </fui-col>
     </fui-row>
@@ -349,15 +349,13 @@
         <fui-row style="align-self: center;padding-left: 16px" :width="360">
           <fui-col :span="9">
             <text class="th font-f-SanJi  u-font-28 u-py-10 text-black"
-              v-for="(label,index) in info1.getArray<string>('detail.gods.day')"
-              :key="index">
+              v-for="(label,index) in infos.getArray<string>('c')" :key="index">
               {{label}}
             </text>
           </fui-col>
           <fui-col :span="9" :offset="5">
             <text class="th font-f-SanJi  u-font-28 u-py-10 text-black"
-              v-for="(label,index) in info2.getArray<string>('detail.gods.day')"
-              :key="index">
+              v-for="(label,index) in infos.getArray<string>('d')" :key="index">
               {{label}}
             </text>
           </fui-col>
@@ -373,14 +371,45 @@
         <fui-row style="align-self: center;padding-left: 16px;" :width="360">
           <fui-col :span="24">
             <text class="font-f-SanJi u-font-28 text-black"
-              style="line-height: 50rpx;">
-              【{{info1.getString('realname')}}】的”戍”，是【{{info2.getString('realname')}}】的“天乙贵人寓意：催旺贵人运，遇
-              事有人帮助，大富大贵之命。
+              v-for=" (label,index) in infos.getArray<string>('f')"
+              :key="index">
+              {{label}}
             </text>
           </fui-col>
         </fui-row>
       </view>
     </view>
+    <view class="img-divider">
+      <image class="img1" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+      <text class="font-f-SanJi u-font-36 u-mx-10">五行参数</text>
+      <image class="img2" src="@/static/images/login/line.png" mode="widthFix">
+      </image>
+    </view>
+    <fui-row :width="696" style="background-color: #f6f6f6;">
+      <fui-col :span="6">
+        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing1[0]}}
+        </text><text
+          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing2[0]}}
+        </text>
+      </fui-col><fui-col :span="6">
+        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing1[1]}}
+        </text><text
+          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing2[1]}}
+        </text>
+      </fui-col><fui-col :span="6">
+        <text class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing1[2]}}
+        </text><text
+          class="th font-f-SanJi text-center u-font-28 u-py-26 text-black"
+          style="border-bottom: 1rpx solid #E9E9E9;">{{wuxing2[2]}}
+        </text>
+      </fui-col>
+    </fui-row>
   </scroll-view>
 </template>
 
@@ -396,6 +425,9 @@
         ids: [] as number[],
         info1: {} as UTSJSONObject,
         info2: {} as UTSJSONObject,
+        infos: {} as UTSJSONObject,
+        wuxing1: ['', '', ''] as string[],
+        wuxing2: ['', '', ''] as string[],
       }
     },
     onLoad(options) {
@@ -411,10 +443,13 @@
           console.log(12131, response);
           const res = response as UTSJSONObject
           if (res.getNumber('code') === 1) {
-            const data = res['data'] as UTSJSONObject[];
+            const data = res.getArray('data.list') as UTSJSONObject[];
             this.info1 = data[0] as UTSJSONObject
             this.info2 = data[1] as UTSJSONObject
-            console.log('res', this.info1, this.info2);
+            this.infos = res['data'] as UTSJSONObject
+            this.wuxing1 = res.getArray('data.wuxing[0]') as string[]
+            this.wuxing2 = res.getArray('data.wuxing[1]') as string[]
+            console.log('res1', this.wuxing1, this.wuxing2);
           }
           return null
         } catch (e) {

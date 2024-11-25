@@ -166,7 +166,7 @@
         }
       },
       toggle() {
-        this.isChoose = true;
+        this.isChoose = !this.isChoose;
       }
     }
   }
