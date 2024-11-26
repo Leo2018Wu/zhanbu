@@ -1072,28 +1072,28 @@
           form.sex = this.sex;
           // 即时排盘
           const response = await saveBazi(form);
-          const response1 = await getJudgment({ channel: 'fortune', ids: 370 })
+          // const response1 = await getJudgment({ channel: 'fortune', ids: 370 })
           const response2 = await getHealthForArea({ ids: 370 })
           let res = (response as UTSJSONObject)
-          let res1 = (response1 as UTSJSONObject)
+          // let res1 = (response1 as UTSJSONObject)
+          console.log(1221312, res)
           let res2 = (response2 as UTSJSONObject)
           if (res['code'] as number === 1) {
-            this.baziInfo = res['data'] as UTSJSONObject
+            this.baziInfo = res.getJSON('data.result') as UTSJSONObject
             this.datetime = this.baziInfo['datetime'] as UTSJSONObject
-            this.shishenZhi = res.getArray('data.base.shishenZhi') as string[]
+            this.shishenZhi = this.baziInfo.getArray('base.shishenZhi') as string[]
             this.nincludeList = this.baziInfo.getArray<UTSJSONObject>('element.ninclude.list') as UTSJSONObject[];
             this.includeList = this.baziInfo.getArray<UTSJSONObject>('element.include.list') as UTSJSONObject[];
             this.tb_relation_top = ((this.baziInfo.getArray('tb_relation.top') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.top[0]') : { title: '' }) as UTSJSONObject
             this.tb_relation_bottom = ((this.baziInfo.getArray('tb_relation.bottom') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.bottom[0]') : { title: '' }) as UTSJSONObject
-            // this.tb_relation_bottom = this.baziInfo.getJSON('tb_relation.bottom[0]') as UTSJSONObject
+            this.tb_relation_bottom = this.baziInfo.getJSON('tb_relation.bottom[0]') as UTSJSONObject
             this.setEnergyBar()
             this.handleSubmit()
-            console.log('baziInfo', this.tb_relation_top, this.tb_relation_bottom);
           }
-          if (res1['code'] as number === 1) {
-            this.judgeInfo = res1.getArray("data[0].content")?.join('') as string
-          }
-          if (res1.getNumber('code') === 1) {
+          // if (res1['code'] as number === 1) {
+          //   this.judgeInfo = res1.getArray("data[0].content")?.join('') as string
+          // }
+          if (res2.getNumber('code') === 1) {
             // console.log('sss', this.$refs['chartComponent'] as RadarChartComponentPublicInstance);
           }
           setTimeout(() => { this.loading = false }, 3000)

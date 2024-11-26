@@ -5,7 +5,7 @@ import { http } from '../http/index';
 
 
 export const saveBazi = (data ?: UTSJSONObject) : Promise<any> => {
-  return http.post('/bazinew/baZi', { data } as RequestConfig);
+  return http.post('/bazinew/bazinew', { data } as RequestConfig);
 }
 export const getCategory = () : Promise<any> => {
   return http.get('/bazinew/loadCategory', {} as RequestConfig);
