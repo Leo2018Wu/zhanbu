@@ -860,6 +860,40 @@
             </fui-row>
           </view>
           <view v-if="current === 1">
+            <view class="row-wrapper">
+              <text style="text-align: center;"
+                class="font-f-SanJi u-font-26 u-mb-20">大运</text>
+              <view class="row-list">
+                <view class="row-list-li" v-for="(yun, yidx) in dayunInfo">
+                  <text class="font-f-SanJi u-font-20">{{yun['st']}}</text>
+                  <text class="font-f-SanJi u-font-20">{{yun['sa']}}岁</text>
+                  <view class="vertical-text">
+                    <text style="width:10px"
+                      class="font-f-SanJi u-font-24">{{yun['pillar']}}</text>
+                    <text
+                      style="width:10px;color: red;line-height: 24rpx;margin-left:4px"
+                      class="font-f-SanJi u-font-16">{{yun['shishen']}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="row-wrapper">
+              <text style="text-align: center;"
+                class="font-f-SanJi u-font-26 u-mb-20">流年</text>
+              <view class="row-list">
+                <view class="row-list-li" v-for="(yun, yidx) in liunianInfo">
+                  <text class="font-f-SanJi u-font-20">{{yun['st']}}</text>
+                  <text class="font-f-SanJi u-font-20">{{yun['sa']}}岁</text>
+                  <view class="vertical-text">
+                    <text style="width:10px"
+                      class="font-f-SanJi u-font-24">{{yun['pillar']}}</text>
+                    <text
+                      style="width:10px;color: red;line-height: 24rpx;margin-left:4px"
+                      class="font-f-SanJi u-font-16">{{yun['shishen']}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
             <view class="pro-decl-list u-mt-20">
               <text class="font-f-SanJi pro-decl-list-li text-white u-font-26"
                 v-for="(word, widx) in baziInfo.getArray<string>('element.pro_decl')">{{word}}</text>
@@ -919,6 +953,34 @@
                 </view>
               </view>
             </view>
+            <view style="background-color: #f6f6f6;padding: 28rpx 24rpx;"
+              class="u-mt-20">
+              <text class="font-f-SanJi text-center u-font-42">大运神煞</text>
+              <view class="sizhu-row" v-for="(item,index) in dayunInfo"
+                :key="index">
+                <text class="u-font-26 font-f-SanJi">{{item['pillar']}}:
+                </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in item.getArray<string>('shensha')">{{god}}</text>
+                </view>
+              </view>
+            </view>
+            <view style="background-color: #f6f6f6;padding: 28rpx 24rpx;"
+              class="u-mt-20">
+              <text class="font-f-SanJi text-center u-font-42">流年神煞</text>
+              <view class="sizhu-row">
+                <text
+                  class="u-font-26 font-f-SanJi">{{baziInfo.getString('base.bazi[0]')}}:
+                </text>
+                <view style="flex-direction: row;">
+                  <text class="u-font-26 font-f-SanJi"
+                    style="color: #100c61;margin-right: 8rpx;"
+                    v-for="(god, gidx) in liunianGods">{{god}}</text>
+                </view>
+              </view>
+            </view>
           </view>
         </template>
       </scroll-view>
@@ -944,7 +1006,7 @@
   import CityPicker from '@/components/city-picker/city-picker.uvue';
   import DatePicker from '@/components/date-picker/date-picker.uvue';
 
-  import { saveBazi, getCategory, getJudgment, getHealthForArea } from '@/utils/api';
+  import { saveBazi, getCategory, getJudgment, getHealthForArea, getGodsApi } from '@/utils/api';
 
   import { FuiTabsItemParam } from '@/uni_modules/firstui-uvue/components/fui-types/index.uts';
 
@@ -1035,8 +1097,12 @@
         datetime: {} as UTSJSONObject,
         nincludeList: [] as UTSJSONObject[],
         includeList: [] as UTSJSONObject[],
+        dayunInfo: [] as UTSJSONObject[],
+        liunianInfo: [] as UTSJSONObject[],
+        liuyueInfo: [] as UTSJSONObject[],
         judgeInfo: '' as string,
         shishenZhi: [] as string[],
+        liunianGods: [] as string[]
       }
     },
     created() {
@@ -1076,10 +1142,14 @@
           const response2 = await getHealthForArea({ ids: 370 })
           let res = (response as UTSJSONObject)
           // let res1 = (response1 as UTSJSONObject)
-          console.log(1221312, res)
           let res2 = (response2 as UTSJSONObject)
           if (res['code'] as number === 1) {
             this.baziInfo = res.getJSON('data.result') as UTSJSONObject
+
+            this.dayunInfo = res.getArray<UTSJSONObject>('data.dayun') as UTSJSONObject[]
+            this.liunianInfo = res.getArray<UTSJSONObject>('data.liunian') as UTSJSONObject[]
+            this.liuyueInfo = res.getArray<UTSJSONObject>('data.liuyue') as UTSJSONObject[]
+            console.log('liuyueInfo', this.liuyueInfo)
             this.datetime = this.baziInfo['datetime'] as UTSJSONObject
             this.shishenZhi = this.baziInfo.getArray('base.shishenZhi') as string[]
             this.nincludeList = this.baziInfo.getArray<UTSJSONObject>('element.ninclude.list') as UTSJSONObject[];
@@ -1087,6 +1157,17 @@
             this.tb_relation_top = ((this.baziInfo.getArray('tb_relation.top') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.top[0]') : { title: '' }) as UTSJSONObject
             this.tb_relation_bottom = ((this.baziInfo.getArray('tb_relation.bottom') as Array).length !== 0 ? this.baziInfo.getJSON('tb_relation.bottom[0]') : { title: '' }) as UTSJSONObject
             this.tb_relation_bottom = this.baziInfo.getJSON('tb_relation.bottom[0]') as UTSJSONObject
+            const params = {
+              Lon: '',
+              date: this.datetime['solar'] as string,
+              name: this.baziInfo['realname'] as string,
+              pillar: this.baziInfo.getString('base.bazi[0]'),
+              sect: this.baziInfo['sect'] as number,
+              sex: this.baziInfo['gender'] as number,
+              type: 'year',
+              yunsect: 2
+            } as UTSJSONObject
+            this.getGods(params)
             this.setEnergyBar()
             this.handleSubmit()
           }
@@ -1102,6 +1183,18 @@
           console.error(e)
           this.loading = false
           return null
+        }
+      },
+      async getGods(data : UTSJSONObject) : Promise<any | null> {
+        try {
+          const response = await getGodsApi(data)
+          let res = (response as UTSJSONObject)
+          if (res['code'] as number === 1) {
+            this.liunianGods = res.getArray<string>('data.year') as string[]
+          }
+          return response;
+        } catch (e) {
+          return null;
         }
       },
       datePickerConfirm(data : UTSJSONObject) {
@@ -1432,6 +1525,26 @@
       padding: 2px 6px;
       border-radius: 2px;
       margin-left: 24rpx;
+    }
+
+    .row-wrapper {
+      background-color: #f6f6f6;
+      padding: 20rpx 0;
+      margin-top: 20rpx;
+
+      .row-list {
+        @include flex(row, flex-start, center);
+
+        &-li {
+          flex: 1;
+          align-items: center;
+        }
+
+        .vertical-text {
+          margin-top: 16rpx;
+          @include flex(row, center, center);
+        }
+      }
     }
 
     .pro-decl-list {

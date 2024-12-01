@@ -1,4 +1,4 @@
-@for $i from 18 through 80 {
+@for $i from 12 through 80 {
     .u-font-#{$i} {
       font-size: #{$i}rpx !important;
     }
